@@ -1,5 +1,5 @@
-INSERT INTO vets VALUES (default, 'James', 'Carter');
-INSERT INTO vets VALUES (default, 'Helen', 'Leary');
+INSERT INTO vets VALUES (default, 'Ben', 'Matlock');
+INSERT INTO vets VALUES (default, 'Ally', 'McBeal');
 --INSERT INTO vets VALUES (default, 'Linda', 'Douglas');
 --INSERT INTO vets VALUES (default, 'Rafael', 'Ortega');
 --INSERT INTO vets VALUES (default, 'Henry', 'Stevens');
@@ -19,7 +19,7 @@ INSERT INTO types VALUES (default, 'Argument');
 INSERT INTO types VALUES (default, 'Protiargument');
 
 
-INSERT INTO owners VALUES (default, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023');
+INSERT INTO owners VALUES (default, 'Ally', 'McBeal', '123 Hollywood', 'Los Angeles', '6085551023');
 --INSERT INTO owners VALUES (default, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749');
 --INSERT INTO owners VALUES (default, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763');
 --INSERT INTO owners VALUES (default, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198');
