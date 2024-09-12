@@ -1,4 +1,9 @@
 services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8080:8080
   mysql:
     image: mysql:9.0
     ports:
