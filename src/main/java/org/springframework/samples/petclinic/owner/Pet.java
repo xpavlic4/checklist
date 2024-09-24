@@ -44,6 +44,9 @@ import jakarta.persistence.Table;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
+	@Column(name = "premisa")
+	private String premisa;
+
 	@Column(name = "birth_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
@@ -79,6 +82,14 @@ public class Pet extends NamedEntity {
 
 	public void addVisit(Visit visit) {
 		getVisits().add(visit);
+	}
+
+	public String getPremisa() {
+		return premisa;
+	}
+
+	public void setPremisa(String premisa) {
+		this.premisa = premisa;
 	}
 
 }
