@@ -19,18 +19,21 @@ INSERT INTO types VALUES (default, 'Argument');
 INSERT INTO types VALUES (default, 'Protiargument');
 
 
-INSERT INTO owners VALUES (default, 'Ally', 'McBeal', '123 Hollywood', 'Los Angeles', '6085551023');
+INSERT INTO owners VALUES (default, 'Libor', 'Pavlicek', '123 Hollywood', 'Los Angeles', '6085551023');
 --INSERT INTO owners VALUES (default, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749');
 --INSERT INTO owners VALUES (default, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763');
 --INSERT INTO owners VALUES (default, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198');
 --INSERT INTO owners VALUES (default, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765');
 --
---INSERT INTO pets VALUES (default, 'Leo', '2010-09-07', 1, 1);
+INSERT INTO pets VALUES (default, 'Chodec věnoval pozornost','Díval se na cestu před sebou', '2010-09-07', 1, 1);
+INSERT INTO pets VALUES (default, 'Obec porušila standard řádné péče','Neměla zpracovaný plán údržby', '2010-09-07', 1, 1);
+INSERT INTO pets VALUES (default, 'Porušil povinnost prevence','Neměl vhodnou obuv.', '2010-09-07', 1, 1);
 --INSERT INTO pets VALUES (default, 'Basil', '2012-08-06', 3, 2);
 --INSERT INTO pets VALUES (default, 'Rosy', '2011-04-17', 2, 2);
 --INSERT INTO pets VALUES (default, 'Jewel', '2010-03-07', 2, 1);
 --
---INSERT INTO visits VALUES (default, 3, '2013-01-01', 'rabies shot');
---INSERT INTO visits VALUES (default, 4, '2013-01-02', 'rabies shot');
---INSERT INTO visits VALUES (default, 4, '2013-01-03', 'neutered');
---INSERT INTO visits VALUES (default, 4, '2013-01-04', 'spayed');
+INSERT INTO visits VALUES (default, 1, '2013-01-01', 'Nevěnoval pozornost protože se díval do mobilu');
+INSERT INTO visits VALUES (default, 2, '2013-01-02', 'Měla plán údržby, který byl schválený zastupitelstvem pod 23/2012.');
+INSERT INTO visits VALUES (default, 3, '2013-01-03', 'Neporusil povinnost presence');
+INSERT INTO visits VALUES (default, 3, '2013-01-04', 'Mit vhodnou obuv neni obsahem povinnosti prevence.');
+INSERT INTO visits VALUES (default, 3, '2013-01-04', 'Obuv měla hrubou podrážku.');
