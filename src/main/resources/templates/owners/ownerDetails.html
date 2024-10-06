@@ -56,15 +56,10 @@
         <td valign="">
           <dl class="dl-horizontal">
 
-            <dd th:text="${pet.name}"></dd>
+            <dd th:text="${arg.name}"></dd>
             <dd>, protože</dd>
 
-            <dd th:text="${pet.premisa}"></dd>
-            <!--<dt>Datum</dt>
-            <dd th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>-->
-            <!--<dt>Typ</dt>
-            <dd th:text="${pet.type}"></dd>
-            -->
+            <dd th:text="${arg.premisa}"></dd>
 
           </dl>
         </td>
@@ -77,20 +72,20 @@
                 <th>Popis</th>
               </tr>
             </thead>-->
-            <tr th:each="visit : ${pet.visits}">
+            <tr th:each="visit : ${arg.visits}">
               <!--<td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>-->
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
               <td th:text="${visit?.description}"></td>
             </tr>
             <tr>
               <td></td>
-              <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/visits/new}">Přidat útok</a></td>
+              <td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Přidat útok</a></td>
             </tr>
           </table>
         </td>
         <td>
           <dl class="dl-horizontal">
-            <dd><a th:href="@{__${owner.id}__/pets/__${pet.id}__/edit}">Upravit argument</a></dd>
+            <dd><a th:href="@{__${owner.id}__/pets/__${arg.id}__/edit}">Upravit argument</a></dd>
           </dl>
         </td>
       </tr>
