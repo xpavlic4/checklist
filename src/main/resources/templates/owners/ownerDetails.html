@@ -6,7 +6,7 @@
   <body>
   
   
-    <h2>Informace o případech</h2>
+    <h2>Case</h2>
 
     <div th:if="${message}" class="alert alert-success" id="success-message">
       <span th:text="${message}"></span>
@@ -21,8 +21,8 @@
 
     <table class="table table-striped" th:object="${owner}">
       <tr>
-        <th>Jméno</th>
-        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
+        <th>Identificator</th>
+        <td><b th:text="*{lastName}"></b></td>
       </tr>
       <!--<tr>
         <th>Adresa</th>
@@ -39,17 +39,17 @@
       -->
     </table>
   
-    <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary">Upravit případ</a>
-    <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary">Přidat argument</a>
+    <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary">Edit</a>
+    <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary">Add argument</a>
   
     <br />
     <br />
     <br />
-    <h2>Argumenty</h2>
+    <h2>Arguments</h2>
   
     <table class="table table-striped">
   
-      <tr th:each="pet : ${owner.pets}">
+      <tr th:each="arg: ${owner.pets}">
 
         <td valign="top">
         </td>

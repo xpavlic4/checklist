@@ -3,13 +3,13 @@
 
 <body>
 
-  <h2>Najdi škodu</h2>
+  <h2>Search cases</h2>
 
   <form th:object="${owner}" th:action="@{/owners}" method="get"
     class="form-horizontal" id="search-owner-form">
     <div class="form-group">
       <div class="control-group" id="lastNameGroup">
-        <label class="col-sm-2 control-label">Příjmení </label>
+        <label class="col-sm-2 control-label">Identificator</label>
         <div class="col-sm-10">
           <input class="form-control" th:field="*{lastName}" size="30"
             maxlength="80" /> <span class="help-inline"><div
@@ -21,11 +21,11 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Najdi škodu</button>
+        <button type="submit" class="btn btn-primary">Search</button>
       </div>
     </div>
 
-    <a class="btn btn-primary" th:href="@{/owners/new}">Přidej škodu</a>
+    <a class="btn btn-primary" th:href="@{/owners/new}">Add</a>
 
   </form>
 
