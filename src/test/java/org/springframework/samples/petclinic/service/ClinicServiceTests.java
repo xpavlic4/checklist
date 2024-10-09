@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.samples.petclinic.owner.Owner;
@@ -35,7 +34,8 @@ import org.springframework.samples.petclinic.owner.OwnerRepository;
 import org.springframework.samples.petclinic.owner.Pet;
 import org.springframework.samples.petclinic.owner.PetType;
 import org.springframework.samples.petclinic.owner.Visit;
-import org.springframework.stereotype.Service;
+import org.springframework.samples.petclinic.vet.Vet;
+import org.springframework.samples.petclinic.vet.VetRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -66,7 +66,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  * @author Dave Syer
  */
-@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@DataJpaTest
 // Ensure that if the mysql profile is active we connect to the real database:
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 // @TestPropertySource("/application-postgres.properties")
@@ -75,6 +75,9 @@ class ClinicServiceTests {
 
 	@Autowired
 	protected OwnerRepository owners;
+
+	@Autowired
+	protected VetRepository vets;
 
 	Pageable pageable;
 
@@ -103,6 +106,7 @@ class ClinicServiceTests {
 		int found = (int) owners.getTotalElements();
 
 		Owner owner = new Owner();
+		owner.setFirstName("Sam");
 		owner.setLastName("Schultz");
 		owner.setAddress("4, Evans Street");
 		owner.setCity("Wollongong");
@@ -178,6 +182,17 @@ class ClinicServiceTests {
 		owner6 = this.owners.findById(6);
 		pet7 = owner6.getPet(7);
 		assertThat(pet7.getName()).isEqualTo(newName);
+	}
+
+	@Test
+	void shouldFindVets() {
+		Collection<Vet> vets = this.vets.findAll();
+
+		Vet vet = EntityUtils.getById(vets, Vet.class, 3);
+		assertThat(vet.getLastName()).isEqualTo("Douglas");
+		assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
+		assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
+		assertThat(vet.getSpecialties().get(1).getName()).isEqualTo("surgery");
 	}
 
 	@Test
