@@ -1,19 +1,5 @@
 INSERT INTO vets VALUES (default, 'Ben', 'Matlock');
 INSERT INTO vets VALUES (default, 'Ally', 'McBeal');
---INSERT INTO vets VALUES (default, 'Linda', 'Douglas');
---INSERT INTO vets VALUES (default, 'Rafael', 'Ortega');
---INSERT INTO vets VALUES (default, 'Henry', 'Stevens');
---INSERT INTO vets VALUES (default, 'Sharon', 'Jenkins');
-
-INSERT INTO specialties VALUES (default, 'radiology');
-INSERT INTO specialties VALUES (default, 'surgery');
-INSERT INTO specialties VALUES (default, 'dentistry');
-
---INSERT INTO vet_specialties VALUES (2, 1);
---INSERT INTO vet_specialties VALUES (3, 2);
---INSERT INTO vet_specialties VALUES (3, 3);
---INSERT INTO vet_specialties VALUES (4, 2);
---INSERT INTO vet_specialties VALUES (5, 1);
 
 INSERT INTO types VALUES (default, 'Argument');
 INSERT INTO types VALUES (default, 'Protiargument');
@@ -21,11 +7,7 @@ INSERT INTO types VALUES (default, 'Protiargument');
 
 INSERT INTO owners VALUES (default, 'Libor', 'Pavlicek', '123 Hollywood', 'Los Angeles', '6085551023');
 INSERT INTO owners VALUES (default, 'Adam', 'Adam', '123 Hollywood', 'Los Angeles', '6085551023');
---INSERT INTO owners VALUES (default, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749');
---INSERT INTO owners VALUES (default, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763');
---INSERT INTO owners VALUES (default, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198');
---INSERT INTO owners VALUES (default, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765');
---
+
 INSERT INTO pets VALUES (default, 'Chodec věnoval pozornost','Díval se na cestu před sebou', '2010-09-07', 1, 1);
 INSERT INTO pets VALUES (default, 'Obec porušila standard řádné péče','Neměla zpracovaný plán údržby', '2010-09-07', 1, 1);
 INSERT INTO pets VALUES (default, 'Porušil povinnost prevence','Neměl vhodnou obuv.', '2010-09-07', 1, 1);
