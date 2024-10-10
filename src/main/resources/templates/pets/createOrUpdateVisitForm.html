@@ -19,9 +19,7 @@
       </tr>
     </thead>
     <tr>
-      <td th:text="${pet.name}"></td>
-      <!--<td
-        th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></td>-->
+      <td><span th:text="*{pet.name + ', protože ' + pet.premisa}"></span></td>
       <td th:text="${pet.type}"></td>
       <td
         th:text="${owner?.lastName}"></td>
