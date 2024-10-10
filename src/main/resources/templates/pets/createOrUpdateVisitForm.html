@@ -4,8 +4,8 @@
 <body>
 
   <h2>
-    <th:block th:if="${visit['new']}">Novy </th:block>
-    utok
+    <th:block th:if="${visit['new']}">New </th:block>
+    attack
   </h2>
 
   <b>Argument</b>
@@ -14,8 +14,8 @@
       <tr>
         <th>Argument</th>
         <!--<th>Birth Date</th>-->
-        <th>Typ</th>
-        <th>Škoda</th>
+        <th>Type</th>
+        <th>Identificator</th>
       </tr>
     </thead>
     <tr>
@@ -42,17 +42,17 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <input type="hidden" name="petId" th:value="${pet.id}" />
-        <button class="btn btn-primary" type="submit">Přidat útok</button>
+        <button class="btn btn-primary" type="submit">Add attack</button>
       </div>
     </div>
   </form>
 
   <br />
-  <b>Minulé útoky</b>
+  <b>Past attacks</b>
   <table class="table table-striped">
     <tr>
-      <th>Datum</th>
-      <th>Popis</th>
+      <th>Date</th>
+      <th>Description</th>
     </tr>
     <tr th:if="${!visit['new']}" th:each="visit : ${pet.visits}">
       <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>

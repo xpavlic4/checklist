@@ -24,19 +24,6 @@
         <th>Identificator</th>
         <td><b th:text="*{lastName}"></b></td>
       </tr>
-      <!--<tr>
-        <th>Adresa</th>
-        <td th:text="*{address}"></td>
-      </tr>
-      <tr>
-        <th>City</th>
-        <td th:text="*{city}"></td>
-      </tr>
-      <tr>
-        <th>Telephone</th>
-        <td th:text="*{telephone}"></td>
-      </tr>
-      -->
     </table>
   
     <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary">Edit</a>
@@ -58,35 +45,21 @@
 
             <dd th:text="${arg.name}"></dd>
             <dd>, protože</dd>
-
             <dd th:text="${arg.premisa}"></dd>
-
+            <dd style="horiz-align: right"><a th:href="@{__${owner.id}__/pets/__${arg.id}__/edit}">Edit</a></dd>
           </dl>
         </td>
 
         <td valign="top">
           <table class="table-condensed">
-           <!-- <thead>
-              <tr>
-                <th>Datum</th>
-                <th>Popis</th>
-              </tr>
-            </thead>-->
-            <tr th:each="visit : ${arg.visits}">
-              <!--<td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>-->
+            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Rebutting</a></td></tr>
+            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undercutting</a></td></tr>
+            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undermining</a></td></tr>
+            <tr th:each="attack : ${arg.visits}">
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
-              <td th:text="${visit?.description}"></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Přidat útok</a></td>
+              <td th:text="${attack?.description}"></td>
             </tr>
           </table>
-        </td>
-        <td>
-          <dl class="dl-horizontal">
-            <dd><a th:href="@{__${owner.id}__/pets/__${arg.id}__/edit}">Upravit argument</a></dd>
-          </dl>
         </td>
       </tr>
   
