@@ -48,7 +48,7 @@ CREATE TABLE pets (
   name       VARCHAR(255),
   premisa       VARCHAR(255),
   birth_date DATE,
-  type_id    INTEGER NOT NULL,
+  type_id    INTEGER,
   owner_id   INTEGER
 );
 ALTER TABLE pets ADD CONSTRAINT fk_pets_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
