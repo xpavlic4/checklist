@@ -101,14 +101,15 @@ class PetController {
 	@PostMapping("/pets/new")
 	public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result, ModelMap model,
 			RedirectAttributes redirectAttributes) {
-		if (StringUtils.hasText(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {
-			result.rejectValue("name", "duplicate", "already exists");
-		}
+		// if (StringUtils.hasText(pet.getName()) && pet.isNew() &&
+		// owner.getPet(pet.getName(), true) != null) {
+		// result.rejectValue("name", "duplicate", "already exists");
+		// }
 
 		LocalDate currentDate = LocalDate.now();
-		if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {
-			result.rejectValue("birthDate", "typeMismatch.birthDate");
-		}
+		// if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {
+		// result.rejectValue("birthDate", "typeMismatch.birthDate");
+		// }
 
 		owner.addPet(pet);
 		if (result.hasErrors()) {
@@ -136,17 +137,17 @@ class PetController {
 		String petName = pet.getName();
 
 		// checking if the pet name already exist for the owner
-		if (StringUtils.hasText(petName)) {
-			Pet existingPet = owner.getPet(petName.toLowerCase(), false);
-			if (existingPet != null && existingPet.getId() != pet.getId()) {
-				result.rejectValue("name", "duplicate", "already exists");
-			}
-		}
+		// if (StringUtils.hasText(petName)) {
+		// Pet existingPet = owner.getPet(petName.toLowerCase(), false);
+		// if (existingPet != null && existingPet.getId() != pet.getId()) {
+		// result.rejectValue("name", "duplicate", "already exists");
+		// }
+		// }
 
-		LocalDate currentDate = LocalDate.now();
-		if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {
-			result.rejectValue("birthDate", "typeMismatch.birthDate");
-		}
+		// LocalDate currentDate = LocalDate.now();
+		// if (pet.getBirthDate() != null && pet.getBirthDate().isAfter(currentDate)) {
+		// result.rejectValue("birthDate", "typeMismatch.birthDate");
+		// }
 
 		if (result.hasErrors()) {
 			model.put("pet", pet);
