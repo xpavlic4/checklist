@@ -3,8 +3,48 @@
 <html xmlns:th="https://www.thymeleaf.org"
   th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 
+
   <body>
-  
+  <style>
+    .tooltip2 {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip2 .tooltiptext {
+      visibility: hidden;
+      width: 220px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip2 .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip2:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
   
     <h2>Case</h2>
 
@@ -52,9 +92,9 @@
 
         <td valign="top">
           <table class="table-condensed">
-            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Rebutting</a></td></tr>
-            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undercutting</a></td></tr>
-            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undermining</a></td></tr>
+            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Rebutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Vyvrácení (rebutting) je označení útoku, který je veden na predikát (závěr). Rebutting is the name of an attack that is directed at a predicate (conclusion).</span></div></td></tr>
+            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div></td></tr>
+            <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div></td></tr>
             <tr th:each="attack : ${arg.visits}">
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
               <td th:text="${attack?.description}"></td>
