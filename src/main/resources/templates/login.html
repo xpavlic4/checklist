@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/petclinic.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center">Login</h2>
+            <div class="d-grid gap-2">
+                <a class="btn btn-danger btn-block" th:href="@{/oauth2/authorization/google}">
+                    <i class="fa fa-google"></i> Login with Google
+                </a>
+                <a class="btn btn-primary btn-block" th:href="@{/oauth2/authorization/facebook}">
+                    <i class="fa fa-facebook"></i> Login with Facebook
+                </a>
+                <a class="btn btn-info btn-block" th:href="@{/oauth2/authorization/twitter}">
+                    <i class="fa fa-twitter"></i> Login with Twitter
+                </a>
+                <a class="btn btn-dark btn-block" th:href="@{/oauth2/authorization/github}">
+                    <i class="fa fa-github"></i> Login with GitHub
+                </a>
+                <a class="btn btn-secondary btn-block" th:href="@{/oauth2/authorization/linkedin}">
+                    <i class="fa fa-linkedin"></i> Login with LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
