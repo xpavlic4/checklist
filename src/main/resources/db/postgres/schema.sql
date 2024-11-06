@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS pets (
   name       TEXT,
   premisa     TEXT,
   birth_date DATE,
-  type_id    INT NOT NULL REFERENCES types (id),
+  type_id    INT REFERENCES types (id),
   owner_id   INT REFERENCES owners (id)
 );
 CREATE INDEX ON pets (name);
