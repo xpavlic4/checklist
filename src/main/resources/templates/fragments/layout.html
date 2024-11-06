@@ -78,6 +78,15 @@
             <span>Logout</span>
           </li>
 
+          <li th:replace="~{::menuItem ('/login','login','login page','sign-in','Login')}">
+            <span class="fa fa-sign-in" aria-hidden="true"></span>
+            <span>Login</span>
+          </li>
+          <li th:replace="~{::menuItem ('/logout','logout','logout page','sign-out','Logout')}">
+            <span class="fa fa-sign-out" aria-hidden="true"></span>
+            <span>Logout</span>
+          </li>
+
         </ul>
       </div>
     </div>
