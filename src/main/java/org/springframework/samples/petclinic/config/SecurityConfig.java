@@ -15,14 +15,14 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .antMatchers("/", "/login", "/oauth2/**").permitAll()
+                    .requestMatchers("/", "/login", "/oauth2/**", "/webjars/**", "/resources/**").permitAll()
                     .anyRequest().authenticated()
             )
             .oauth2Login(oauth2Login ->
                 oauth2Login
                     .loginPage("/login")
-                    .defaultSuccessURL("/home")
-                    .failureURL("/login?error=true")
+                    .defaultSuccessUrl("/home")
+                    .failureUrl("/login?error=true")
             );
         return http.build();
     }
