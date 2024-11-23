@@ -72,12 +72,13 @@ class OwnerController {
 	}
 
 	@PostMapping("/owners/new")
-	public String processCreationForm(@Valid Owner owner, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String processCreationForm(@Valid Owner owner, BindingResult result, RedirectAttributes redirectAttributes, @AuthenticationPrincipal OAuth2User oauthUser) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the owner.");
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		}
-
+		String email = oauthUser.getAttribute("email");
+		owner.setAddress(email);
 		this.owners.save(owner);
 		redirectAttributes.addFlashAttribute("message", "Vytvořeno");
 		return "redirect:/owners/" + owner.getId();
