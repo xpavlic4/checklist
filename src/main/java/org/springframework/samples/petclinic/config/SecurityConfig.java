@@ -15,15 +15,21 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/", "/login", "/oauth2/**", "/webjars/**", "/resources/**").permitAll()
+                    .requestMatchers( "/login", "/oauth2/**", "/webjars/**", "/resources/**").permitAll()
                     .anyRequest().authenticated()
             )
             .oauth2Login(oauth2Login ->
                 oauth2Login
                     .loginPage("/login")
-                    .defaultSuccessUrl("/home")
+                    .defaultSuccessUrl("/")
                     .failureUrl("/login?error=true")
-            );
+
+            )
+			.csrf(c -> c.disable())
+			.logout(c ->
+				c.logoutUrl("/logout")
+					.invalidateHttpSession(true)
+					.permitAll());
         return http.build();
     }
 }
