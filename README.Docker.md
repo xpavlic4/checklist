@@ -13,6 +13,8 @@ machine (e.g., you are on a Mac M1 and your cloud provider is amd64),
 you'll want to build the image for that platform, e.g.:
 `docker build --platform=linux/amd64 -t checklist .`.
 
+'docker tag checklist xpavlic4/checklist'
+
 Then, push it to your registry, e.g. `docker push xpavlic4/checklist`.
 
 Consult Docker's [getting started](https://docs.docker.com/go/get-started-sharing/)
