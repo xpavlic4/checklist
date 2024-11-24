@@ -8,31 +8,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
-    @GetMapping
-    public String login() {
-        return "login";
-    }
+	@GetMapping
+	public String login() {
+		return "login";
+	}
 
-    @GetMapping("/success")
-    public String loginSuccess() {
-        return "redirect:/home";
-    }
+	@GetMapping("/success")
+	public String loginSuccess() {
+		return "redirect:/home";
+	}
 
-    @GetMapping("/failure")
-    public String loginFailure() {
-        return "redirect:/login?error=true";
-    }
+	@GetMapping("/failure")
+	public String loginFailure() {
+		return "redirect:/login?error=true";
+	}
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        if (authentication != null) {
-            new SecurityContextLogoutHandler().logout(request, response, authentication);
-        }
-        return "redirect:/login?logout=true";
-    }
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		if (authentication != null) {
+			new SecurityContextLogoutHandler().logout(request, response, authentication);
+		}
+		return "redirect:/login?logout=true";
+	}
+
 }

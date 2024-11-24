@@ -10,26 +10,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests
-                    .requestMatchers( "/login", "/oauth2/**", "/webjars/**", "/resources/**").permitAll()
-                    .anyRequest().authenticated()
-            )
-            .oauth2Login(oauth2Login ->
-                oauth2Login
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/")
-                    .failureUrl("/login?error=true")
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+			.requestMatchers("/login", "/oauth2/**", "/webjars/**", "/resources/**")
+			.permitAll()
+			.anyRequest()
+			.authenticated())
+			.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
+				.defaultSuccessUrl("/")
+				.failureUrl("/login?error=true")
 
-            )
+			)
 			.csrf(c -> c.disable())
-			.logout(c ->
-				c.logoutUrl("/logout")
-					.invalidateHttpSession(true)
-					.permitAll());
-        return http.build();
-    }
+			.logout(c -> c.logoutUrl("/logout").invalidateHttpSession(true).permitAll());
+		return http.build();
+	}
+
 }
