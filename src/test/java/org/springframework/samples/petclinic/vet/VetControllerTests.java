@@ -53,7 +53,7 @@ class VetControllerTests {
 
 	private Vet james() {
 		Vet james = new Vet();
-		james.setFirstName("James");
+//		james.setFirstName("James");
 		james.setLastName("Carter");
 		james.setId(1);
 		return james;
@@ -61,7 +61,7 @@ class VetControllerTests {
 
 	private Vet helen() {
 		Vet helen = new Vet();
-		helen.setFirstName("Helen");
+//		helen.setFirstName("Helen");
 		helen.setLastName("Leary");
 		helen.setId(2);
 		Specialty radiology = new Specialty();

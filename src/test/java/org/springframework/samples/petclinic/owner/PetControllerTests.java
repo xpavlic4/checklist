@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
