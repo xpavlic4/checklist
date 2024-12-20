@@ -27,16 +27,16 @@ INSERT INTO pets VALUES (default, 'Závada byla překvapivá','protože neošet�
 INSERT INTO pets VALUES (default, 'Závada nebyla ojedinělá','v danou chvíli byla kluzká celá ulice', '2010-09-07', 1, 2);
 
 
-INSERT INTO visits VALUES (default, 1, '2013-01-01', 'Nevěnoval pozornost protože se díval do mobilu');
-INSERT INTO visits VALUES (default, 2, '2013-01-02', 'Měla plán údržby, který byl schválený zastupitelstvem pod 23/2012.');
-INSERT INTO visits VALUES (default, 3, '2013-01-03', 'Neporusil povinnost presence');
-INSERT INTO visits VALUES (default, 3, '2013-01-04', 'Mit vhodnou obuv neni obsahem povinnosti prevence.');
-INSERT INTO visits VALUES (default, 3, '2013-01-04', 'Obuv měla hrubou podrážku.');
-INSERT INTO visits VALUES (default, 4, '2013-01-04', 'Nebyla výluka, protože v době pádu již měl být dle plánu údržby stav odpovídající schůdnosti a lhůta k zajištění stavu byla přiměřená.');
-INSERT INTO visits VALUES (default, 5, '2013-01-04', 'Nebyla výstraha, protože varování ČHMÚ nebylo zveřejněno ve zpravodajství.');
-INSERT INTO visits VALUES (default, 6, '2013-01-04', 'Chodec nebyl způsobilý, protože to ráno zaspal, byl rozespalý, byl unavený a chvatně pospíchal do práce.');
-INSERT INTO visits VALUES (default, 7, '2013-01-04', 'Chodec nevěnoval pozornost, protože zrovna používal mobil.');
-INSERT INTO visits VALUES (default, 8, '2013-01-04', 'Obec neměla plán údržby, protože ve skutečnosti podle něj nepostupovala a plán údržby byl pouze formální (tzv. na papíře).');
-INSERT INTO visits VALUES (default, 8, '2013-01-04', 'Obec měla plán údržby, protože pluhovala a solila chodníky.');
-INSERT INTO visits VALUES (default, 9, '2013-01-04', 'Obuv nebyla vhodná, protože boty byly staré a podrážka byla značně opotřebovaná.');
-INSERT INTO visits VALUES (default, 17, '2013-01-04', 'Závada byla ojedinělá, protože část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.');
+INSERT INTO visits VALUES (default, 1, '2013-01-01', 'Nevěnoval pozornost protože se díval do mobilu', 'Nevěnoval pozornost ', 'se díval do mobilu');
+INSERT INTO visits VALUES (default, 2, '2013-01-02', 'Měla plán údržby, který byl schválený zastupitelstvem pod 23/2012.','Měla plán údržby, který byl schválený zastupitelstvem pod 23/2012.', '');
+INSERT INTO visits VALUES (default, 3, '2013-01-03', 'Neporusil povinnost presence','Neporusil povinnost presence', '');
+INSERT INTO visits VALUES (default, 3, '2013-01-04', 'Mit vhodnou obuv neni obsahem povinnosti prevence.','Mit vhodnou obuv neni obsahem povinnosti prevence.', '');
+INSERT INTO visits VALUES (default, 3, '2013-01-04', 'Obuv měla hrubou podrážku.','Obuv měla hrubou podrážku.', '');
+INSERT INTO visits VALUES (default, 4, '2013-01-04', 'Nebyla výluka, protože v době pádu již měl být dle plánu údržby stav odpovídající schůdnosti a lhůta k zajištění stavu byla přiměřená.','Nebyla výluka', 'v době pádu již měl být dle plánu údržby stav odpovídající schůdnosti a lhůta k zajištění stavu byla přiměřená.');
+INSERT INTO visits VALUES (default, 5, '2013-01-04', 'Nebyla výstraha, protože varování ČHMÚ nebylo zveřejněno ve zpravodajství.','Nebyla výstraha', 'varování ČHMÚ nebylo zveřejněno ve zpravodajství.');
+INSERT INTO visits VALUES (default, 6, '2013-01-04', 'Chodec nebyl způsobilý, protože to ráno zaspal, byl rozespalý, byl unavený a chvatně pospíchal do práce.','Chodec nebyl způsobilý', 'to ráno zaspal, byl rozespalý, byl unavený a chvatně pospíchal do práce.');
+INSERT INTO visits VALUES (default, 7, '2013-01-04', 'Chodec nevěnoval pozornost, protože zrovna používal mobil.','Chodec nevěnoval pozornost', 'zrovna používal mobil.');
+INSERT INTO visits VALUES (default, 8, '2013-01-04', 'Obec neměla plán údržby, protože ve skutečnosti podle něj nepostupovala a plán údržby byl pouze formální (tzv. na papíře).','Obec neměla plán údržby', 've skutečnosti podle něj nepostupovala a plán údržby byl pouze formální (tzv. na papíře).');
+INSERT INTO visits VALUES (default, 8, '2013-01-04', 'Obec měla plán údržby, protože pluhovala a solila chodníky.','Obec měla plán údržby', 'pluhovala a solila chodníky.');
+INSERT INTO visits VALUES (default, 9, '2013-01-04', 'Obuv nebyla vhodná, protože boty byly staré a podrážka byla značně opotřebovaná.','Obuv nebyla vhodná', 'boty byly staré a podrážka byla značně opotřebovaná.');
+INSERT INTO visits VALUES (default, 17, '2013-01-04', 'Závada byla ojedinělá, protože část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.','Závada byla ojedinělá', 'část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.');

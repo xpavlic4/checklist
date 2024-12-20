@@ -97,7 +97,9 @@
             <tr><td><a th:href="@{__${owner.id}__/pets/__${arg.id}__/visits/new}">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div></td></tr>
             <tr th:each="attack : ${arg.visits}">
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
-              <td th:text="${attack?.description}"></td>
+              <td th:text="${attack?.premise}"></td>
+              <td>, protože </td>
+              <td th:text="${attack?.predicate}"></td>
             </tr>
           </table>
         </td>
