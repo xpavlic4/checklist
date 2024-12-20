@@ -39,13 +39,15 @@ public class Visit extends BaseEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 
-//	@NotBlank
+	// @NotBlank
 	private String description;
 
 	@NotBlank
 	private String predicate;
+
 	@NotBlank
 	private String premise;
+
 	/**
 	 * Creates a new instance of Visit for the current date
 	 */
@@ -84,4 +86,5 @@ public class Visit extends BaseEntity {
 	public void setPredicate(String predicate) {
 		this.predicate = predicate;
 	}
+
 }
