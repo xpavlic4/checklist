@@ -16,20 +16,20 @@ gems:
 ### The following properties will change on a project-by-project basis
 
 # Context path in the remote website (usually /<project>), will be prepended to absolute URLs for static resources
-baseurl: /spring-petclinic
+baseurl: /checklist
 
 # Name of the project for display in places like page titles
-name: Spring Petclinic
+name: Checklist
 
 # ID of the project in the metadata API at spring.io (if this is not a
 # valid project ID the javascript widgets in the home page will not work)
 project: spring-petclinic
 
 # Project github URL
-github_repo_url: https://github.com/spring-projects/spring-petclinic
+github_repo_url: https://github.com/xpavlic4/checklist
 
 # Project forum URL
-forum: https://stackoverflow.com/questions/tagged/spring-framework
+forum: https://stackoverflow.com/questions/tagged/checklist
 
 # If you want to include a custom pom.xml or gradle template set these value to true and add _include files
 custom_pom_template: false
