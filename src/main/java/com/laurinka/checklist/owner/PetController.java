@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.owner;
+package com.laurinka.checklist.owner;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -67,7 +67,7 @@ class PetController {
 
 	@ModelAttribute("pet")
 	public Pet findPet(@PathVariable("ownerId") int ownerId,
-			@PathVariable(name = "petId", required = false) Integer petId) {
+					   @PathVariable(name = "petId", required = false) Integer petId) {
 
 		if (petId == null) {
 			return new Pet();
@@ -98,7 +98,7 @@ class PetController {
 
 	@PostMapping("/pets/new")
 	public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+									  RedirectAttributes redirectAttributes) {
 		// if (StringUtils.hasText(pet.getName()) && pet.isNew() &&
 		// owner.getPet(pet.getName(), true) != null) {
 		// result.rejectValue("name", "duplicate", "already exists");
@@ -129,14 +129,14 @@ class PetController {
 
 	@PostMapping("/pets/{petId}/edit")
 	public String processUpdateForm(Owner owner, @Valid Pet pet, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+									RedirectAttributes redirectAttributes) {
 
 		String petName = pet.getName();
 
 		// checking if the pet name already exist for the owner
 		// if (StringUtils.hasText(petName)) {
-		// Pet existingPet = owner.getPet(petName, false);
-		// if (existingPet != null && !existingPet.getId().equals(pet.getId())) {
+		// Pet existingPet = owner.getPet(petName.toLowerCase(), false);
+		// if (existingPet != null && existingPet.getId() != pet.getId()) {
 		// result.rejectValue("name", "duplicate", "already exists");
 		// }
 		// }

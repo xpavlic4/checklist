@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.owner;
+package com.laurinka.checklist.owner;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -46,8 +46,8 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
-	public OwnerController(OwnerRepository owners) {
-		this.owners = owners;
+	public OwnerController(OwnerRepository clinicService) {
+		this.owners = clinicService;
 	}
 
 	@InitBinder
@@ -64,7 +64,11 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners/new")
-	public String initCreationForm() {
+	public String initCreationForm(Map<String, Object> model, @AuthenticationPrincipal OAuth2User oauthUser) {
+		Owner owner = new Owner();
+		String email = oauthUser.getAttribute("email");
+		owner.setAddress(email);
+		model.put("owner", owner);
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 

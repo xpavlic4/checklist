@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.petclinic.owner;
+package com.laurinka.checklist.owner;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Repository class for <code>Owner</code> domain objects All method names are compliant
@@ -36,38 +37,39 @@ import org.springframework.data.jpa.repository.Query;
  * @author Michael Isvy
  * @author Wick Dynex
  */
-public interface OwnerRepository extends JpaRepository<Owner, Integer> {
+public interface OwnerRepository extends JpaRepository<com.laurinka.checklist.owner.Owner, Integer> {
 
 	/**
-	 * Retrieve all {@link PetType}s from the data store.
-	 * @return a Collection of {@link PetType}s.
+	 * Retrieve all {@link com.laurinka.checklist.owner.PetType}s from the data store.
+	 * @return a Collection of {@link com.laurinka.checklist.owner.PetType}s.
 	 */
 	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
-	List<PetType> findPetTypes();
+	@Transactional(readOnly = true)
+	List<com.laurinka.checklist.owner.PetType> findPetTypes();
 
 	/**
-	 * Retrieve {@link Owner}s from the data store by last name, returning all owners
+	 * Retrieve {@link com.laurinka.checklist.owner.Owner}s from the data store by last name, returning all owners
 	 * whose last name <i>starts</i> with the given name.
 	 * @param lastName Value to search for
-	 * @return a Collection of matching {@link Owner}s (or an empty Collection if none
+	 * @return a Collection of matching {@link com.laurinka.checklist.owner.Owner}s (or an empty Collection if none
 	 * found)
 	 */
-	Page<Owner> findByLastNameStartingWith(String lastName, Pageable pageable);
+	Page<com.laurinka.checklist.owner.Owner> findByLastNameStartingWith(String lastName, Pageable pageable);
 
 	/**
-	 * Retrieve an {@link Owner} from the data store by id.
+	 * Retrieve an {@link com.laurinka.checklist.owner.Owner} from the data store by id.
 	 * <p>
-	 * This method returns an {@link Optional} containing the {@link Owner} if found. If
-	 * no {@link Owner} is found with the provided id, it will return an empty
+	 * This method returns an {@link Optional} containing the {@link com.laurinka.checklist.owner.Owner} if found. If
+	 * no {@link com.laurinka.checklist.owner.Owner} is found with the provided id, it will return an empty
 	 * {@link Optional}.
 	 * </p>
 	 * @param id the id to search for
-	 * @return an {@link Optional} containing the {@link Owner} if found, or an empty
+	 * @return an {@link Optional} containing the {@link com.laurinka.checklist.owner.Owner} if found, or an empty
 	 * {@link Optional} if not found.
 	 * @throws IllegalArgumentException if the id is null (assuming null is not a valid
 	 * input for id)
 	 */
-	Optional<Owner> findById(@Nonnull Integer id);
+	Optional<com.laurinka.checklist.owner.Owner> findById(@Nonnull Integer id);
 
 	/**
 	 * Returns all the owners from data store
