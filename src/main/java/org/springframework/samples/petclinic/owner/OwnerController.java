@@ -78,7 +78,7 @@ class OwnerController {
 		String email = oauthUser.getAttribute("email");
 		owner.setAddress(email);
 		this.owners.save(owner);
-		redirectAttributes.addFlashAttribute("message", "Vytvořeno");
+		redirectAttributes.addFlashAttribute("message", "Added");
 		return "redirect:/owners/" + owner.getId();
 	}
 

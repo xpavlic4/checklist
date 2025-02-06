@@ -30,8 +30,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.NotBlank;
 
 /**
  * Simple JavaBean domain object representing an owner.
