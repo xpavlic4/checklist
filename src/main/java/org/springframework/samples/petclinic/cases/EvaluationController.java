@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laurinka.checklist.owner;
+package org.springframework.samples.petclinic.cases;
 
 import java.util.Map;
 import java.util.Optional;
@@ -39,12 +39,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author Wick Dynex
  */
 @Controller
-class VisitController {
+class EvaluationController {
 
-	private final OwnerRepository owners;
+	private final CaseRepository cases;
 
-	public VisitController(OwnerRepository owners) {
-		this.owners = owners;
+	public EvaluationController(CaseRepository cases) {
+		this.cases = cases;
 	}
 
 	@InitBinder
@@ -56,45 +56,45 @@ class VisitController {
 	 * Called before each and every @RequestMapping annotated method. 2 goals: - Make sure
 	 * we always have fresh data - Since we do not use the session scope, make sure that
 	 * Pet object always has an id (Even though id is not part of the form fields)
-	 * @param petId
+	 * @param argumentId
 	 * @return Pet
 	 */
 	@ModelAttribute("visit")
-	public Visit loadPetWithVisit(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId,
-								  Map<String, Object> model) {
-		Optional<Owner> optionalOwner = owners.findById(ownerId);
-		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
-				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
+	public Evaluation loadPetWithVisit(@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argumentId,
+			Map<String, Object> model) {
+		Optional<Case> optionalOwner = cases.findById(caseId);
+		Case owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
+				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 
-		Pet pet = owner.getPet(petId);
+		Argument pet = owner.getArgument(argumentId);
 		model.put("pet", pet);
 		model.put("owner", owner);
 
-		Visit visit = new Visit();
-		pet.addVisit(visit);
-		return visit;
+		Evaluation evaluation = new Evaluation();
+		pet.addEvaluation(evaluation);
+		return evaluation;
 	}
 
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
 	// called
-	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/new")
+	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
 	public String initNewVisitForm() {
-		return "pets/createOrUpdateVisitForm";
+		return "arguments/createOrUpdateEvaluationsForm";
 	}
 
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
 	// called
-	@PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
-	public String processNewVisitForm(@ModelAttribute Owner owner, @PathVariable int petId, @Valid Visit visit,
-									  BindingResult result, RedirectAttributes redirectAttributes) {
+	@PostMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
+	public String processNewVisitForm(@ModelAttribute Case aCase, @PathVariable int argumentId,
+			@Valid Evaluation evaluation, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
-			return "pets/createOrUpdateVisitForm";
+			return "arguments/createOrUpdateEvaluationsForm";
 		}
 
-		owner.addVisit(petId, visit);
-		this.owners.save(owner);
-		redirectAttributes.addFlashAttribute("message", "Pridano.");
-		return "redirect:/owners/{ownerId}";
+		aCase.addVisit(argumentId, evaluation);
+		this.cases.save(aCase);
+		redirectAttributes.addFlashAttribute("message", "Added.");
+		return "redirect:/cases/{ownerId}";
 	}
 
 }

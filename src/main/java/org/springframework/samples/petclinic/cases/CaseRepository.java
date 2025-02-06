@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laurinka.checklist.owner;
+package org.springframework.samples.petclinic.cases;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +26,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Repository class for <code>Owner</code> domain objects All method names are compliant
+ * Repository class for <code>Case</code> domain objects All method names are compliant
  * with Spring Data naming conventions so this interface can easily be extended for Spring
  * Data. See:
  * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation
@@ -37,43 +37,43 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  * @author Wick Dynex
  */
-public interface OwnerRepository extends JpaRepository<com.laurinka.checklist.owner.Owner, Integer> {
+public interface CaseRepository extends JpaRepository<Case, Integer> {
 
 	/**
-	 * Retrieve all {@link com.laurinka.checklist.owner.PetType}s from the data store.
-	 * @return a Collection of {@link com.laurinka.checklist.owner.PetType}s.
+	 * Retrieve all {@link ArgumentType}s from the data store.
+	 * @return a Collection of {@link ArgumentType}s.
 	 */
-	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
+	@Query("SELECT ptype FROM ArgumentType ptype ORDER BY ptype.name")
 	@Transactional(readOnly = true)
-	List<com.laurinka.checklist.owner.PetType> findPetTypes();
+	List<ArgumentType> findArgumentTypes();
 
 	/**
-	 * Retrieve {@link com.laurinka.checklist.owner.Owner}s from the data store by last name, returning all owners
-	 * whose last name <i>starts</i> with the given name.
-	 * @param lastName Value to search for
-	 * @return a Collection of matching {@link com.laurinka.checklist.owner.Owner}s (or an empty Collection if none
+	 * Retrieve {@link Case}s from the data store by last name, returning all owners whose
+	 * last name <i>starts</i> with the given name.
+	 * @param name Value to search for
+	 * @return a Collection of matching {@link Case}s (or an empty Collection if none
 	 * found)
 	 */
-	Page<com.laurinka.checklist.owner.Owner> findByLastNameStartingWith(String lastName, Pageable pageable);
+	Page<Case> findByNameStartingWith(String name, Pageable pageable);
 
 	/**
-	 * Retrieve an {@link com.laurinka.checklist.owner.Owner} from the data store by id.
+	 * Retrieve an {@link Case} from the data store by id.
 	 * <p>
-	 * This method returns an {@link Optional} containing the {@link com.laurinka.checklist.owner.Owner} if found. If
-	 * no {@link com.laurinka.checklist.owner.Owner} is found with the provided id, it will return an empty
+	 * This method returns an {@link Optional} containing the {@link Case} if found. If no
+	 * {@link Case} is found with the provided id, it will return an empty
 	 * {@link Optional}.
 	 * </p>
 	 * @param id the id to search for
-	 * @return an {@link Optional} containing the {@link com.laurinka.checklist.owner.Owner} if found, or an empty
+	 * @return an {@link Optional} containing the {@link Case} if found, or an empty
 	 * {@link Optional} if not found.
 	 * @throws IllegalArgumentException if the id is null (assuming null is not a valid
 	 * input for id)
 	 */
-	Optional<com.laurinka.checklist.owner.Owner> findById(@Nonnull Integer id);
+	Optional<Case> findById(@Nonnull Integer id);
 
 	/**
-	 * Returns all the owners from data store
+	 * Returns all the cases from data store
 	 **/
-	Page<Owner> findAll(Pageable pageable);
+	Page<Case> findAll(Pageable pageable);
 
 }

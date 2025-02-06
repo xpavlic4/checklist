@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laurinka.checklist.owner;
+package org.springframework.samples.petclinic.cases;
 
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -29,13 +29,13 @@ import org.springframework.validation.Validator;
  * @author Ken Krebs
  * @author Juergen Hoeller
  */
-public class PetValidator implements Validator {
+public class ArgumentValidator implements Validator {
 
 	private static final String REQUIRED = "required";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		Pet pet = (Pet) obj;
+		Argument pet = (Argument) obj;
 		String name = pet.getName();
 		// name validation
 		if (!StringUtils.hasText(name)) {
@@ -54,11 +54,11 @@ public class PetValidator implements Validator {
 	}
 
 	/**
-	 * This Validator validates *just* Pet instances
+	 * This Validator validates *just* <class>{@link Argument}</class> instances
 	 */
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Pet.class.isAssignableFrom(clazz);
+		return Argument.class.isAssignableFrom(clazz);
 	}
 
 }

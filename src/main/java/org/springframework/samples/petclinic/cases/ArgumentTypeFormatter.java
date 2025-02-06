@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laurinka.checklist.owner;
+package org.springframework.samples.petclinic.cases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
@@ -34,24 +34,24 @@ import java.util.Locale;
  * @author Michael Isvy
  */
 @Component
-public class PetTypeFormatter implements Formatter<PetType> {
+public class ArgumentTypeFormatter implements Formatter<ArgumentType> {
 
-	private final OwnerRepository owners;
+	private final CaseRepository owners;
 
 	@Autowired
-	public PetTypeFormatter(OwnerRepository owners) {
+	public ArgumentTypeFormatter(CaseRepository owners) {
 		this.owners = owners;
 	}
 
 	@Override
-	public String print(PetType petType, Locale locale) {
-		return petType.getName();
+	public String print(ArgumentType argumentType, Locale locale) {
+		return argumentType.getName();
 	}
 
 	@Override
-	public PetType parse(String text, Locale locale) throws ParseException {
-		Collection<PetType> findPetTypes = this.owners.findPetTypes();
-		for (PetType type : findPetTypes) {
+	public ArgumentType parse(String text, Locale locale) throws ParseException {
+		Collection<ArgumentType> findArgumentTypes = this.owners.findArgumentTypes();
+		for (ArgumentType type : findArgumentTypes) {
 			if (type.getName().equals(text)) {
 				return type;
 			}

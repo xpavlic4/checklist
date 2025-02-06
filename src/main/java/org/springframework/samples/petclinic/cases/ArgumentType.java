@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laurinka.checklist.owner;
+package org.springframework.samples.petclinic.cases;
 
 import org.springframework.samples.petclinic.model.NamedEntity;
 
@@ -21,10 +21,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 /**
- * @author Juergen Hoeller Can be Cat, Dog, Hamster...
+ *
+ * Rebutting, Undercutting, Undermining
  */
 @Entity
-@Table(name = "types")
-public class PetType extends NamedEntity {
+@Table(name = "argument_types")
+public class ArgumentType extends NamedEntity {
 
 }

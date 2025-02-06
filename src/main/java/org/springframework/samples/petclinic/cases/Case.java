@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.laurinka.checklist.owner;
+package org.springframework.samples.petclinic.cases;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.style.ToStringCreator;
-import org.springframework.samples.petclinic.model.Person;
+import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.util.Assert;
 
 import jakarta.persistence.CascadeType;
@@ -32,66 +32,39 @@ import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 /**
- * Simple JavaBean domain object representing an owner.
+ * Simple JavaBean domain object representing a case.
  *
- * @author Ken Krebs
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Michael Isvy
- * @author Oliver Drotbohm
- * @author Wick Dynex
+ * @author Radim Pavlicek
  */
 @Entity
-@Table(name = "owners")
-public class Owner extends Person {
+@Table(name = "cases")
+public class Case extends NamedEntity {
 
-	@Column(name = "address")
-	private String address;
-
-	@Column(name = "city")
-	private String city;
-
-	@Column(name = "telephone")
+	@Column(name = "email")
 	// @NotBlank
 	// @Pattern(regexp = "\\d{10}", message = "Telephone must be a 10-digit number")
-	private String telephone;
+	private String email;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "owner_id")
+	@JoinColumn(name = "case_id")
 	@OrderBy("name")
-	private final List<Pet> pets = new ArrayList<>();
+	private final List<Argument> arguments = new ArrayList<>();
 
-	public String getAddress() {
-		return this.address;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmail(String telephone) {
+		this.email = telephone;
 	}
 
-	public String getCity() {
-		return this.city;
+	public List<Argument> getArguments() {
+		return this.arguments;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getTelephone() {
-		return this.telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	public List<Pet> getPets() {
-		return this.pets;
-	}
-
-	public void addPet(Pet pet) {
+	public void addArgument(Argument pet) {
 		if (pet.isNew()) {
-			getPets().add(pet);
+			getArguments().add(pet);
 		}
 	}
 
@@ -100,8 +73,8 @@ public class Owner extends Person {
 	 * @param name to test
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
-	public Pet getPet(String name) {
-		return getPet(name, false);
+	public Argument getArgument(String name) {
+		return getArgument(name, false);
 	}
 
 	/**
@@ -109,12 +82,12 @@ public class Owner extends Person {
 	 * @param id to test
 	 * @return the Pet with the given id, or null if no such Pet exists for this Owner
 	 */
-	public Pet getPet(Integer id) {
-		for (Pet pet : getPets()) {
-			if (!pet.isNew()) {
-				Integer compId = pet.getId();
+	public Argument getArgument(Integer id) {
+		for (Argument argument : getArguments()) {
+			if (!argument.isNew()) {
+				Integer compId = argument.getId();
 				if (compId.equals(id)) {
-					return pet;
+					return argument;
 				}
 			}
 		}
@@ -127,12 +100,12 @@ public class Owner extends Person {
 	 * @param ignoreNew whether to ignore new pets (pets that are not saved yet)
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
-	public Pet getPet(String name, boolean ignoreNew) {
-		for (Pet pet : getPets()) {
-			String compName = pet.getName();
+	public Argument getArgument(String name, boolean ignoreNew) {
+		for (Argument argument : getArguments()) {
+			String compName = argument.getName();
 			if (compName != null && compName.equalsIgnoreCase(name)) {
-				if (!ignoreNew || !pet.isNew()) {
-					return pet;
+				if (!ignoreNew || !argument.isNew()) {
+					return argument;
 				}
 			}
 		}
@@ -143,25 +116,26 @@ public class Owner extends Person {
 	public String toString() {
 		return new ToStringCreator(this).append("id", this.getId())
 			.append("new", this.isNew())
-			.append("lastName", this.getLastName())
+			.append("lastName", this.getName())
 			.toString();
 	}
 
 	/**
-	 * Adds the given {@link Visit} to the {@link Pet} with the given identifier.
-	 * @param petId the identifier of the {@link Pet}, must not be {@literal null}.
-	 * @param visit the visit to add, must not be {@literal null}.
+	 * Adds the given {@link Evaluation} to the {@link Argument} with the given
+	 * identifier.
+	 * @param petId the identifier of the {@link Argument}, must not be {@literal null}.
+	 * @param evaluation the visit to add, must not be {@literal null}.
 	 */
-	public void addVisit(Integer petId, Visit visit) {
+	public void addVisit(Integer petId, Evaluation evaluation) {
 
 		Assert.notNull(petId, "Pet identifier must not be null!");
-		Assert.notNull(visit, "Visit must not be null!");
+		Assert.notNull(evaluation, "Visit must not be null!");
 
-		Pet pet = getPet(petId);
+		Argument pet = getArgument(petId);
 
 		Assert.notNull(pet, "Invalid Pet identifier!");
 
-		pet.addVisit(visit);
+		pet.addEvaluation(evaluation);
 	}
 
 }
