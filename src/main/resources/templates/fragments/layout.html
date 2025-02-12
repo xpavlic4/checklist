@@ -10,7 +10,7 @@
 
   <!--<link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.png}">-->
 
-  <title>Chodnikove skody</title>
+  <title>Checklist</title>
 
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -49,15 +49,23 @@
             <span class="fa fa-home" aria-hidden="true"></span>
             <span>Home</span>
           </li>
-          <li th:replace="~{::menuItem ('/owners/new','owners','new owner','new','New case')}">
+          <li th:replace="~{::menuItem ('/owners/new','owners','new owner','new','New owner')}">
+            <span class="fa fa-search" aria-hidden="true"></span>
+            <span>New owner</span>
+          </li>
+          <li th:replace="~{::menuItem ('/cases/new','cases','new case','new','New case')}">
             <span class="fa fa-search" aria-hidden="true"></span>
             <span>New case</span>
           </li>
-          <li th:replace="~{::menuItem ('/owners/find','owners','find owners','search','Search')}">
+
+          <li th:replace="~{::menuItem ('/owners/find','owners','find owners','search','Search owners')}">
+            <span class="fa fa-search" aria-hidden="true"></span>
+            <span>Search owners</span>
+          </li>
+          <li th:replace="~{::menuItem ('/cases/find','cases','find cases','search','Search cases')}">
             <span class="fa fa-search" aria-hidden="true"></span>
             <span>Search cases</span>
           </li>
-
           <!--<li th:replace="~{::menuItem ('/vets.html','vets','veterinarians','th-list','Veterinarians')}">
             <span class="fa fa-th-list" aria-hidden="true"></span>
             <span>Veterinarians</span>

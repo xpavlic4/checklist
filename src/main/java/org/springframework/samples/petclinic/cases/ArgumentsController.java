@@ -51,10 +51,10 @@ class ArgumentsController {
 		return this.cases.findArgumentTypes();
 	}
 
-	@ModelAttribute("argument")
-	public Case findOwner(@PathVariable("argumentId") int caseId) {
-		Optional<Case> optionalOwner = this.cases.findById(caseId);
-		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
+	@ModelAttribute("case")
+	public Case findCase(@PathVariable("caseId") int caseId) {
+		Optional<Case> optionalCase = this.cases.findById(caseId);
+		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 		return aCase;
 	}
@@ -74,7 +74,7 @@ class ArgumentsController {
 	}
 
 	@InitBinder("case")
-	public void initOwnerBinder(WebDataBinder dataBinder) {
+	public void initCaseBinder(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
 
@@ -115,7 +115,7 @@ class ArgumentsController {
 		aCase.addArgument(argument);
 		this.cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Added.");
-		return "redirect:/cases/{ownerId}";
+		return "redirect:/cases/{caseId}";
 	}
 
 	@GetMapping("/arguments/{argumentId}/edit")

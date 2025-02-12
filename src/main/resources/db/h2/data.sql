@@ -40,3 +40,5 @@ INSERT INTO visits VALUES (default, 8, '2013-01-04', 'Obec neměla plán údržb
 INSERT INTO visits VALUES (default, 8, '2013-01-04', 'Obec měla plán údržby, protože pluhovala a solila chodníky.','Obec měla plán údržby', 'pluhovala a solila chodníky.');
 INSERT INTO visits VALUES (default, 9, '2013-01-04', 'Obuv nebyla vhodná, protože boty byly staré a podrážka byla značně opotřebovaná.','Obuv nebyla vhodná', 'boty byly staré a podrážka byla značně opotřebovaná.');
 INSERT INTO visits VALUES (default, 17, '2013-01-04', 'Závada byla ojedinělá, protože část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.','Závada byla ojedinělá', 'část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.');
+
+INSERT INTO cases values ( default, 'test name', 'test email');

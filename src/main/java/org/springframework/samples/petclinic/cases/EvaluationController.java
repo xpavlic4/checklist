@@ -30,14 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- * @author Michael Isvy
- * @author Dave Syer
- * @author Wick Dynex
- */
 @Controller
 class EvaluationController {
 
@@ -59,19 +51,19 @@ class EvaluationController {
 	 * @param argumentId
 	 * @return Pet
 	 */
-	@ModelAttribute("visit")
+	@ModelAttribute("evaluation")
 	public Evaluation loadPetWithVisit(@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argumentId,
 			Map<String, Object> model) {
-		Optional<Case> optionalOwner = cases.findById(caseId);
-		Case owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
+		Optional<Case> optionalCase = cases.findById(caseId);
+		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 
-		Argument pet = owner.getArgument(argumentId);
-		model.put("pet", pet);
-		model.put("owner", owner);
+		Argument argument = aCase.getArgument(argumentId);
+		model.put("argument", argument);
+		model.put("case", aCase);
 
 		Evaluation evaluation = new Evaluation();
-		pet.addEvaluation(evaluation);
+		argument.addEvaluation(evaluation);
 		return evaluation;
 	}
 

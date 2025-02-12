@@ -1,32 +1,21 @@
 <html xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 
 <body>
 
-  <h2>Case</h2>
-  <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post">
-    <div class="form-group has-feedback">
-      <!--<input
-        th:replace="~{fragments/inputField :: input ('Křestní jméno', 'firstName', 'text')}" />-->
-      <input
-        th:replace="~{fragments/inputField :: input ('Identificator', 'lastName', 'text')}" />
-<!--      <input
-        th:replace="~{fragments/inputField :: input ('Město', 'city', 'text')}" />
-
-      <input
-        th:replace="~{fragments/inputField :: input ('Address', 'address', 'text')}" />
-        -->
-      <!--<input
-        th:replace="~{fragments/inputField :: input ('Telephone', 'telephone', 'text')}" />
--->
+<h2>Case</h2>
+<form th:object="${case}" class="form-horizontal" id="add-owner-form" method="post">
+  <div class="form-group has-feedback">
+    <input
+      th:replace="~{fragments/inputField :: input ('Identificator', 'name', 'text')}" />
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button
+        th:with="text=${case['new']} ? 'Add' : 'Edit'"
+        class="btn btn-primary" type="submit" th:text="${text}">Add</button>
     </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button
-          th:with="text=${owner['new']} ? 'Add' : 'Edit'"
-          class="btn btn-primary" type="submit" th:text="${text}">Add</button>
-      </div>
-    </div>
-  </form>
+  </div>
+</form>
 </body>
 </html>
