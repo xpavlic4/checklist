@@ -42,3 +42,4 @@ INSERT INTO visits VALUES (default, 9, '2013-01-04', 'Obuv nebyla vhodná, proto
 INSERT INTO visits VALUES (default, 17, '2013-01-04', 'Závada byla ojedinělá, protože část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.','Závada byla ojedinělá', 'část chodníků v danou chvíli již byla ošetřena a pouze část v místě nehody nebyla.');
 
 INSERT INTO cases values ( default, 'test name', 'test email');
+INSERT INTO cases values ( default, 'test name2', 'test email2');

@@ -10,12 +10,16 @@
   <thead>
   <tr>
     <th>Identificator</th>
+    <th>Export</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="case : ${listCases}">
     <td>
       <a th:href="@{/cases/__${case.id}__}" th:text="${case.name}"/></a>
+    </td>
+    <td>
+      <a th:href="@{/export/excel}" th:text="Export"/></a>
     </td>
     <!--<td th:text="${owner.address}"/>
     <td th:text="${owner.city}"/>
