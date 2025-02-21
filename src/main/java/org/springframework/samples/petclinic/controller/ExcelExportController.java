@@ -14,23 +14,23 @@ import java.util.Map;
 @RequestMapping("/export")
 public class ExcelExportController {
 
-    private final ExcelExportService excelExportService;
+	private final ExcelExportService excelExportService;
 
-    public ExcelExportController(ExcelExportService excelExportService) {
-        this.excelExportService = excelExportService;
-    }
+	public ExcelExportController(ExcelExportService excelExportService) {
+		this.excelExportService = excelExportService;
+	}
 
-    @GetMapping("/excel")
-    public void exportExcel(HttpServletResponse response) throws IOException {
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=data.xlsx");
+	@GetMapping("/excel")
+	public void exportExcel(HttpServletResponse response) throws IOException {
+		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		response.setHeader("Content-Disposition", "attachment; filename=data.xlsx");
 
-        List<Map<String, Object>> data = List.of(
-            Map.of("ID", "p.A1.P1.Z1", "Argument", "A1", "predikát (P)", "P1: Chodec měl vhodnou obuv",
-				"inference", " ,protože/because", "premisa (Z)", "Z1: podrážka boty měla hrubý vzorek. ")
-        );
+		List<Map<String, Object>> data = List
+			.of(Map.of("ID", "p.A1.P1.Z1", "Argument", "A1", "predikát (P)", "P1: Chodec měl vhodnou obuv", "inference",
+					" ,protože/because", "premisa (Z)", "Z1: podrážka boty měla hrubý vzorek. "));
 
-        byte[] excelData = excelExportService.generateExcel(data);
-        response.getOutputStream().write(excelData);
-    }
+		byte[] excelData = excelExportService.generateExcel(data);
+		response.getOutputStream().write(excelData);
+	}
+
 }
