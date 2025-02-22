@@ -109,4 +109,12 @@ public class Argument extends NamedEntity {
 		return evaluations;
 	}
 
+	public String getPremise() {
+		return premise;
+	}
+
+	public void setPremise(String premise) {
+		this.premise = premise;
+	}
+
 }

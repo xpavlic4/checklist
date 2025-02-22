@@ -15,8 +15,7 @@
  */
 package org.springframework.samples.petclinic.cases;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -67,17 +66,27 @@ class EvaluationController {
 		return evaluation;
 	}
 
+	@ModelAttribute("intensityTypes")
+	public List<IntensityType> populateIntensityTypes() {
+		return Arrays.stream(IntensityType.values()).toList();
+	}
+
+	@ModelAttribute("verificationTypes")
+	public List<VerificationStatus> populateVerificationTypes() {
+		return Arrays.stream(VerificationStatus.values()).toList();
+	}
+
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
 	// called
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
-	public String initNewVisitForm() {
+	public String initNewEvaluationForm() {
 		return "arguments/createOrUpdateEvaluationsForm";
 	}
 
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
 	// called
 	@PostMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
-	public String processNewVisitForm(@ModelAttribute Case aCase, @PathVariable int argumentId,
+	public String processNewEvaluationForm(@ModelAttribute Case aCase, @PathVariable int argumentId,
 			@Valid Evaluation evaluation, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateEvaluationsForm";
@@ -86,7 +95,7 @@ class EvaluationController {
 		aCase.addVisit(argumentId, evaluation);
 		this.cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Added.");
-		return "redirect:/cases/{ownerId}";
+		return "redirect:/cases/{caseId}";
 	}
 
 }

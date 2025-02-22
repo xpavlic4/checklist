@@ -85,22 +85,29 @@
 
             <dd th:text="${arg.name}"></dd>
             <dd>, <i>because</i>/protože</dd>
-            <dd th:text="${arg.premisa}"></dd>
-            <dd style="horiz-align: right"><a th:href="@{__${case.id}__/arguments/__${arg.id}__/edit}">Edit</a></dd>
+            <dd th:text="${arg.premise}"></dd>
+            <dd style="horiz-align: right"><a th:href="@{__${case.id}__/arguments/__${arg.id}__/edit}" class="btn btn-primary">Edit</a></dd>
+
           </dl>
         </td>
 
         <td valign="top">
           <table class="table-condensed">
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/rebutting/new}">Rebutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Vyvrácení (rebutting) je označení útoku, který je veden na predikát (závěr). Rebutting is the name of an attack that is directed at a predicate (conclusion).</span></div></td></tr>
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/undercutting/new}">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div></td></tr>
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/undermining/new}">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div></td></tr>
+            <tr th:each="ev : ${arg.evaluations}">
+              <td th:text="${ev?.intensity}"></td>
+              <td th:text="${ev?.verification_status}"></td>
+            </tr>
+            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/evaluations/new}" class="btn btn-primary">New evaluation</a></td></tr>
+            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/rebutting/new}" class="btn btn-primary">Rebutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Vyvrácení (rebutting) je označení útoku, který je veden na predikát (závěr). Rebutting is the name of an attack that is directed at a predicate (conclusion).</span></div></td></tr>
+            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/undercutting/new}" class="btn btn-primary">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div></td></tr>
+            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/undermining/new}" class="btn btn-primary">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div></td></tr>
             <tr th:each="attack : ${arg.attacks}">
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
               <td th:text="${attack?.premise}"></td>
               <td>, protože </td>
               <td th:text="${attack?.predicate}"></td>
             </tr>
+
           </table>
         </td>
       </tr>

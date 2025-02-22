@@ -4,8 +4,8 @@
 <body>
 
   <h2>
-    <th:block th:if="${attack['new']}">New </th:block>
-    attack
+    <th:block th:if="${evaluation['new']}">New </th:block>
+    evaluation
   </h2>
 
   <b>Argument</b>
@@ -13,19 +13,21 @@
     <thead>
       <tr>
         <th>Argument</th>
-        <!--<th>Type</th>-->
-        <th>Identificator</th>
+        <th></th>
+        <th>Premise</th>
       </tr>
     </thead>
     <tr>
-      <td><span th:text="*{argument.predicate + ', protože ' + argument.premise}"></span></td>
+      <td><span th:text="${argument.predicate}"></span></td>
+      <td>protože</td>
+      <td><span th:text="${argument.premisa}"></span></td>
       <!--<td th:text="${argument.type}"></td>-->
-      <td
-        th:text="${case?.name}"></td>
+      <!--<td
+        th:text="${case?.name}"></td>-->
     </tr>
   </table>
 
-  <form th:object="${attack}" class="form-horizontal" method="post">
+  <form th:object="${evaluation}" class="form-horizontal" method="post">
     <div class="form-group has-feedback">
 
       <!--
@@ -34,10 +36,8 @@
           -->
       <!--<input
         th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />-->
-      <input
-        th:replace="~{fragments/inputField :: input ('Predicate', 'predicate', 'text')}" />
-      <input
-        th:replace="~{fragments/inputField :: input ('Premise', 'premise', 'text')}" />
+      <input th:replace="~{fragments/selectField :: select ('Status', 'verification_status', ${verificationTypes})}" />
+      <input th:replace="~{fragments/selectField :: select ('Intensity', 'intensity', ${intensityTypes})}" />
     </div>
 
     </div>
@@ -45,24 +45,25 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <input type="hidden" name="caseId" th:value="${case.id}" />
-        <button class="btn btn-primary" type="submit">Add attack</button>
+        <input type="hidden" name="argumentId" th:value="${argument.id}" />
+        <button class="btn btn-primary" type="submit">Add evaluation</button>
       </div>
     </div>
   </form>
 
   <br />
-  <b>Past attacks</b>
+  <b>Past evaluations</b>
   <table class="table table-striped">
     <tr>
       <!--<th>Date</th>-->
-      <th>Premise</th>
-      <th>Predicate</th>
+      <th>Status</th>
+      <th>Intensity</th>
     </tr>
-    <tr th:if="${!attack['new']}" th:each="attack : ${argument.attacks}">
+    <tr th:if="${!evaluation['new']}" th:each="ev : ${argument.evaluations}">
       <!--<td th:text="${#temporals.format(attack.date, 'yyyy-MM-dd')}"></td>-->
-      <td th:text=" ${attack.premise}"></td>
-      <td>, protože </td>
-      <td th:text=" ${attack.predicate}"></td>
+      <td th:text=" ${ev.verification_status}"></td>
+      <td th:text=" ${ev.intensity}"></td>
+      -->
     </tr>
   </table>
 
