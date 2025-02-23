@@ -43,3 +43,5 @@ INSERT INTO visits VALUES (default, 17, '2013-01-04', 'Závada byla ojedinělá,
 
 INSERT INTO cases values ( default, 'test name', 'test email');
 INSERT INTO cases values ( default, 'test name2', 'test email2');
+
+insert into arguments values (default, 'test argument', 'test premise', 'test predicate', 1, 1, 1, null);
