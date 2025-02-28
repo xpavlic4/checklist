@@ -35,11 +35,16 @@ public class ArgumentValidator implements Validator {
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		Argument pet = (Argument) obj;
-		String name = pet.getName();
+		Argument argument = (Argument) obj;
+		String predicate = argument.getPredicate();
+
 		// name validation
-		if (!StringUtils.hasText(name)) {
-			errors.rejectValue("name", REQUIRED, REQUIRED);
+		if (!StringUtils.hasText(predicate)) {
+			errors.rejectValue("predicate", REQUIRED, REQUIRED);
+		}
+		String premise = argument.getPremise();
+		if (!StringUtils.hasText(premise)) {
+			errors.rejectValue("premise", REQUIRED, REQUIRED);
 		}
 
 		// type validation

@@ -92,7 +92,7 @@ class EvaluationController {
 			return "arguments/createOrUpdateEvaluationsForm";
 		}
 
-		aCase.addVisit(argumentId, evaluation);
+		aCase.addEvaluation(argumentId, evaluation);
 		this.cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Added.");
 		return "redirect:/cases/{caseId}";

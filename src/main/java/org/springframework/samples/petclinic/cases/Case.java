@@ -47,7 +47,7 @@ public class Case extends NamedEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "case_id")
-	@OrderBy("name")
+	@OrderBy("ordering")
 	private final List<Argument> arguments = new ArrayList<>();
 
 	public String getEmail() {
@@ -62,6 +62,9 @@ public class Case extends NamedEntity {
 		return this.arguments;
 	}
 
+	public List<Argument> getRootAruments() {
+		return this.arguments.stream().filter(a -> a.getParent() == null).toList();
+	}
 	public void addArgument(Argument pet) {
 		if (pet.isNew()) {
 			getArguments().add(pet);
@@ -73,9 +76,9 @@ public class Case extends NamedEntity {
 	 * @param name to test
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
-	public Argument getArgument(String name) {
-		return getArgument(name, false);
-	}
+//	public Argument getArgument(String name) {
+//		return getArgument(name, false);
+//	}
 
 	/**
 	 * Return the Pet with the given id, or null if none found for this Owner.
@@ -100,42 +103,53 @@ public class Case extends NamedEntity {
 	 * @param ignoreNew whether to ignore new pets (pets that are not saved yet)
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
-	public Argument getArgument(String name, boolean ignoreNew) {
-		for (Argument argument : getArguments()) {
-			String compName = argument.getName();
-			if (compName != null && compName.equalsIgnoreCase(name)) {
-				if (!ignoreNew || !argument.isNew()) {
-					return argument;
-				}
-			}
-		}
-		return null;
-	}
+//	public Argument getArgument(String name, boolean ignoreNew) {
+//		for (Argument argument : getArguments()) {
+//			String compName = argument.getName();
+//			if (compName != null && compName.equalsIgnoreCase(name)) {
+//				if (!ignoreNew || !argument.isNew()) {
+//					return argument;
+//				}
+//			}
+//		}
+//		return null;
+//	}
 
 	@Override
 	public String toString() {
 		return new ToStringCreator(this).append("id", this.getId())
 			.append("new", this.isNew())
-			.append("lastName", this.getName())
+			.append("name", this.getName())
 			.toString();
 	}
 
 	/**
 	 * Adds the given {@link Evaluation} to the {@link Argument} with the given
 	 * identifier.
-	 * @param petId the identifier of the {@link Argument}, must not be {@literal null}.
+	 * @param argumentId the identifier of the {@link Argument}, must not be {@literal null}.
 	 * @param evaluation the visit to add, must not be {@literal null}.
 	 */
-	public void addVisit(Integer petId, Evaluation evaluation) {
+	public void addEvaluation(Integer argumentId, Evaluation evaluation) {
 
-		Assert.notNull(petId, "Pet identifier must not be null!");
-		Assert.notNull(evaluation, "Visit must not be null!");
+		Assert.notNull(argumentId, "Argument identifier must not be null!");
+		Assert.notNull(evaluation, "Evaluation must not be null!");
 
-		Argument pet = getArgument(petId);
+		Argument argument = getArgument(argumentId);
 
-		Assert.notNull(pet, "Invalid Pet identifier!");
+		Assert.notNull(argument, "Invalid Pet identifier!");
 
-		pet.addEvaluation(evaluation);
+		argument.addEvaluation(evaluation);
 	}
 
+	public void addAttack(Integer argumentId, Argument attack) {
+
+		Assert.notNull(argumentId, "Argument identifier must not be null!");
+		Assert.notNull(attack, "Attack must not be null!");
+
+		Argument argument = getArgument(argumentId);
+
+		Assert.notNull(argument, "Invalid argument identifier!");
+
+		attack.setParent(argument);
+	}
 }

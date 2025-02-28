@@ -15,11 +15,10 @@
  */
 package org.springframework.samples.petclinic.cases;
 
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.springframework.samples.petclinic.model.NamedEntity;
+import org.springframework.samples.petclinic.model.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -36,7 +35,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "arguments")
-public class Argument extends NamedEntity {
+public class Argument extends BaseEntity {
 
 	@Column(name = "premise")
 	private String premise;
@@ -51,15 +50,23 @@ public class Argument extends NamedEntity {
 	@JoinColumn(name = "type_id")
 	private ArgumentType type;
 
+	@ManyToOne
+	@JoinColumn(name = "parent_id", nullable = true)
+	private Argument parent;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_id")
-	@OrderBy("ordering ASC")
+	@OrderBy("id ASC")
 	private final Set<Argument> attacks = new LinkedHashSet<>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "argument_id")
 	// @OrderBy("ordering ASC")
 	private final Set<Evaluation> evaluations = new LinkedHashSet<>();
+
+	@ManyToOne
+	@JoinColumn(name = "case_id", nullable = true)
+	private Case aCase;
 
 	public ArgumentType getType() {
 		return this.type;
@@ -69,13 +76,6 @@ public class Argument extends NamedEntity {
 		this.type = type;
 	}
 
-	public Collection<Argument> getAttacks() {
-		return this.attacks;
-	}
-
-	public void addAttack(Argument anAttack) {
-		getAttacks().add(anAttack);
-	}
 
 	public void addEvaluation(Evaluation evaluation) {
 		getEvaluations().add(evaluation);
@@ -117,4 +117,34 @@ public class Argument extends NamedEntity {
 		this.premise = premise;
 	}
 
+	public void setCase(Case aCase) {
+		this.aCase = aCase;
+	}
+
+	public Case getCase() {
+		return aCase;
+	}
+
+	public Argument getParent() {
+		return parent;
+	}
+
+	public void setParent(Argument parent) {
+		this.parent = parent;
+	}
+
+	public Set<Argument> getAttacks() {
+		return attacks;
+	}
+
+	@Override
+	public String toString() {
+		return "Argument{" +
+			"premise='" + premise + '\'' +
+			", predicate='" + predicate + '\'' +
+			", ordering=" + ordering +
+			", type=" + type +
+			", evaluations=" + evaluations +
+			"} " + super.toString();
+	}
 }

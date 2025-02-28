@@ -16,8 +16,10 @@
           &nbsp;<span th:text="${case?.name}" />
         </div>
       </div>
+
       <input
-        th:replace="~{fragments/inputField :: input ('Predicate', 'name', 'textarea')}" />
+        th:replace="~{fragments/inputField :: input ('Predicate', 'predicate', 'textarea')}" />
+
       <input
         th:replace="~{fragments/inputField :: input ('Premise', 'premisa', 'textarea')}" />
       <!-- <input
