@@ -42,7 +42,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @DisabledInNativeImage
 @Disabled
-class PetTypeFormatterTests {
+class ArgumentTypeFormatterTests {
 
 	@Mock
 	private OwnerRepository pets;

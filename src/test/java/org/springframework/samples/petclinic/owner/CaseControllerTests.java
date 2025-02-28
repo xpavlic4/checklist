@@ -60,7 +60,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisabledInNativeImage
 @DisabledInAotMode
 @Disabled
-class OwnerControllerTests {
+class CaseControllerTests {
 
 	private static final int TEST_OWNER_ID = 1;
 
@@ -217,7 +217,7 @@ class OwnerControllerTests {
 	}
 
 	@Test
-	void testShowOwner() throws Exception {
+	void testShowCase() throws Exception {
 		mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))
 			.andExpect(status().isOk())
 			.andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))

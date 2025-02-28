@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisabledInNativeImage
 @DisabledInAotMode
 @Disabled
-class PetControllerTests {
+class ArgumentsControllerTests {
 
 	private static final int TEST_OWNER_ID = 1;
 

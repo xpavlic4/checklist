@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 @ExtendWith(MockitoExtension.class)
 @DisabledInNativeImage
-public class PetValidatorTests {
+public class ArgumentValidatorTests {
 
 	private PetValidator petValidator;
 

@@ -45,7 +45,7 @@ import java.util.Optional;
 @DisabledInNativeImage
 @DisabledInAotMode
 @Disabled
-class VisitControllerTests {
+class EvaluationControllerTests {
 
 	private static final int TEST_OWNER_ID = 1;
 
