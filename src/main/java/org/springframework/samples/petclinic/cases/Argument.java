@@ -43,6 +43,10 @@ public class Argument extends BaseEntity {
 	@Column(name = "predicate")
 	private String predicate;
 
+	@Column(name = "warrant")
+	private String warrant;
+
+
 	@Column(name = "ordering")
 	private Integer ordering;
 
@@ -133,6 +137,14 @@ public class Argument extends BaseEntity {
 		this.parent = parent;
 	}
 
+	public String getWarrant() {
+		return warrant;
+	}
+
+	public void setWarrant(String warrant) {
+		this.warrant = warrant;
+	}
+
 	public Set<Argument> getAttacks() {
 		return attacks;
 	}
@@ -143,6 +155,7 @@ public class Argument extends BaseEntity {
 			"premise='" + premise + '\'' +
 			", predicate='" + predicate + '\'' +
 			", ordering=" + ordering +
+			", warrant=" + warrant +
 			", type=" + type +
 			", evaluations=" + evaluations +
 			"} " + super.toString();

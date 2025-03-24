@@ -65,9 +65,14 @@ public class Case extends NamedEntity {
 	public List<Argument> getRootAruments() {
 		return this.arguments.stream().filter(a -> a.getParent() == null).toList();
 	}
-	public void addArgument(Argument pet) {
-		if (pet.isNew()) {
-			getArguments().add(pet);
+	public void addArgument(Argument argument) {
+		if (argument.isNew()) {
+			getArguments().add(argument);
+		} else {
+			//update
+			Argument del = getArgument(argument.getId());
+			getArguments().remove(del);
+			getArguments().add(argument);
 		}
 	}
 

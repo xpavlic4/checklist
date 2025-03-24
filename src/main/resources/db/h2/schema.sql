@@ -81,6 +81,7 @@ CREATE TABLE arguments (
                     name       VARCHAR(255),
                     premise       VARCHAR(255),
                     predicate       VARCHAR(255),
+                    warrant       VARCHAR(255),
                     ordering    INTEGER,
                     type_id    INTEGER,
                     case_id   INTEGER,
