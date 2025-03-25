@@ -33,6 +33,7 @@ import java.util.Optional;
 class AttackController {
 
 	private final CaseRepository cases;
+
 	private final ArgumentRepository arguments;
 
 	public AttackController(CaseRepository cases, ArgumentRepository arguments) {
@@ -54,7 +55,7 @@ class AttackController {
 	 */
 	@ModelAttribute("attack")
 	public Argument loadPetWithVisit(@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argId,
-                                  Map<String, Object> model) {
+			Map<String, Object> model) {
 		Optional<Case> optionalOwner = cases.findById(caseId);
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
@@ -64,27 +65,27 @@ class AttackController {
 		model.put("case", aCase);
 
 		Argument attack = new Argument();
-//		argument.addAttack(attack);
+		// argument.addAttack(attack);
 		return attack;
 	}
 
-//	@ModelAttribute("case")
-//	public Case findCase(@PathVariable("caseId") int caseId) {
-//		Optional<Case> optionalCase = this.cases.findById(caseId);
-//		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
-//			"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
-//		return aCase;
-//	}
-//
-//	@ModelAttribute("argument")
-//	public Argument findPet(@PathVariable("caseId") int caseId,
-//							@PathVariable(name = "argumentId") Integer argumentId) {
-//
-//		Optional<Case> optionalCase = this.cases.findById(caseId);
-//		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
-//			"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
-//		return aCase.getArgument(argumentId);
-//	}
+	// @ModelAttribute("case")
+	// public Case findCase(@PathVariable("caseId") int caseId) {
+	// Optional<Case> optionalCase = this.cases.findById(caseId);
+	// Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
+	// "Case not found with id: " + caseId + ". Please ensure the ID is correct "));
+	// return aCase;
+	// }
+	//
+	// @ModelAttribute("argument")
+	// public Argument findPet(@PathVariable("caseId") int caseId,
+	// @PathVariable(name = "argumentId") Integer argumentId) {
+	//
+	// Optional<Case> optionalCase = this.cases.findById(caseId);
+	// Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
+	// "Case not found with id: " + caseId + ". Please ensure the ID is correct "));
+	// return aCase.getArgument(argumentId);
+	// }
 
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
 	// called
@@ -103,12 +104,12 @@ class AttackController {
 		return "arguments/createOrUpdateAttackForm";
 	}
 
-
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
 	// called
 	@PostMapping("/cases/{caseId}/arguments/{argumentId}/rebutting/new")
-	public String processNewVisitForm(@PathVariable Integer caseId, @PathVariable(name = "argumentId") Integer argumentId, @Valid Argument argument,
-			BindingResult result, RedirectAttributes redirectAttributes) {
+	public String processNewVisitForm(@PathVariable Integer caseId,
+			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument argument, BindingResult result,
+			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateAttackForm";
 		}
@@ -116,10 +117,10 @@ class AttackController {
 
 		Optional<Case> optionalOwner = cases.findById(caseId);
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
-			"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
+				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 		aCase.addAttack(argumentId, argument);
 
-//		this.cases.save(aCase);
+		// this.cases.save(aCase);
 		this.arguments.save(argument);
 		redirectAttributes.addFlashAttribute("message", "Added.");
 		return "redirect:/cases/{caseId}";

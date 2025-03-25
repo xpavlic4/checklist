@@ -98,9 +98,9 @@ class ArgumentsController {
 		// result.rejectValue("name", "duplicate", "already exists");
 		// }
 
-		//if (StringUtils.hasText(argument.getName()) && argument.isNew()
-		//		&& aCase.getArgument(argument.getName(), true) != null)
-	//		result.rejectValue("name", "duplicate", "already exists");
+		// if (StringUtils.hasText(argument.getName()) && argument.isNew()
+		// && aCase.getArgument(argument.getName(), true) != null)
+		// result.rejectValue("name", "duplicate", "already exists");
 
 		LocalDate currentDate = LocalDate.now();
 		// if (argument.getBirthDate() != null &&
@@ -127,7 +127,7 @@ class ArgumentsController {
 	public String processUpdateForm(Case aCase, @Valid Argument argument, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
-		//String petName = argument.getName();
+		// String petName = argument.getName();
 
 		// checking if the argument name already exist for the aCase
 		// if (StringUtils.hasText(petName)) {

@@ -13,8 +13,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-			.requestMatchers("/login", "/oauth2/**", "/webjars/**", "/resources/**", "/actuator/health", "/h2-console/**",
-			"favicon.ico")
+			.requestMatchers("/login", "/oauth2/**", "/webjars/**", "/resources/**", "/actuator/health",
+					"/h2-console/**", "favicon.ico")
 			.permitAll()
 			.anyRequest()
 			.authenticated())
@@ -25,8 +25,11 @@ public class SecurityConfig {
 			)
 			.csrf(c -> c.disable())
 			// Allow frames for H2 Console
-			.headers(headers -> headers
-				.frameOptions(frameOptions -> frameOptions.disable()) // Allow frames for H2 Console
+			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()) // Allow
+																								// frames
+																								// for
+																								// H2
+																								// Console
 			)
 			.logout(c -> c.logoutUrl("/logout").invalidateHttpSession(true).permitAll());
 		return http.build();

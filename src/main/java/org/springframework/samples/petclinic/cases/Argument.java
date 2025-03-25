@@ -46,7 +46,6 @@ public class Argument extends BaseEntity {
 	@Column(name = "warrant")
 	private String warrant;
 
-
 	@Column(name = "ordering")
 	private Integer ordering;
 
@@ -79,7 +78,6 @@ public class Argument extends BaseEntity {
 	public void setType(ArgumentType type) {
 		this.type = type;
 	}
-
 
 	public void addEvaluation(Evaluation evaluation) {
 		getEvaluations().add(evaluation);
@@ -151,13 +149,9 @@ public class Argument extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "Argument{" +
-			"premise='" + premise + '\'' +
-			", predicate='" + predicate + '\'' +
-			", ordering=" + ordering +
-			", warrant=" + warrant +
-			", type=" + type +
-			", evaluations=" + evaluations +
-			"} " + super.toString();
+		return "Argument{" + "premise='" + premise + '\'' + ", predicate='" + predicate + '\'' + ", ordering="
+				+ ordering + ", warrant=" + warrant + ", type=" + type + ", evaluations=" + evaluations + "} "
+				+ super.toString();
 	}
+
 }

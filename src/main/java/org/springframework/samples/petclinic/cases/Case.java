@@ -65,11 +65,13 @@ public class Case extends NamedEntity {
 	public List<Argument> getRootAruments() {
 		return this.arguments.stream().filter(a -> a.getParent() == null).toList();
 	}
+
 	public void addArgument(Argument argument) {
 		if (argument.isNew()) {
 			getArguments().add(argument);
-		} else {
-			//update
+		}
+		else {
+			// update
 			Argument del = getArgument(argument.getId());
 			getArguments().remove(del);
 			getArguments().add(argument);
@@ -81,9 +83,9 @@ public class Case extends NamedEntity {
 	 * @param name to test
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
-//	public Argument getArgument(String name) {
-//		return getArgument(name, false);
-//	}
+	// public Argument getArgument(String name) {
+	// return getArgument(name, false);
+	// }
 
 	/**
 	 * Return the Pet with the given id, or null if none found for this Owner.
@@ -108,17 +110,17 @@ public class Case extends NamedEntity {
 	 * @param ignoreNew whether to ignore new pets (pets that are not saved yet)
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
-//	public Argument getArgument(String name, boolean ignoreNew) {
-//		for (Argument argument : getArguments()) {
-//			String compName = argument.getName();
-//			if (compName != null && compName.equalsIgnoreCase(name)) {
-//				if (!ignoreNew || !argument.isNew()) {
-//					return argument;
-//				}
-//			}
-//		}
-//		return null;
-//	}
+	// public Argument getArgument(String name, boolean ignoreNew) {
+	// for (Argument argument : getArguments()) {
+	// String compName = argument.getName();
+	// if (compName != null && compName.equalsIgnoreCase(name)) {
+	// if (!ignoreNew || !argument.isNew()) {
+	// return argument;
+	// }
+	// }
+	// }
+	// return null;
+	// }
 
 	@Override
 	public String toString() {
@@ -131,7 +133,8 @@ public class Case extends NamedEntity {
 	/**
 	 * Adds the given {@link Evaluation} to the {@link Argument} with the given
 	 * identifier.
-	 * @param argumentId the identifier of the {@link Argument}, must not be {@literal null}.
+	 * @param argumentId the identifier of the {@link Argument}, must not be
+	 * {@literal null}.
 	 * @param evaluation the visit to add, must not be {@literal null}.
 	 */
 	public void addEvaluation(Integer argumentId, Evaluation evaluation) {
@@ -157,4 +160,5 @@ public class Case extends NamedEntity {
 
 		attack.setParent(argument);
 	}
+
 }
