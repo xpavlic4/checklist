@@ -72,8 +72,7 @@
   
     <a th:href="@{__${case.id}__/edit}" class="btn btn-primary">Edit</a>
     <a th:href="@{__${case.id}__/arguments/new}" class="btn btn-primary">Add argument</a>
-  
-    <br />
+
     <br />
     <br />
     <h2>Arguments</h2>
@@ -81,31 +80,34 @@
     <table class="table table-striped">
   
       <tr th:each="arg: ${case.rootAruments}">
+        <td>
+        <table class="table table-striped">
+          <tr><td>Identification</td>
+          <td th:text="*{arg.id}"></td></tr>
+          <tr><td>Predicate</td><td th:text="${arg.predicate}"></td></tr>
+          <tr><td></td><td>, <i>because</i>/protože</td> </tr>
+          <tr><td>Premise</td><td th:text="${arg.premise}"></td></tr>
+          <tr><td>Warrant</td><td th:text="${arg.warrant}"></td></tr>
+          <tr><td>Evaluations</td>
+            <td>
+              <table class="table table-condensed">
 
-        <td valign="top">
-        </td>
-        <td valign="">
-          <dl class="dl-horizontal">
-            <dd th:text="*{'ID' +arg.id}"></dd>
-            <dd th:text="${arg.predicate}"></dd>
-            <dd>, <i>because</i>/protože</dd>
-            <dd th:text="${arg.premise}"></dd>
-            <dd th:text="${arg.warrant}" ></dd>
-            <dd style="horiz-align: right"><a th:href="@{__${case.id}__/arguments/__${arg.id}__/edit}" class="btn btn-primary">Edit</a></dd>
+                <tr th:each="ev : ${arg.evaluations}">
+                  <td>Intensity:</td>
+                  <td th:text="${ev?.intensity}"></td>
+                  <td>Status:</td>
+                  <td th:text="${ev?.verification_status}"></td>
+                </tr>
+              </table>
+            </td></tr>
+        </table>
+       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/edit}" class="btn btn-primary">Edit</a>
+          <a th:href="@{__${case.id}__/arguments/__${arg.id}__/evaluations/new}" class="btn btn-primary">New evaluation</a>
+      <a th:href="@{__${case.id}__/arguments/__${arg.id}__/rebutting/new}" class="btn btn-primary">Rebutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Vyvrácení (rebutting) je označení útoku, který je veden na predikát (závěr). Rebutting is the name of an attack that is directed at a predicate (conclusion).</span></div>
+      <a th:href="@{__${case.id}__/arguments/__${arg.id}__/undercutting/new}" class="btn btn-primary" disabled="true">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div>
+      <a th:href="@{__${case.id}__/arguments/__${arg.id}__/undermining/new}" class="btn btn-primary">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div>
 
-          </dl>
-        </td>
-
-        <td valign="top">
-          <table class="table-condensed">
-            <tr th:each="ev : ${arg.evaluations}">
-              <td th:text="${ev?.intensity}"></td>
-              <td th:text="${ev?.verification_status}"></td>
-            </tr>
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/evaluations/new}" class="btn btn-primary">New evaluation</a></td></tr>
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/rebutting/new}" class="btn btn-primary">Rebutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Vyvrácení (rebutting) je označení útoku, který je veden na predikát (závěr). Rebutting is the name of an attack that is directed at a predicate (conclusion).</span></div></td></tr>
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/undercutting/new}" class="btn btn-primary" disabled="true">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div></td></tr>
-            <tr><td><a th:href="@{__${case.id}__/arguments/__${arg.id}__/undermining/new}" class="btn btn-primary">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div></td></tr>
+          <table class="table">
             <tr th:each="attack : ${arg.attacks}">
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
               <td th:text="${attack.predicate}"></td>
