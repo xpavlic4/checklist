@@ -15,10 +15,8 @@
  */
 package org.springframework.samples.petclinic.cases;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.samples.petclinic.owner.Owner;
-import org.springframework.samples.petclinic.owner.Pet;
-import org.springframework.samples.petclinic.owner.Visit;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -60,7 +58,9 @@ class AttackController {
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 
-		Argument argument = aCase.getArgument(argId);
+		//Argument argument = aCase.getArgument(argId);
+		Argument argument = arguments.findById(argId).orElseThrow(() -> new IllegalArgumentException(
+			"Argument not found with id: " + argId + ". Please ensure the ID is correct "));
 		model.put("argument", argument);
 		model.put("case", aCase);
 
@@ -106,22 +106,34 @@ class AttackController {
 
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
 	// called
-	@PostMapping("/cases/{caseId}/arguments/{argumentId}/rebutting/new")
+	@PostMapping({"/cases/{caseId}/arguments/{argumentId}/rebutting/new",
+		"/cases/{caseId}/arguments/{argumentId}/undercutting/new",
+		"/cases/{caseId}/arguments/{argumentId}/undermining/new"})
+	@Transactional
 	public String processNewVisitForm(@PathVariable Integer caseId,
-			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument argument, BindingResult result,
+			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateAttackForm";
 		}
-		argument.setId(null);
+		Argument att = new Argument();
 
 		Optional<Case> optionalOwner = cases.findById(caseId);
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
-		aCase.addAttack(argumentId, argument);
 
-		// this.cases.save(aCase);
-		this.arguments.save(argument);
+		Argument parentArg = arguments.findById(argumentId).orElseThrow(() ->
+			new IllegalArgumentException("Argument not found with id: " + argumentId));
+
+		att.setCase(aCase);
+		att.setParentId(parentArg.getId());
+		att.setPredicate(attack.getPredicate());
+		att.setPremise(attack.getPremise());
+		att.setWarrant(attack.getWarrant());
+		//attack.setCase(aCase);
+		//aCase.addArgument(attack);
+		//this.cases.save(aCase);
+		this.arguments.saveAndFlush(att);
 		redirectAttributes.addFlashAttribute("message", "Added.");
 		return "redirect:/cases/{caseId}";
 	}
