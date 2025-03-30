@@ -55,6 +55,7 @@ public class Argument extends BaseEntity {
 
 	@Column(name = "parent_id")
 	private Integer parentId;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_id")
 	@OrderBy("id ASC")
@@ -116,7 +117,6 @@ public class Argument extends BaseEntity {
 	public Case getCase() {
 		return aCase;
 	}
-
 
 	public String getWarrant() {
 		return warrant;

@@ -58,9 +58,10 @@ class AttackController {
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 
-		//Argument argument = aCase.getArgument(argId);
-		Argument argument = arguments.findById(argId).orElseThrow(() -> new IllegalArgumentException(
-			"Argument not found with id: " + argId + ". Please ensure the ID is correct "));
+		// Argument argument = aCase.getArgument(argId);
+		Argument argument = arguments.findById(argId)
+			.orElseThrow(() -> new IllegalArgumentException(
+					"Argument not found with id: " + argId + ". Please ensure the ID is correct "));
 		model.put("argument", argument);
 		model.put("case", aCase);
 
@@ -106,9 +107,9 @@ class AttackController {
 
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
 	// called
-	@PostMapping({"/cases/{caseId}/arguments/{argumentId}/rebutting/new",
-		"/cases/{caseId}/arguments/{argumentId}/undercutting/new",
-		"/cases/{caseId}/arguments/{argumentId}/undermining/new"})
+	@PostMapping({ "/cases/{caseId}/arguments/{argumentId}/rebutting/new",
+			"/cases/{caseId}/arguments/{argumentId}/undercutting/new",
+			"/cases/{caseId}/arguments/{argumentId}/undermining/new" })
 	@Transactional
 	public String processNewVisitForm(@PathVariable Integer caseId,
 			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack, BindingResult result,
@@ -122,17 +123,17 @@ class AttackController {
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 
-		Argument parentArg = arguments.findById(argumentId).orElseThrow(() ->
-			new IllegalArgumentException("Argument not found with id: " + argumentId));
+		Argument parentArg = arguments.findById(argumentId)
+			.orElseThrow(() -> new IllegalArgumentException("Argument not found with id: " + argumentId));
 
 		att.setCase(aCase);
 		att.setParentId(parentArg.getId());
 		att.setPredicate(attack.getPredicate());
 		att.setPremise(attack.getPremise());
 		att.setWarrant(attack.getWarrant());
-		//attack.setCase(aCase);
-		//aCase.addArgument(attack);
-		//this.cases.save(aCase);
+		// attack.setCase(aCase);
+		// aCase.addArgument(attack);
+		// this.cases.save(aCase);
 		this.arguments.saveAndFlush(att);
 		redirectAttributes.addFlashAttribute("message", "Added.");
 		return "redirect:/cases/{caseId}";
