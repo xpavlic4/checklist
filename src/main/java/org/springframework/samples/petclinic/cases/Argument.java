@@ -53,19 +53,17 @@ public class Argument extends BaseEntity {
 	@JoinColumn(name = "type_id")
 	private ArgumentType type;
 
-	@ManyToOne
-	@JoinColumn(name = "parent_id", nullable = true)
-	private Argument parent;
-
+	@Column(name = "parent_id")
+	private Integer parentId;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_id")
 	@OrderBy("id ASC")
-	private final Set<Argument> attacks = new LinkedHashSet<>();
+	private Set<Argument> attacks = new LinkedHashSet<>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "argument_id")
 	// @OrderBy("ordering ASC")
-	private final Set<Evaluation> evaluations = new LinkedHashSet<>();
+	private Set<Evaluation> evaluations = new LinkedHashSet<>();
 
 	@ManyToOne
 	@JoinColumn(name = "case_id", nullable = true)
@@ -81,14 +79,6 @@ public class Argument extends BaseEntity {
 
 	public void addEvaluation(Evaluation evaluation) {
 		getEvaluations().add(evaluation);
-	}
-
-	public String getPremisa() {
-		return premise;
-	}
-
-	public void setPremisa(String premisa) {
-		this.premise = premisa;
 	}
 
 	public Integer getOrdering() {
@@ -127,13 +117,6 @@ public class Argument extends BaseEntity {
 		return aCase;
 	}
 
-	public Argument getParent() {
-		return parent;
-	}
-
-	public void setParent(Argument parent) {
-		this.parent = parent;
-	}
 
 	public String getWarrant() {
 		return warrant;
@@ -145,6 +128,14 @@ public class Argument extends BaseEntity {
 
 	public Set<Argument> getAttacks() {
 		return attacks;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+
+	public Integer getParentId() {
+		return parentId;
 	}
 
 	@Override
