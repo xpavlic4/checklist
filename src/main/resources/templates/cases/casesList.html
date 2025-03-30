@@ -18,8 +18,13 @@
     <td>
       <a th:href="@{/cases/__${case.id}__}" th:text="${case.name}"/></a>
     </td>
+    <!--
     <td>
       <a th:href="@{/export/excel}" th:text="Export"/></a>
+    </td>
+    -->
+    <td>
+      <i class="fas fa-file-excel"><a href="/demo.xlsx" download>Demo Excel File</a></i>
     </td>
     <!--<td th:text="${owner.address}"/>
     <td th:text="${owner.city}"/>

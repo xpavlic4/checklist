@@ -61,6 +61,10 @@
 
     <table class="table table-striped" th:object="${case}">
       <tr>
+        <th>ID</th>
+        <td><b th:text="*{id}"></b></td>
+      </tr>
+      <tr>
         <th>Identificator</th>
         <td><b th:text="*{name}"></b></td>
       </tr>
@@ -82,7 +86,7 @@
         </td>
         <td valign="">
           <dl class="dl-horizontal">
-
+            <dd th:text="*{'ID' +arg.id}"></dd>
             <dd th:text="${arg.predicate}"></dd>
             <dd>, <i>because</i>/protože</dd>
             <dd th:text="${arg.premise}"></dd>
