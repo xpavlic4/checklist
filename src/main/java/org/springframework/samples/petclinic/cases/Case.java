@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.cases;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.NamedEntity;
@@ -63,7 +64,7 @@ public class Case extends NamedEntity {
 	}
 
 	public List<Argument> getRootAruments() {
-		return this.arguments.stream().filter(a -> a.getParent() == null).toList();
+		return this.arguments.stream().filter(argument -> argument.getParentId() == null).collect(Collectors.toList());
 	}
 
 	public void addArgument(Argument argument) {
@@ -147,18 +148,6 @@ public class Case extends NamedEntity {
 		Assert.notNull(argument, "Invalid Pet identifier!");
 
 		argument.addEvaluation(evaluation);
-	}
-
-	public void addAttack(Integer argumentId, Argument attack) {
-
-		Assert.notNull(argumentId, "Argument identifier must not be null!");
-		Assert.notNull(attack, "Attack must not be null!");
-
-		Argument argument = getArgument(argumentId);
-
-		Assert.notNull(argument, "Invalid argument identifier!");
-
-		attack.setParent(argument);
 	}
 
 }
