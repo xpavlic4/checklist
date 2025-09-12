@@ -11,12 +11,13 @@
   <tr>
     <th>Identificator</th>
     <th>Export</th>
+    <th>Report</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="case : ${listCases}">
     <td>
-      <a th:href="@{/cases/__${case.id}__}" th:text="${case.name}"/></a>
+      <a th:href="@{/cases/__${case.id}__}" th:text="${case.name}"/>
     </td>
     <!--
     <td>
@@ -26,10 +27,9 @@
     <td>
       <i class="fas fa-file-excel"><a href="/demo.xlsx" download>Demo Excel File</a></i>
     </td>
-    <!--<td th:text="${owner.address}"/>
-    <td th:text="${owner.city}"/>
-    <td th:text="${owner.telephone}"/>-->
-    <!--<td><span th:text="${#strings.listJoin(owner.pets, ', ')}"/></td>-->
+    <td>
+      <a th:href="@{/reports/__${case.id}__}" >Report</a>
+    </td>
   </tr>
   </tbody>
 </table>
