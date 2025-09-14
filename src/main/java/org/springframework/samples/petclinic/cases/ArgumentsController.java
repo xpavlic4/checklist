@@ -51,6 +51,11 @@ class ArgumentsController {
 		return this.cases.findArgumentTypes();
 	}
 
+	@ModelAttribute("source_types")
+	public Collection<SourceType> populateSourceTypes() {
+		return this.cases.findASourceTypes();
+	}
+
 	@ModelAttribute("case")
 	public Case findCase(@PathVariable("caseId") int caseId) {
 		Optional<Case> optionalCase = this.cases.findById(caseId);

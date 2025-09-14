@@ -53,6 +53,10 @@ public class Argument extends BaseEntity {
 	@JoinColumn(name = "type_id")
 	private ArgumentType type;
 
+	@ManyToOne
+	@JoinColumn(name = "source_id")
+	private SourceType source;
+
 	@Column(name = "parent_id")
 	private Integer parentId;
 
@@ -145,4 +149,11 @@ public class Argument extends BaseEntity {
 				+ super.toString();
 	}
 
+	public SourceType getSource() {
+		return source;
+	}
+
+	public void setSource(SourceType source) {
+		this.source = source;
+	}
 }
