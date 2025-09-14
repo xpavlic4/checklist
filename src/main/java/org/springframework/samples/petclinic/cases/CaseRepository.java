@@ -47,6 +47,10 @@ public interface CaseRepository extends JpaRepository<Case, Integer> {
 	@Transactional(readOnly = true)
 	List<ArgumentType> findArgumentTypes();
 
+	@Query("SELECT ptype FROM SourceType ptype ORDER BY ptype.name")
+	@Transactional(readOnly = true)
+	List<SourceType> findASourceTypes();
+
 	/**
 	 * Retrieve {@link Case}s from the data store by last name, returning all owners whose
 	 * last name <i>starts</i> with the given name.

@@ -44,4 +44,11 @@ INSERT INTO visits VALUES (default, 17, '2013-01-04', 'Závada byla ojedinělá,
 INSERT INTO cases values ( default, 'test name', 'test email');
 INSERT INTO cases values ( default, 'test name2', 'test email2');
 
-insert into arguments values (default, 'test argument', 'test premise', 'test predicate','warrant', 1, 1, 1, null);
+insert into arguments values (default, 'test argument', 'test premise', 'test predicate','warrant', 1, 1, 0, 1, null);
+insert into source_types values (0, '');
+insert into source_types values (default, 'žaloba');
+insert into source_types values (default, 'odvolalní');
+insert into source_types values (default, 'replika');
+insert into source_types values (default, 'duplika');
+insert into source_types values (default, 'rozsudek');
+
