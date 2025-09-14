@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.report;
 
 public class CaseReport {
+
 	String premise;
+
 	String predicate;
 
 	public String getPredicate() {
@@ -19,4 +21,5 @@ public class CaseReport {
 	public void setPremise(String premise) {
 		this.premise = premise;
 	}
+
 }

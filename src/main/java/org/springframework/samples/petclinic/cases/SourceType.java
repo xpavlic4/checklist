@@ -19,8 +19,7 @@ import jakarta.persistence.*;
 import org.springframework.samples.petclinic.model.NamedEntity;
 
 /**
- * Type of argument.
- * eg. žaloba, odvolalní, replika, duplika, rozsudek
+ * Type of argument. eg. žaloba, odvolalní, replika, duplika, rozsudek
  */
 @Entity
 @Table(name = "source_types")

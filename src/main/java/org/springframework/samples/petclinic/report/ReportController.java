@@ -41,8 +41,7 @@ class ReportController {
 		dataBinder.setDisallowedFields("id");
 	}
 
-
-	public Case findCase( Integer caseId) {
+	public Case findCase(Integer caseId) {
 		return caseId == null ? new Case()
 				: this.cases.findById(caseId)
 					.orElseThrow(() -> new IllegalArgumentException("Case not found with id: " + caseId
@@ -64,6 +63,7 @@ class ReportController {
 		return ret;
 
 	}
+
 	/**
 	 * Custom handler for displaying a report.
 	 * @param caseId the ID of the owner to display
