@@ -15,9 +15,7 @@
  */
 package org.springframework.samples.petclinic.report;
 
-import org.springframework.samples.petclinic.cases.Argument;
-import org.springframework.samples.petclinic.cases.Case;
-import org.springframework.samples.petclinic.cases.CaseRepository;
+import org.springframework.samples.petclinic.cases.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -52,13 +50,23 @@ class ReportController {
 	public List<CaseReport> generateReport(@PathVariable(name = "caseId") Integer caseId) {
 		Case aCase = findCase(caseId);
 		List<CaseReport> ret = new ArrayList<>();
-		for (Argument argument : aCase.getArguments()) {
+		for (Argument argument : aCase.getRootAruments()) {
 			if (argument.getAttacks().isEmpty()) {
 				CaseReport report = new CaseReport();
 				report.setPremise(argument.getPremise());
 				report.setPredicate(argument.getPredicate());
 				ret.add(report);
+			} else {
+				for (Evaluation evaluation : argument.getEvaluations()) {
+					if (evaluation.getVerification_status().equals(VerificationStatus.JUSTIFIED)) {
+						CaseReport report = new CaseReport();
+						report.setPremise(argument.getPremise());
+						report.setPredicate(argument.getPredicate());
+						ret.add(report);
+					}
+				}
 			}
+
 		}
 		return ret;
 
