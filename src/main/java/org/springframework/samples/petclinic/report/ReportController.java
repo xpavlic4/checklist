@@ -56,7 +56,8 @@ class ReportController {
 				report.setPremise(argument.getPremise());
 				report.setPredicate(argument.getPredicate());
 				ret.add(report);
-			} else {
+			}
+			else {
 				for (Evaluation evaluation : argument.getEvaluations()) {
 					if (evaluation.getVerification_status().equals(VerificationStatus.JUSTIFIED)) {
 						CaseReport report = new CaseReport();
