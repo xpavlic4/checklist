@@ -58,9 +58,9 @@ INSERT  INTO visits VALUES (13, 17, '2013-01-04', 'Závada byla ojedinělá, pro
 --INSERT INTO visits (pet_id, visit_date, description) SELECT 7, '2008-09-04', 'spayed' WHERE NOT EXISTS (SELECT * FROM visits WHERE id=4);
 --INSERT INTO visits (pet_id, visit_date, description) SELECT 7, '2010-03-04', 'rabies shot' WHERE NOT EXISTS (SELECT * FROM visits WHERE id=1);
 
-insert into source_types values (0, '');
-insert into source_types values (default, 'žaloba');
-insert into source_types values (default, 'odvolalní');
-insert into source_types values (default, 'replika');
-insert into source_types values (default, 'duplika');
-insert into source_types values (default, 'rozsudek');
+insert into source_types values (0, '')ON CONFLICT DO NOTHING;;
+insert into source_types values (default, 'žaloba')ON CONFLICT DO NOTHING;;
+insert into source_types values (default, 'odvolalní')ON CONFLICT DO NOTHING;;
+insert into source_types values (default, 'replika')ON CONFLICT DO NOTHING;;
+insert into source_types values (default, 'duplika')ON CONFLICT DO NOTHING;;
+insert into source_types values (default, 'rozsudek')ON CONFLICT DO NOTHING;;
