@@ -36,7 +36,6 @@ import java.util.Optional;
  */
 public interface ArgumentRepository extends JpaRepository<Argument, Integer> {
 
-
 	/**
 	 * Retrieve an {@link Case} from the data store by id.
 	 * <p>
