@@ -43,11 +43,11 @@ public interface CaseRepository extends JpaRepository<Case, Integer> {
 	 * Retrieve all {@link ArgumentType}s from the data store.
 	 * @return a Collection of {@link ArgumentType}s.
 	 */
-	@Query("SELECT ptype FROM ArgumentType ptype ORDER BY ptype.name")
+	@Query("FROM ArgumentType ptype ORDER BY ptype.name")
 	@Transactional(readOnly = true)
 	List<ArgumentType> findArgumentTypes();
 
-	@Query("SELECT ptype FROM SourceType ptype ORDER BY ptype.name")
+	@Query("FROM SourceType ptype ORDER BY ptype.name")
 	@Transactional(readOnly = true)
 	List<SourceType> findASourceTypes();
 

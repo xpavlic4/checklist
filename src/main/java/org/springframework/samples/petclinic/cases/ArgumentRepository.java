@@ -19,10 +19,7 @@ import jakarta.annotation.Nonnull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,13 +36,6 @@ import java.util.Optional;
  */
 public interface ArgumentRepository extends JpaRepository<Argument, Integer> {
 
-	/**
-	 * Retrieve all {@link ArgumentType}s from the data store.
-	 * @return a Collection of {@link ArgumentType}s.
-	 */
-	@Query("SELECT ptype FROM ArgumentType ptype ORDER BY ptype.name")
-	@Transactional(readOnly = true)
-	List<ArgumentType> findArgumentTypes();
 
 	/**
 	 * Retrieve an {@link Case} from the data store by id.
