@@ -64,3 +64,7 @@ insert into source_types values (default, 'odvolalní')ON CONFLICT DO NOTHING;;
 insert into source_types values (default, 'replika')ON CONFLICT DO NOTHING;;
 insert into source_types values (default, 'duplika')ON CONFLICT DO NOTHING;;
 insert into source_types values (default, 'rozsudek')ON CONFLICT DO NOTHING;;
+
+INSERT INTO ARGUMENT_TYPES VALUES  (1, 'Rebutting') ON CONFLICT DO NOTHING;
+INSERT INTO ARGUMENT_TYPES VALUES  (2, 'Undercutting')ON CONFLICT DO NOTHING;
+INSERT INTO ARGUMENT_TYPES VALUES  (3, 'Undermining') ON CONFLICT DO NOTHING;
