@@ -10,25 +10,12 @@
   <thead>
   <tr>
     <th>Identificator</th>
-    <th>Export</th>
-    <th>Report</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="case : ${listCases}">
     <td>
       <a th:href="@{/cases/__${case.id}__}" th:text="${case.name}"/>
-    </td>
-    <!--
-    <td>
-      <a th:href="@{/export/excel}" th:text="Export"/></a>
-    </td>
-    -->
-    <td>
-      <i class="fas fa-file-excel"><a href="/demo.xlsx" download>Demo Excel File</a></i>
-    </td>
-    <td>
-      <a th:href="@{/reports/__${case.id}__}" >Report</a>
     </td>
   </tr>
   </tbody>
