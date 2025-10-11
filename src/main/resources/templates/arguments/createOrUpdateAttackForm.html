@@ -27,20 +27,16 @@
 
   <form th:object="${attack}" class="form-horizontal" method="post">
     <div class="form-group has-feedback">
-      <input
-        th:replace="~{fragments/inputField :: input ('Predicate', 'predicate', 'textarea')}" />
-      <input
-        th:replace="~{fragments/inputField :: input ('Premise', 'premise', 'textarea')}" />
+      <input th:replace="~{fragments/inputField :: input ('Predicate', 'predicate', 'textarea')}" />
+      <input th:replace="~{fragments/inputField :: input ('Premise', 'premise', 'textarea')}" />
       <input th:replace="~{fragments/inputField :: input ('Warrant', 'warrant', 'textarea')}" />
     </div>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-       <input type="hidden" name="argumentId" th:value="${argument.id}" />
-      <input type="hidden" name="caseId" th:value="${case.id}" />
-        <button class="btn btn-primary" type="submit">Add attack</button>
-
-        <!--<p th:text="#{notFound}"></p>-->
+        <input type="hidden" name="argumentId" th:value="${argument.id}" />
+        <input type="hidden" name="caseId" th:value="${case.id}" />
+        <button th:with="text=${case['new']} ? 'Add' : 'Edit'" class="btn btn-primary" type="submit" th:text="${text}">Add</button>
       </div>
     </div>
   </form>

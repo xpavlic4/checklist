@@ -41,9 +41,11 @@ class ArgumentsController {
 	private static final String VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM = "arguments/createOrUpdateArgumentForm";
 
 	private final CaseRepository cases;
+	private final ArgumentRepository arguments;
 
-	public ArgumentsController(CaseRepository cases) {
+	public ArgumentsController(CaseRepository cases, ArgumentRepository arguments) {
 		this.cases = cases;
+		this.arguments = arguments;
 	}
 
 	@ModelAttribute("types")
@@ -129,7 +131,7 @@ class ArgumentsController {
 	}
 
 	@PostMapping("/arguments/{argumentId}/edit")
-	public String processUpdateForm(Case aCase, @Valid Argument argument, BindingResult result,
+	public String processUpdateForm(Case aCase, @Valid Argument argument, @PathVariable(name = "argumentId") Integer argumentId, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
 		// String petName = argument.getName();
@@ -152,8 +154,8 @@ class ArgumentsController {
 			return VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM;
 		}
 
-		aCase.addArgument(argument);
-		this.cases.save(aCase);
+		argument.setId(argumentId);
+		this.arguments.save(argument);
 		redirectAttributes.addFlashAttribute("message", "Edited.");
 		return "redirect:/cases/{caseId}";
 	}

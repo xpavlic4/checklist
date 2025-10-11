@@ -68,15 +68,7 @@ public class Case extends NamedEntity {
 	}
 
 	public void addArgument(Argument argument) {
-		if (argument.isNew()) {
 			getArguments().add(argument);
-		}
-		else {
-			// update
-			Argument del = getArgument(argument.getId());
-			getArguments().remove(del);
-			getArguments().add(argument);
-		}
 	}
 
 	/**
