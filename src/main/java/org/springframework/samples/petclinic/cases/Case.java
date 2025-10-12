@@ -68,7 +68,7 @@ public class Case extends NamedEntity {
 	}
 
 	public void addArgument(Argument argument) {
-			getArguments().add(argument);
+		getArguments().add(argument);
 	}
 
 	/**
