@@ -55,9 +55,7 @@ class EvaluationController {
 	 */
 	@ModelAttribute("evaluation")
 	public Evaluation loadPetWithVisit(@AuthenticationPrincipal CustomUserPrincipal principal,
-									   @PathVariable("caseId") int caseId,
-									   @PathVariable("argumentId") int argumentId,
-			Map<String, Object> model) {
+			@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argumentId, Map<String, Object> model) {
 		Optional<Case> optionalCase = cases.findById(caseId);
 		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));

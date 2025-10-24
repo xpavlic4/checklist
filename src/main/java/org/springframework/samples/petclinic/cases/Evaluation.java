@@ -62,4 +62,5 @@ public class Evaluation extends BaseEntity {
 	public User getUser() {
 		return user;
 	}
+
 }

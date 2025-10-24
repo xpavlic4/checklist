@@ -20,13 +20,12 @@ public class User {
 	private String provider; // GOOGLE, GITHUB etc.
 
 	private String providerid;
+
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-		name = "user_roles",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id")
-	)
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
@@ -74,4 +73,5 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
 }
