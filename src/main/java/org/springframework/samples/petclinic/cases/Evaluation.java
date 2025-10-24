@@ -15,11 +15,9 @@
  */
 package org.springframework.samples.petclinic.cases;
 
+import jakarta.persistence.*;
 import org.springframework.samples.petclinic.model.BaseEntity;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import org.springframework.samples.petclinic.system.User;
 
 /**
  * Simple JavaBean domain object representing an evaluation.
@@ -33,6 +31,10 @@ public class Evaluation extends BaseEntity {
 
 	@Column(name = "intensity")
 	private IntensityType intensity;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Evaluation() {
 	}
@@ -53,4 +55,11 @@ public class Evaluation extends BaseEntity {
 		this.intensity = intensity;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return user;
+	}
 }

@@ -17,6 +17,9 @@ package org.springframework.samples.petclinic.cases;
 
 import java.util.*;
 
+import org.springframework.samples.petclinic.system.CustomUserPrincipal;
+import org.springframework.samples.petclinic.system.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -51,7 +54,9 @@ class EvaluationController {
 	 * @return Pet
 	 */
 	@ModelAttribute("evaluation")
-	public Evaluation loadPetWithVisit(@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argumentId,
+	public Evaluation loadPetWithVisit(@AuthenticationPrincipal CustomUserPrincipal principal,
+									   @PathVariable("caseId") int caseId,
+									   @PathVariable("argumentId") int argumentId,
 			Map<String, Object> model) {
 		Optional<Case> optionalCase = cases.findById(caseId);
 		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
@@ -62,6 +67,9 @@ class EvaluationController {
 		model.put("case", aCase);
 
 		Evaluation evaluation = new Evaluation();
+		User user = principal.getUser();
+		evaluation.setUser(user);
+
 		argument.addEvaluation(evaluation);
 		return evaluation;
 	}
