@@ -5,15 +5,18 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String email;
-    private String name;
-    private String provider; // GOOGLE, GITHUB etc.
-    private String providerid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
+	private String email;
+
+	private String name;
+
+	private String provider; // GOOGLE, GITHUB etc.
+
+	private String providerid;
 
 	public void setProvider(String provider) {
 		this.provider = provider;
@@ -54,4 +57,5 @@ public class User {
 	public String getProviderid() {
 		return providerid;
 	}
+
 }

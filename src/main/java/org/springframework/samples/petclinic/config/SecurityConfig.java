@@ -12,7 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService)
+			throws Exception {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
 			.requestMatchers("/login", "/oauth2/**", "/webjars/**", "/resources/**", "/actuator/health",
 					"/h2-console/**", "favicon.ico")
@@ -22,8 +23,7 @@ public class SecurityConfig {
 			.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
 				.defaultSuccessUrl("/")
 				.failureUrl("/login?error=true")
-				.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-			)
+				.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService)))
 			.csrf(c -> c.disable())
 			// Allow frames for H2 Console
 			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()) // Allow
