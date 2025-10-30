@@ -59,11 +59,14 @@ class ReportController {
 			}
 			else {
 				for (Evaluation evaluation : argument.getEvaluations()) {
-					if (evaluation.getVerification_status().equals(VerificationStatus.JUSTIFIED)) {
+					VerificationStatus status = evaluation.getVerification_status();
+					if (status.equals(VerificationStatus.JUSTIFIED) || status.equals(VerificationStatus.DEFENSIBLE)) {
 						CaseReport report = new CaseReport();
 						report.setPremise(argument.getPremise());
 						report.setPredicate(argument.getPredicate());
+						report.setVerificationStatus(status);
 						ret.add(report);
+						break;
 					}
 				}
 			}

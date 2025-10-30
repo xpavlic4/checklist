@@ -6,7 +6,12 @@
 
   <body>
 
-    <h2>Case report</h2>
+
+  <a th:href="@{/cases/__${case.id}__}" class="btn btn-primary">Back</a>
+  <br />
+  <br />
+  <br />
+  <h2>Case report</h2>
 
     <div th:if="${message}" class="alert alert-success" id="success-message">
       <span th:text="${message}"></span>
@@ -16,15 +21,18 @@
       <span th:text="${error}"></span>
     </div>
 
-    <a th:href="@{/cases/__${case.id}__}" class="btn btn-primary">Back</a>
 
-    <br />
-    <br />
-    <br />
-    <h2>Arguments</h2>
+    <h3>Arguments</h3>
   
     <table class="table table-striped">
-  
+      <thead>
+      <tr>
+        <th>Argument</th>
+        <th></th>
+        <th>Premise</th>
+        <th>Status</th>
+      </tr>
+      </thead>
       <tr th:each="arg: ${report}">
         <td>
             <span th:text="${arg.predicate}"></span>
@@ -33,6 +41,7 @@
         <td>
             <span th:text="${arg.premise}"></span>
         </td>
+        <td th:text="${arg?.verificationStatus}"></td>
 
        </tr>
   
