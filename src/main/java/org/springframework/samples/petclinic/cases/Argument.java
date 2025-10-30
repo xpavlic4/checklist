@@ -29,6 +29,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
+import org.springframework.samples.petclinic.system.User;
 
 /**
  * Simple business object representing an argument.
@@ -73,6 +74,10 @@ public class Argument extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "case_id", nullable = true)
 	private Case aCase;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public ArgumentType getType() {
 		return this.type;
@@ -155,6 +160,14 @@ public class Argument extends BaseEntity {
 
 	public void setSource(SourceType source) {
 		this.source = source;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return user;
 	}
 
 }

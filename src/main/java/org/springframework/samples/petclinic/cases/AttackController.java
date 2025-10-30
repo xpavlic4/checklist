@@ -17,8 +17,9 @@ package org.springframework.samples.petclinic.cases;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.samples.petclinic.system.CustomUserPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +53,8 @@ class AttackController {
 	 * @return Pet
 	 */
 	@ModelAttribute("attack")
-	public Argument loadPetWithVisit(@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argId,
-			Map<String, Object> model) {
+	public Argument loadPetWithVisit(@AuthenticationPrincipal CustomUserPrincipal principal,
+			@PathVariable("caseId") int caseId, @PathVariable("argumentId") int argId, Map<String, Object> model) {
 		Optional<Case> optionalOwner = cases.findById(caseId);
 		Case aCase = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
@@ -66,6 +67,7 @@ class AttackController {
 		model.put("case", aCase);
 
 		Argument attack = new Argument();
+		attack.setUser(principal.getUser());
 		// argument.addAttack(attack);
 		return attack;
 	}
@@ -111,9 +113,9 @@ class AttackController {
 			"/cases/{caseId}/arguments/{argumentId}/undercutting/new",
 			"/cases/{caseId}/arguments/{argumentId}/undermining/new" })
 	@Transactional
-	public String processNewVisitForm(@PathVariable Integer caseId,
-			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+	public String processNewVisitForm(@AuthenticationPrincipal CustomUserPrincipal principal,
+			@PathVariable Integer caseId, @PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack,
+			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateAttackForm";
 		}
@@ -131,6 +133,7 @@ class AttackController {
 		att.setPredicate(attack.getPredicate());
 		att.setPremise(attack.getPremise());
 		att.setWarrant(attack.getWarrant());
+		att.setUser(principal.getUser());
 		// attack.setCase(aCase);
 		// aCase.addArgument(attack);
 		// this.cases.save(aCase);

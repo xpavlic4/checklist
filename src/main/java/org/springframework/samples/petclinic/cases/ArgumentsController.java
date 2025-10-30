@@ -19,9 +19,10 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
 
+import org.springframework.samples.petclinic.system.CustomUserPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,11 +69,13 @@ class ArgumentsController {
 	}
 
 	@ModelAttribute("argument")
-	public Argument findPet(@PathVariable("caseId") int caseId,
+	public Argument findPet(@AuthenticationPrincipal CustomUserPrincipal principal, @PathVariable("caseId") int caseId,
 			@PathVariable(name = "argumentId", required = false) Integer argumentId) {
 
 		if (argumentId == null) {
-			return new Argument();
+			Argument argument = new Argument();
+			argument.setUser(principal.getUser());
+			return argument;
 		}
 
 		Optional<Case> optionalCase = this.cases.findById(caseId);
@@ -134,7 +137,7 @@ class ArgumentsController {
 	@PostMapping("/arguments/{argumentId}/edit")
 	public String processUpdateForm(Case aCase, @Valid Argument argument,
 			@PathVariable(name = "argumentId") Integer argumentId, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, @AuthenticationPrincipal CustomUserPrincipal principal) {
 
 		// String petName = argument.getName();
 
@@ -155,7 +158,7 @@ class ArgumentsController {
 		if (result.hasErrors()) {
 			return VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM;
 		}
-
+		argument.setUser(principal.getUser());
 		argument.setId(argumentId);
 		this.arguments.save(argument);
 		redirectAttributes.addFlashAttribute("message", "Edited.");

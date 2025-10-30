@@ -93,6 +93,7 @@
           <tr><td>Premise</td><td th:text="${arg.premise}"></td></tr>
           <tr><td>Warrant</td><td th:text="${arg.warrant}"></td></tr>
           <tr><td>Source</td><td th:text="${arg.source?.name}"></td></tr>
+          <tr><td>User</td><td th:text="${arg.user?.name}"></td></tr>
           <tr><td>Evaluations</td>
             <td>
               <table class="table table-condensed">
@@ -120,6 +121,7 @@
               <td th:text="${attack.predicate}"></td>
               <td>, protože </td>
               <td th:text="${attack.premise}"></td>
+              <td th:text="${attack.user?.name}"></td>
               <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/edit}" class="btn btn-primary">Edit</a></td>
             </tr>
 
