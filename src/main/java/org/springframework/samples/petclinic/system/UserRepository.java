@@ -33,4 +33,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Page<User> findAll(Pageable pageable) throws DataAccessException;
 
 	Page<User> findByNameStartingWith(String name, Pageable pageable);
+
 }
