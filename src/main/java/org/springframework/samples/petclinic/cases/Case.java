@@ -96,8 +96,6 @@ public class Case extends NamedEntity {
 
 	/**
 	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * @param name to test
-	 * @param ignoreNew whether to ignore new pets (pets that are not saved yet)
 	 * @return the Pet with the given name, or null if no such Pet exists for this Owner
 	 */
 	// public Argument getArgument(String name, boolean ignoreNew) {

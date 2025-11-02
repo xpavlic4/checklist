@@ -23,10 +23,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	List<User> findAll() throws DataAccessException;
 
 	/**
-	 * Retrieve all <code>Vet</code>s from data store in Pages
-	 * @param pageable
-	 * @return
-	 * @throws DataAccessException
+	 * Retrieve all <code>User</code>s from data store in Pages
+	 * @param pageable pageable
+	 * @return a <code>Page</code> of <code>User</code>s
+	 * @throws DataAccessException if something goes wrong
 	 */
 	@Transactional(readOnly = true)
 	@Cacheable("users")
