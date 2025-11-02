@@ -50,7 +50,8 @@ class CaseController {
 	}
 
 	@ModelAttribute("case")
-	public Case findOwner(@PathVariable(name = "caseId", required = false) Integer caseId, @AuthenticationPrincipal CustomUserPrincipal principal) {
+	public Case findOwner(@PathVariable(name = "caseId", required = false) Integer caseId,
+			@AuthenticationPrincipal CustomUserPrincipal principal) {
 		if (caseId == null) {
 			Case aCase = new Case();
 			aCase.setUser(principal.getUser());
@@ -58,7 +59,7 @@ class CaseController {
 		}
 		return this.cases.findById(caseId)
 			.orElseThrow(() -> new IllegalArgumentException("Case not found with id: " + caseId
-				+ ". Please ensure the ID is correct " + "and the case exists in the database."));
+					+ ". Please ensure the ID is correct " + "and the case exists in the database."));
 	}
 
 	@GetMapping("/cases/new")
@@ -68,7 +69,7 @@ class CaseController {
 
 	@PostMapping("/cases/new")
 	public String processCreationForm(@Valid Case aCase, BindingResult result, RedirectAttributes redirectAttributes,
-									   @AuthenticationPrincipal CustomUserPrincipal principal) {
+			@AuthenticationPrincipal CustomUserPrincipal principal) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the case.");
 			return VIEWS_CASE_CREATE_OR_UPDATE_FORM;
@@ -131,14 +132,14 @@ class CaseController {
 
 	@GetMapping("/cases")
 	public String processFindForm(@RequestParam(defaultValue = "1") int page, Case aCase, BindingResult result,
-			Model model) {
+			Model model, @AuthenticationPrincipal CustomUserPrincipal principal) {
 		// allow parameterless GET request for /owners to return all records
 		if (aCase.getName() == null) {
 			aCase.setName(""); // empty string signifies broadest possible search
 		}
 
 		// find owners by last name
-		Page<Case> casesResult = findPaginatedForCasesLastName(page, aCase.getName());
+		Page<Case> casesResult = findPaginatedForCasesLastName(page, aCase.getName(), principal.getUser().getId());
 		if (casesResult.isEmpty()) {
 			// no owners found
 			result.rejectValue("name", "notFound", "not found");
@@ -164,10 +165,11 @@ class CaseController {
 		return "cases/casesList";
 	}
 
-	private Page<Case> findPaginatedForCasesLastName(int page, String lastname) {
+	private Page<Case> findPaginatedForCasesLastName(int page, String lastname, Long userId) {
 		int pageSize = 5;
 		Pageable pageable = PageRequest.of(page - 1, pageSize);
-		return cases.findByNameStartingWith(lastname, pageable);
+		// return cases.findByNameStartingWith(lastname, pageable);
+		return cases.findByNameStartingWithAndUserId(lastname, userId, pageable);
 	}
 
 }

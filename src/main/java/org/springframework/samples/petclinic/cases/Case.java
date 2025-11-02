@@ -144,4 +144,5 @@ public class Case extends NamedEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 }

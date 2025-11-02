@@ -60,6 +60,8 @@ public interface CaseRepository extends JpaRepository<Case, Integer> {
 	 */
 	Page<Case> findByNameStartingWith(String name, Pageable pageable);
 
+	Page<Case> findByNameStartingWithAndUserId(String name, Long userId, Pageable pageable);
+
 	/**
 	 * Retrieve an {@link Case} from the data store by id.
 	 * <p>
