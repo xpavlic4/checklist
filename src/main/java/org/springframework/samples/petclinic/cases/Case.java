@@ -19,18 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.*;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.NamedEntity;
+import org.springframework.samples.petclinic.system.User;
 import org.springframework.util.Assert;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
-import jakarta.persistence.Table;
 
 /**
  * Simple JavaBean domain object representing a case.
@@ -50,6 +43,10 @@ public class Case extends NamedEntity {
 	@JoinColumn(name = "case_id")
 	@OrderBy("ordering")
 	private final List<Argument> arguments = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public String getEmail() {
 		return this.email;
@@ -142,4 +139,11 @@ public class Case extends NamedEntity {
 		argument.addEvaluation(evaluation);
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

@@ -21,8 +21,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.samples.petclinic.system.CustomUserPrincipal;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,11 +50,15 @@ class CaseController {
 	}
 
 	@ModelAttribute("case")
-	public Case findOwner(@PathVariable(name = "caseId", required = false) Integer caseId) {
-		return caseId == null ? new Case()
-				: this.cases.findById(caseId)
-					.orElseThrow(() -> new IllegalArgumentException("Case not found with id: " + caseId
-							+ ". Please ensure the ID is correct " + "and the case exists in the database."));
+	public Case findOwner(@PathVariable(name = "caseId", required = false) Integer caseId, @AuthenticationPrincipal CustomUserPrincipal principal) {
+		if (caseId == null) {
+			Case aCase = new Case();
+			aCase.setUser(principal.getUser());
+			return aCase;
+		}
+		return this.cases.findById(caseId)
+			.orElseThrow(() -> new IllegalArgumentException("Case not found with id: " + caseId
+				+ ". Please ensure the ID is correct " + "and the case exists in the database."));
 	}
 
 	@GetMapping("/cases/new")
@@ -64,13 +68,12 @@ class CaseController {
 
 	@PostMapping("/cases/new")
 	public String processCreationForm(@Valid Case aCase, BindingResult result, RedirectAttributes redirectAttributes,
-			@AuthenticationPrincipal OAuth2User oauthUser) {
+									   @AuthenticationPrincipal CustomUserPrincipal principal) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the case.");
 			return VIEWS_CASE_CREATE_OR_UPDATE_FORM;
 		}
-		String email = oauthUser.getAttribute("email");
-		aCase.setEmail(email);
+		aCase.setUser(principal.getUser());
 		this.cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Created.");
 		return "redirect:/cases/" + aCase.getId();
@@ -88,7 +91,7 @@ class CaseController {
 
 	@PostMapping("/cases/{caseId}/edit")
 	public String processUpdateOwnerForm(@Valid Case aCase, BindingResult result, @PathVariable("caseId") int caseId,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, @AuthenticationPrincipal CustomUserPrincipal principal) {
 		if (result.hasErrors()) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in updating the case.");
 			return VIEWS_CASE_CREATE_OR_UPDATE_FORM;
@@ -101,6 +104,7 @@ class CaseController {
 		}
 
 		aCase.setId(caseId);
+		aCase.setUser(principal.getUser());
 		this.cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Case Values Updated");
 		return "redirect:/cases/{caseId}";
