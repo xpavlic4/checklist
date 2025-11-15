@@ -15,12 +15,14 @@
  */
 package org.springframework.samples.petclinic.cases;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.samples.petclinic.export.ExcelExportService;
 import org.springframework.samples.petclinic.system.CustomUserPrincipal;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -39,9 +41,14 @@ class CaseController {
 	private static final String VIEWS_CASE_CREATE_OR_UPDATE_FORM = "cases/createOrUpdateCaseForm";
 
 	private final CaseRepository cases;
+	private final ExcelExportService excelExportService;
 
-	public CaseController(CaseRepository clinicService) {
+	private final ArgumentRepository argumentRepository;
+
+	public CaseController(CaseRepository clinicService, ExcelExportService excelExportService, ArgumentRepository argumentRepository) {
 		this.cases = clinicService;
+		this.excelExportService = excelExportService;
+		this.argumentRepository = argumentRepository;
 	}
 
 	@InitBinder
@@ -80,6 +87,41 @@ class CaseController {
 		return "redirect:/cases/" + aCase.getId();
 	}
 
+	@GetMapping("/cases/{caseId}/export")
+	public void exportExcel(HttpServletResponse response, @Valid Case aCase) throws IOException {
+		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		response.setHeader("Content-Disposition", "attachment; filename=case-" + aCase.getId() + ".xlsx");
+
+		List<List<String>> data = new ArrayList<>();
+		data.add(List.of("ID", "Argument", "Predicate", "inference", "Premise"));
+		for (Argument rootArument : aCase.getRootAruments()) {
+			List<String> map = new ArrayList<>();
+			map.add( rootArument.getId().toString());
+			map.add("argument");
+			map.add(rootArument.getPredicate());
+			map.add(" ,protože/because");
+			map.add(rootArument.getPremise());
+//			data.add(TreeMap.("ID", "", "Argument", "A1", "predikát (P)", "P1: Chodec měl vhodnou obuv", "inference",
+//				" ,protože/because", "premisa (Z)", "Z1: podrážka boty měla hrubý vzorek. "));
+			data.add(map);
+			Set<Argument> attacks = rootArument.getAttacks();
+			for (Argument attack : attacks) {
+				map = new LinkedList<>();
+				map.add( attack.getId().toString());
+				map.add("attack");
+				map.add( attack.getPredicate());
+				map.add(" ,protože/because");
+				map.add(attack.getPremise());
+				data.add(map);
+			}
+		}
+//		List<Map<String, Object>> data = List
+//			.of(Map.of("ID", "p.A1.P1.Z1", "Argument", "A1", "predikát (P)", "P1: Chodec měl vhodnou obuv", "inference",
+//				" ,protože/because", "premisa (Z)", "Z1: podrážka boty měla hrubý vzorek. "));
+
+		byte[] excelData = excelExportService.generateExcel(data);
+		response.getOutputStream().write(excelData);
+	}
 	@GetMapping("/cases/find")
 	public String initFindForm() {
 		return "cases/findCases";

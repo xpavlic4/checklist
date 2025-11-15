@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ExcelExportService {
 
-	public byte[] generateExcel(List<Map<String, Object>> data) throws IOException {
+	public byte[] generateExcel(List<List<String>> data) throws IOException {
 		try (Workbook workbook = new XSSFWorkbook()) {
-			Sheet sheet = workbook.createSheet("Data");
+			Sheet sheet = workbook.createSheet("Case");
 
 			if (data.isEmpty()) {
 				return new byte[0]; // Return empty file if no data
@@ -22,7 +21,7 @@ public class ExcelExportService {
 
 			// Create header row
 			Row headerRow = sheet.createRow(0);
-			List<String> keys = data.get(0).keySet().stream().toList();
+			List<String> keys = data.get(0);
 			for (int i = 0; i < keys.size(); i++) {
 				Cell cell = headerRow.createCell(i);
 				cell.setCellValue(keys.get(i));
@@ -30,11 +29,11 @@ public class ExcelExportService {
 			}
 
 			// Populate data rows
-			for (int rowIdx = 0; rowIdx < data.size(); rowIdx++) {
-				Row row = sheet.createRow(rowIdx + 1);
-				Map<String, Object> rowData = data.get(rowIdx);
+			for (int rowIdx = 1; rowIdx < data.size(); rowIdx++) {
+				Row row = sheet.createRow(rowIdx);
+				List<String> rowData = data.get(rowIdx);
 				for (int colIdx = 0; colIdx < keys.size(); colIdx++) {
-					row.createCell(colIdx).setCellValue(rowData.get(keys.get(colIdx)).toString());
+					row.createCell(colIdx).setCellValue(rowData.get(colIdx));
 				}
 			}
 
