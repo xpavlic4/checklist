@@ -1,9 +1,6 @@
 package org.springframework.samples.petclinic.system;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +9,8 @@ import java.time.LocalDateTime;
 public class LoginAudit {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "audits_seq")
+	@SequenceGenerator(name = "audits_seq", sequenceName = "audits_seq", allocationSize = 1)
 	private Long id;
 
 	private String email;
