@@ -8,11 +8,16 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private LoginAuditService loginAuditService;
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -26,6 +31,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 		User user = userRepository.findByEmail(email)
 			.orElseGet(() -> registerNewUser(provider, providerId, email, name));
+
+		loginAuditService.recordLogin(email, LocalDateTime.now());
 
 		return CustomUserPrincipal.create(user, oAuth2User.getAttributes());
 	}
