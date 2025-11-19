@@ -49,3 +49,4 @@ out/
 _site/
 *.css
 !petclinic.css
+/.run/PetClinicApplication (postgres) local.run.xml
