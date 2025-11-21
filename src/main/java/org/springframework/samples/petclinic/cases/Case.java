@@ -17,7 +17,6 @@ package org.springframework.samples.petclinic.cases;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import jakarta.persistence.*;
 import org.springframework.core.style.ToStringCreator;
@@ -58,10 +57,6 @@ public class Case extends NamedEntity {
 
 	public List<Argument> getArguments() {
 		return this.arguments;
-	}
-
-	public List<Argument> getRootAruments() {
-		return this.arguments.stream().filter(argument -> argument.getParentId() == null).collect(Collectors.toList());
 	}
 
 	public void addArgument(Argument argument) {

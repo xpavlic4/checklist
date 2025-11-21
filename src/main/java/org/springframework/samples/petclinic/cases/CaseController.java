@@ -96,7 +96,7 @@ class CaseController {
 
 		List<List<String>> data = new ArrayList<>();
 		data.add(List.of("ID", "Argument", "Predicate", "inference", "Premise"));
-		for (Argument rootArument : aCase.getRootAruments()) {
+		for (Argument rootArument : argumentRepository.findRootAruments(aCase.getId())) {
 			List<String> map = new ArrayList<>();
 			map.add(rootArument.getId().toString());
 			map.add("argument");
@@ -171,6 +171,9 @@ class CaseController {
 		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException(
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 		mav.addObject(aCase);
+		List<Argument> rootAruments = argumentRepository.findRootAruments(caseId);
+		mav.addObject("rootAruments", rootAruments);
+
 		return mav;
 	}
 

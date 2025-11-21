@@ -29,9 +29,11 @@ import java.util.Optional;
 class ReportController {
 
 	private final CaseRepository cases;
+	private final ArgumentRepository argumentRepository;
 
-	public ReportController(CaseRepository cases) {
+	ReportController(CaseRepository cases, ArgumentRepository argumentRepository) {
 		this.cases = cases;
+		this.argumentRepository = argumentRepository;
 	}
 
 	@InitBinder
@@ -50,7 +52,7 @@ class ReportController {
 	public List<CaseReport> generateReport(@PathVariable(name = "caseId") Integer caseId) {
 		Case aCase = findCase(caseId);
 		List<CaseReport> ret = new ArrayList<>();
-		for (Argument argument : aCase.getRootAruments()) {
+		for (Argument argument : argumentRepository.findRootAruments(aCase.getId())) {
 			if (argument.getAttacks().isEmpty()) {
 				CaseReport report = new CaseReport();
 				report.setPremise(argument.getPremise());
