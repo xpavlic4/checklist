@@ -127,6 +127,10 @@ public class Argument extends BaseEntity {
 		return aCase;
 	}
 
+	public Boolean isEvaluated() {
+		return !this.getEvaluations().isEmpty();
+	}
+
 	public String getWarrant() {
 		return warrant;
 	}
