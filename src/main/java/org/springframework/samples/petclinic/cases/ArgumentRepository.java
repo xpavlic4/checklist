@@ -59,11 +59,8 @@ public interface ArgumentRepository extends JpaRepository<Argument, Integer> {
 	 **/
 	Page<Argument> findAll(Pageable pageable);
 
-
-	@Query("SELECT u FROM Argument u " +
-		"LEFT JOIN u.evaluations e " +
-		"WHERE u.aCase.id = :caseId and u.parentId is null " +
-		"group by u.id " +
-		"order by count(e) asc ")
+	@Query("SELECT u FROM Argument u " + "LEFT JOIN u.evaluations e "
+			+ "WHERE u.aCase.id = :caseId and u.parentId is null " + "group by u.id " + "order by count(e) asc ")
 	List<Argument> findRootAruments(@Param("caseId") int caseId);
+
 }

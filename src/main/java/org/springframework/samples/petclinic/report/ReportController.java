@@ -29,6 +29,7 @@ import java.util.Optional;
 class ReportController {
 
 	private final CaseRepository cases;
+
 	private final ArgumentRepository argumentRepository;
 
 	ReportController(CaseRepository cases, ArgumentRepository argumentRepository) {
