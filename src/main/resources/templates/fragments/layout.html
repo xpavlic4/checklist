@@ -91,12 +91,13 @@
             <span>Login</span>
           </li>
           -->
-
+        </ul>
+        <ul class="navbar-nav">
           <li th:replace="~{::menuItem ('/logout','logout','logout page','sign-out','Logout')}">
             <span class="fa fa-sign-out" aria-hidden="true"></span>
             <span>Logout</span>
           </li>
-          <li class="nav-item d-flex align-items-end">
+          <li class="nav-item d-flex align-items-center ms-3">
             <span class="navbar-text text-light">
               <strong th:text="${#authentication.principal.attributes['name']}">User</strong>
             </span>
