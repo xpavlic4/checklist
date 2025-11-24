@@ -132,6 +132,16 @@ public class Case extends NamedEntity {
 		argument.addEvaluation(evaluation);
 	}
 
+	public void deleteEvaluation(Integer argumentId, Integer evaluationId) {
+		Assert.notNull(argumentId, "Argument identifier must not be null!");
+		Assert.notNull(evaluationId, "Evaluation identifier must not be null!");
+
+		Argument argument = getArgument(argumentId);
+		Assert.notNull(argument, "Invalid Argument identifier!");
+
+		argument.deleteEvaluation(evaluationId);
+	}
+
 	public User getUser() {
 		return user;
 	}

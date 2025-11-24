@@ -91,6 +91,10 @@ public class Argument extends BaseEntity {
 		getEvaluations().add(evaluation);
 	}
 
+	public void deleteEvaluation(Integer evaluationId) {
+		evaluations.removeIf(evaluation -> evaluation.getId().equals(evaluationId));
+	}
+
 	public Integer getOrdering() {
 		return ordering;
 	}

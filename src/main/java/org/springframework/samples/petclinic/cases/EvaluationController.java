@@ -82,8 +82,6 @@ class EvaluationController {
 		return Arrays.stream(VerificationStatus.values()).toList();
 	}
 
-	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
-	// called
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
 	public String initNewEvaluationForm() {
 		return "arguments/createOrUpdateEvaluationsForm";
@@ -102,6 +100,16 @@ class EvaluationController {
 		this.cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Added.");
 		return "redirect:/cases/{caseId}";
+	}
+
+	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/{evaluationId}/delete")
+	public String deleteEvaluation(@PathVariable int caseId, @PathVariable int argumentId, @PathVariable int evaluationId, RedirectAttributes redirectAttributes) {
+		Optional<Case> optionalCase = cases.findById(caseId);
+		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException("Case with id " + caseId + " not found."));
+		aCase.deleteEvaluation(argumentId, evaluationId);
+		cases.save(aCase);
+		redirectAttributes.addFlashAttribute("message", "Evaluation deleted successfully");
+		return "redirect:/cases/" + caseId;
 	}
 
 }
