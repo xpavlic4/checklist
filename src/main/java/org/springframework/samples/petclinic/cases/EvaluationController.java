@@ -103,9 +103,11 @@ class EvaluationController {
 	}
 
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/{evaluationId}/delete")
-	public String deleteEvaluation(@PathVariable int caseId, @PathVariable int argumentId, @PathVariable int evaluationId, RedirectAttributes redirectAttributes) {
+	public String deleteEvaluation(@PathVariable int caseId, @PathVariable int argumentId,
+			@PathVariable int evaluationId, RedirectAttributes redirectAttributes) {
 		Optional<Case> optionalCase = cases.findById(caseId);
-		Case aCase = optionalCase.orElseThrow(() -> new IllegalArgumentException("Case with id " + caseId + " not found."));
+		Case aCase = optionalCase
+			.orElseThrow(() -> new IllegalArgumentException("Case with id " + caseId + " not found."));
 		aCase.deleteEvaluation(argumentId, evaluationId);
 		cases.save(aCase);
 		redirectAttributes.addFlashAttribute("message", "Evaluation deleted successfully");
