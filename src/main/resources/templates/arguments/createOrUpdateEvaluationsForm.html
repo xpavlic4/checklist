@@ -3,23 +3,22 @@
 
 <body>
 
-  <h2>
-    <th:block th:if="${evaluation['new']}">New </th:block>
-    evaluation
+  <h2 th:text="#{newEvaluation}">
+    Evaluation
   </h2>
 
-  <b>Argument</b>
+  <b th:text="#{argument}">Argument</b>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Argument</th>
+        <th th:text="#{argument}">Argument</th>
         <th></th>
-        <th>Premise</th>
+        <th th:text="#{premise}">Premise</th>
       </tr>
     </thead>
     <tr>
       <td><span th:text="${argument.predicate}"></span></td>
-      <td>protože</td>
+      <td th:text="#{because}">because</td>
       <td><span th:text="${argument.premise}"></span></td>
       <!--<td th:text="${argument.type}"></td>-->
       <!--<td
@@ -36,26 +35,26 @@
           -->
       <!--<input
         th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />-->
-      <input th:replace="~{fragments/selectField :: select ('Status', 'verification_status', ${verificationTypes})}" />
-      <input th:replace="~{fragments/selectField :: select ('Intensity', 'intensity', ${intensityTypes})}" />
+      <input th:replace="~{fragments/selectField :: select (#{status}, 'verification_status', ${verificationTypes})}" />
+      <input th:replace="~{fragments/selectField :: select (#{intensity}, 'intensity', ${intensityTypes})}" />
     </div>
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <input type="hidden" name="caseId" th:value="${case.id}" />
         <input type="hidden" name="argumentId" th:value="${argument.id}" />
-        <button class="btn btn-primary" type="submit">Add evaluation</button>
+        <button class="btn btn-primary" type="submit" th:text="#{addEvaluation}">Add evaluation</button>
       </div>
     </div>
   </form>
 
   <br />
-  <b>Past evaluations</b>
+  <b th:text="#{pastEvaluations}">Past evaluations</b>
   <table class="table table-striped">
     <tr>
       <!--<th>Date</th>-->
-      <th>Status</th>
-      <th>Intensity</th>
+      <th th:text="#{status}">Status</th>
+      <th th:text="#{intensity}">Intensity</th>
     </tr>
     <tr th:if="${!evaluation['new']}" th:each="ev : ${argument.evaluations}">
       <!--<td th:text="${#temporals.format(attack.date, 'yyyy-MM-dd')}"></td>-->

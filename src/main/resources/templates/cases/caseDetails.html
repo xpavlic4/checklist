@@ -46,7 +46,7 @@
     }
   </style>
 
-    <h2>Case</h2>
+    <h2 th:text="#{case}">Case</h2>
 
     <div th:if="${message}" class="alert alert-success" id="success-message">
       <span th:text="${message}"></span>
@@ -61,53 +61,53 @@
 
     <table class="table table-striped" th:object="${case}">
       <tr>
-        <th>ID</th>
+        <th th:text="#{number}">ID</th>
         <td><b th:text="*{id}"></b></td>
       </tr>
       <tr>
-        <th>Identificator</th>
+        <th th:text="#{identificator}">Identificator</th>
         <td><b th:text="*{name}"></b></td>
       </tr>
     </table>
   
-    <a th:href="@{__${case.id}__/edit}" class="btn btn-primary">Edit</a>
-    <a th:href="@{__${case.id}__/arguments/new}" class="btn btn-primary">Add argument</a>
+    <a th:href="@{__${case.id}__/edit}" class="btn btn-primary" th:text="#{edit}">Edit</a>
+    <a th:href="@{__${case.id}__/arguments/new}" class="btn btn-primary" th:text="#{addArgument}">Add argument</a>
     <a th:href="@{/cases/__${case.id}__/export}" download class="btn btn-primary">Export Excel</a>
   <br/>
   <br/>
-    <a th:href="@{/reports/__${case.id}__}" class="btn btn-success">Vytvoř/Compute Report</a>
+    <a th:href="@{/reports/__${case.id}__}" class="btn btn-success" th:text="#{computeReport}">Compute Report</a>
 
     <br />
     <br />
-    <h2>Arguments</h2>
+    <h2 th:text="#{arguments}">Arguments</h2>
   
     <table class="table table-striped">
       <tr th:each="arg: ${rootAruments}">
         <td>
         <table class="table table-striped">
-          <tr><td>Predicate</td><td th:text="${arg.predicate}"></td></tr>
-          <tr><td></td><td>, <i>because</i>/protože</td> </tr>
-          <tr><td>Premise</td><td th:text="${arg.premise}"></td></tr>
-          <tr><td>Warrant</td><td th:text="${arg.warrant}"></td></tr>
-          <tr><td>Source</td><td th:text="${arg.source?.name}"></td></tr>
-          <tr><td>User</td><td th:text="${arg.user?.name}"></td></tr>
-          <tr><td>Evaluations</td>
+          <tr><td th:text="#{predicate}">Predicate</td><td th:text="${arg.predicate}"></td></tr>
+          <tr><td></td><td>, <i th:text="#{because}">because</i></td> </tr>
+          <tr><td th:text="#{premise}">Premise</td><td th:text="${arg.premise}"></td></tr>
+          <tr><td th:text="#{warrant}">Warrant</td><td th:text="${arg.warrant}"></td></tr>
+          <tr><td th:text="#{source}">Source</td><td th:text="${arg.source?.name}"></td></tr>
+          <tr><td th:text="#{user}">User</td><td th:text="${arg.user?.name}"></td></tr>
+          <tr><td th:text="#{evaluations}">Evaluations</td>
             <td>
               <table class="table table-condensed">
 
                 <tr th:each="ev : ${arg.evaluations}">
-                  <td>Intensity:</td>
+                  <td th:text="#{intensity}">Intensity:</td>
                   <td th:text="${ev?.intensity}"></td>
-                  <td>Status:</td>
+                  <td th:text="#{status}">Status:</td>
                   <td th:text="${ev?.verification_status}"></td>
-                  <td><a th:href="@{/cases/__${case.id}__/arguments/__${arg.id}__/evaluations/__${ev.id}__/delete}" class="btn btn-danger">Delete</a></td>
+                  <td><a th:href="@{/cases/__${case.id}__/arguments/__${arg.id}__/evaluations/__${ev.id}__/delete}" class="btn btn-danger" th:text="#{delete}">Delete</a></td>
                 </tr>
               </table>
             </td></tr>
         </table>
-       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/edit}" class="btn btn-primary">Edit</a>
-          <button th:if="${arg.isEvaluated()}" class="btn btn-primary" disabled>Already evaluated</button>
-          <a th:if="${!arg.isEvaluated()}" th:href="@{__${case.id}__/arguments/__${arg.id}__/evaluations/new}" class="btn btn-primary">New evaluation</a>
+       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/edit}" class="btn btn-primary" th:text="#{edit}">Edit</a>
+          <button th:if="${arg.isEvaluated()}" class="btn btn-primary" disabled th:text="#{alreadyEvaluated}">Already evaluated</button>
+          <a th:if="${!arg.isEvaluated()}" th:href="@{__${case.id}__/arguments/__${arg.id}__/evaluations/new}" class="btn btn-primary" th:text="#{newEvaluation}">New evaluation</a>
       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/rebutting/new}" class="btn btn-primary">Rebutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Vyvrácení (rebutting) je označení útoku, který je veden na predikát (závěr). Rebutting is the name of an attack that is directed at a predicate (conclusion).</span></div>
       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/undercutting/new}" class="btn btn-primary" disabled="true">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div>
       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/undermining/new}" class="btn btn-primary">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div>
@@ -116,10 +116,10 @@
             <tr th:each="attack : ${arg.attacks}">
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
               <td th:text="${attack.predicate}"></td>
-              <td>, protože </td>
+              <td th:text="#{because}"></td>
               <td th:text="${attack.premise}"></td>
               <td th:text="${attack.user?.name}"></td>
-              <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/edit}" class="btn btn-primary">Edit</a></td>
+              <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/edit}" class="btn btn-primary" th:text="#{edit}">Edit</a></td>
             </tr>
 
           </table>

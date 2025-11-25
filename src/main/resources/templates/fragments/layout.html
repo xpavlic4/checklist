@@ -56,7 +56,7 @@
             <span>New owner</span>
           </li>
           -->
-          <li th:replace="~{::menuItem ('/cases/new','cases','new case','new','New case')}">
+          <li th:replace="~{::menuItem ('/cases/new','cases','new case','new',#{newCase})}">
             <span class="fa fa-search" aria-hidden="true"></span>
             <span>New case</span>
           </li>
@@ -66,9 +66,9 @@
             <span>Search owners</span>
           </li>
           -->
-          <li th:replace="~{::menuItem ('/cases/find','cases','find cases','search','Search cases')}">
+          <li th:replace="~{::menuItem ('/cases/find','cases','find cases','search',#{search})}">
             <span class="fa fa-search" aria-hidden="true"></span>
-            <span>Search cases</span>
+            <span th:text="#{searchCases}">Search cases</span>
           </li>
           <!--
           <li th:replace="~{::menuItem ('/users','users','users','search','Search users')}">
@@ -93,7 +93,16 @@
           -->
         </ul>
         <ul class="navbar-nav">
-          <li th:replace="~{::menuItem ('/logout','logout','logout page','sign-out','Logout')}">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span th:text="#{language}">Language</span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="?lang=en">English</a></li>
+              <li><a class="dropdown-item" href="?lang=cs">Čeština</a></li>
+            </ul>
+          </li>
+          <li th:replace="~{::menuItem ('/logout','logout','logout page','sign-out',#{logout})}">
             <span class="fa fa-sign-out" aria-hidden="true"></span>
             <span>Logout</span>
           </li>

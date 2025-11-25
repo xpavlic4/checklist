@@ -17,6 +17,8 @@ public class User {
 
 	private String name;
 
+	private String language;
+
 	private String provider; // GOOGLE, GITHUB etc.
 
 	private String providerid;
@@ -72,6 +74,14 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

@@ -115,4 +115,12 @@ class UserController {
 		return users.findByNameStartingWith(lastname, pageable);
 	}
 
+	@PostMapping("/users/{userId}/language")
+	public String updateUserLanguage(@PathVariable("userId") Long userId, @RequestParam("language") String language) {
+		User user = users.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + userId));
+		user.setLanguage(language);
+		users.save(user);
+		return "redirect:/users/" + userId;
+	}
+
 }

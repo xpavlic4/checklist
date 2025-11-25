@@ -32,6 +32,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		User user = userRepository.findByEmail(email)
 			.orElseGet(() -> registerNewUser(provider, providerId, email, name));
 
+		if (user.getLanguage() == null) {
+			user.setLanguage("en");
+			userRepository.save(user);
+		}
+
 		loginAuditService.recordLogin(email, LocalDateTime.now());
 
 		return CustomUserPrincipal.create(user, oAuth2User.getAttributes());
@@ -40,9 +45,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	private User registerNewUser(String provider, String providerId, String email, String name) {
 		User user = new User();
 		user.setProvider(provider);
+
 		user.setProviderid(providerId);
 		user.setEmail(email);
 		user.setName(name);
+		user.setLanguage("en");
 		return userRepository.save(user);
 	}
 
