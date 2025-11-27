@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class LoginAuditService {
@@ -16,6 +17,10 @@ public class LoginAuditService {
 		audit.setEmail(email);
 		audit.setLoginTime(time);
 		repo.save(audit);
+	}
+
+	public Optional<LocalDateTime> getLastLoginTime(String email) {
+		return repo.findTopByEmailOrderByLoginTimeDesc(email).map(LoginAudit::getLoginTime);
 	}
 
 }

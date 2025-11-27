@@ -11,6 +11,7 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
+    <th>Last Login</th>
   </tr>
   </thead>
   <tbody>
@@ -20,6 +21,9 @@
     </td>
     <td>
       <span th:text="${us.email}"/>
+    </td>
+    <td>
+      <span th:text="${lastLoginTimes[us.email]}"/>
     </td>
   </tr>
   </tbody>
@@ -55,4 +59,3 @@
 </div>
 </body>
 </html>
-

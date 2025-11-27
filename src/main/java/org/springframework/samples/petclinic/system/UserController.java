@@ -25,16 +25,22 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 class UserController {
 
 	private final UserRepository users;
 
-	public UserController(UserRepository users) {
+	private final LoginAuditService loginAuditService;
+
+	public UserController(UserRepository users, LoginAuditService loginAuditService) {
 		this.users = users;
+		this.loginAuditService = loginAuditService;
 	}
 
 	@InitBinder
@@ -101,11 +107,18 @@ class UserController {
 	}
 
 	private String addPaginationModelCases(int page, Model model, Page<User> paginated) {
-		List<User> listOwners = paginated.getContent();
+		List<User> listUsers = paginated.getContent();
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", paginated.getTotalPages());
 		model.addAttribute("totalItems", paginated.getTotalElements());
-		model.addAttribute("listUsers", listOwners);
+		model.addAttribute("listUsers", listUsers);
+
+		Map<String, String> lastLoginTimes = listUsers.stream()
+			.map(User::getEmail)
+			.collect(Collectors.toMap(email -> email,
+					email -> TimeAgoFormatter.format(loginAuditService.getLastLoginTime(email).orElse(null))));
+		model.addAttribute("lastLoginTimes", lastLoginTimes);
+
 		return "users/usersList";
 	}
 
