@@ -114,12 +114,31 @@
 
           <table class="table">
             <tr th:each="attack : ${arg.attacks}">
-              <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px"/></td>
+              <table class="table">
+                <tr>
+              <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px" alt="<-"/></td>
               <td th:text="${attack.predicate}"></td>
               <td th:text="#{because}"></td>
               <td th:text="${attack.premise}"></td>
               <td th:text="${attack.user?.name}"></td>
+
               <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/edit}" class="btn btn-primary" th:text="#{edit}">Edit</a></td>
+              <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/rebutting/new}" class="btn btn-primary">Rebutting</a></td>
+              <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/undercutting/new}" class="btn btn-primary" disabled="true">Undercutting</a></td>
+              <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/undermining/new}" class="btn btn-primary">Undermining</a></td>
+                </tr>
+                <tr>
+                  <table th:if="${attack.getAttacks().size() > 1}" class="table">
+                    <tr th:each="att2 : ${attack.attacks}">
+                      <td th:text="${att2.predicate}"></td>
+                      <td th:text="#{because}"></td>
+                      <td th:text="${att2.premise}"></td>
+                      <td th:text="${att2.user?.name}"></td>
+                    </tr>
+                  </table>
+                </tr>
+              </table>
+              
             </tr>
 
           </table>
