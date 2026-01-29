@@ -54,6 +54,8 @@ public interface ArgumentRepository extends JpaRepository<Argument, Integer> {
 	 */
 	Optional<Argument> findById(@Nonnull Integer id);
 
+	List<Argument> findByACaseId(Integer aCaseId);
+
 	/**
 	 * Returns all the cases from data store
 	 **/
