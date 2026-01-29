@@ -53,7 +53,8 @@ class ReportController {
 	public List<CaseReport> generateReport(@PathVariable(name = "caseId") Integer caseId) {
 		Case aCase = findCase(caseId);
 		List<CaseReport> ret = new ArrayList<>();
-		//List<Argument> rootAruments = argumentRepository.findRootAruments(aCase.getId());
+		// List<Argument> rootAruments =
+		// argumentRepository.findRootAruments(aCase.getId());
 		List<Argument> allArguments = argumentRepository.findByACaseId(aCase.getId());
 		for (Argument argument : allArguments) {
 			if (argument.getAttacks().isEmpty()) {
