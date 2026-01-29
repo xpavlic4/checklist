@@ -90,7 +90,7 @@
           <tr><td th:text="#{premise}">Premise</td><td th:text="${arg.premise}"></td></tr>
           <tr><td th:text="#{warrant}">Warrant</td><td th:text="${arg.warrant}"></td></tr>
           <tr><td th:text="#{source}">Source</td><td th:text="${arg.source?.name}"></td></tr>
-          <tr><td th:text="#{user}">User</td><td th:text="${arg.user?.name}"></td></tr>
+<!--          <tr><td th:text="#{user}">User</td><td th:text="${arg.user?.name}"></td></tr>-->
           <tr><td th:text="#{evaluations}">Evaluations</td>
             <td>
               <table class="table table-condensed">
@@ -120,7 +120,7 @@
               <td th:text="${attack.predicate}"></td>
               <td th:text="#{because}"></td>
               <td th:text="${attack.premise}"></td>
-              <td th:text="${attack.user?.name}"></td>
+<!--              <td th:text="${attack.user?.name}"></td>-->
 
               <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/edit}" class="btn btn-primary" th:text="#{edit}">Edit</a></td>
               <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/rebutting/new}" class="btn btn-primary">Rebutting</a></td>
@@ -133,7 +133,7 @@
                       <td th:text="${att2.predicate}"></td>
                       <td th:text="#{because}"></td>
                       <td th:text="${att2.premise}"></td>
-                      <td th:text="${att2.user?.name}"></td>
+<!--                      <td th:text="${att2.user?.name}"></td>-->
                     </tr>
                   </table>
                 </tr>
