@@ -128,8 +128,10 @@
               <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/undermining/new}" class="btn btn-primary">Undermining</a></td>
                 </tr>
                 <tr>
-                  <table th:if="${attack.getAttacks().size() > 1}" class="table">
+                  <table th:if="${attack.attacks.size() > 0}" class="table">
                     <tr th:each="att2 : ${attack.attacks}">
+                      <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px" alt="<-"/></td>
+                      <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px" alt="<-"/></td>
                       <td th:text="${att2.predicate}"></td>
                       <td th:text="#{because}"></td>
                       <td th:text="${att2.premise}"></td>
