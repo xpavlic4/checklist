@@ -46,6 +46,40 @@
        </tr>
   
     </table>
+
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Show Overruled
+  </button>
+
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <h3>Overruled Arguments</h3>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Argument</th>
+          <th></th>
+          <th>Premise</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tr th:each="arg: ${reportOverruled}">
+          <td>
+            <span th:text="${arg.predicate}"></span>
+          </td>
+          <td th:text="#{because}">because</td>
+          <td>
+            <span th:text="${arg.premise}"></span>
+          </td>
+          <td th:text="${arg?.verificationStatus}"></td>
+
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
     <script>
     // Function to hide the success and error messages after 3 seconds
     function hideMessages() {

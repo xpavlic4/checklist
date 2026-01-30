@@ -49,6 +49,28 @@ class ReportController {
 							+ ". Please ensure the ID is correct " + "and the owner exists in the database."));
 	}
 
+	@ModelAttribute("reportOverruled")
+	public List<CaseReport> generateReportOverruled(@PathVariable(name = "caseId") Integer caseId) {
+		Case aCase = findCase(caseId);
+		List<CaseReport> ret = new ArrayList<>();
+		List<Argument> allArguments = argumentRepository.findByACaseId(aCase.getId());
+		for (Argument argument : allArguments) {
+			for (Evaluation evaluation : argument.getEvaluations()) {
+				VerificationStatus status = evaluation.getVerification_status();
+				if (status.equals(VerificationStatus.OVERRULED) || status.equals(VerificationStatus.DEFENSIBLE)) {
+					CaseReport report = new CaseReport();
+					report.setPremise(argument.getPremise());
+					report.setPredicate(argument.getPredicate());
+					report.setVerificationStatus(status);
+					ret.add(report);
+					break;
+				}
+			}
+
+		}
+		return ret;
+	}
+
 	@ModelAttribute("report")
 	public List<CaseReport> generateReport(@PathVariable(name = "caseId") Integer caseId) {
 		Case aCase = findCase(caseId);
