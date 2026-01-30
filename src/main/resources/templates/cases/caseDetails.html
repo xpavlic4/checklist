@@ -83,7 +83,10 @@
   
     <table class="table table-striped">
       <tr th:each="arg: ${rootAruments}">
-        <td>
+        <table class="table">
+          <tr><td><h3>Argument</h3></td></tr>
+          <tr>
+            <td>
         <table class="table table-striped">
           <tr><td th:text="#{predicate}">Predicate</td><td th:text="${arg.predicate}"></td></tr>
           <tr><td></td><td>, <i th:text="#{because}">because</i></td> </tr>
@@ -112,9 +115,9 @@
       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/undercutting/new}" class="btn btn-primary" disabled="true">Undercutting</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Odříznutí (undercutting) je označení útoku, který je veden na vazbu (inference) mezi premisou a závěrem. Undercutting is the name of an attack that is conducted on the link (inference) between the premise and the conclusion.</span></div>
       <a th:href="@{__${case.id}__/arguments/__${arg.id}__/undermining/new}" class="btn btn-primary">Undermining</a><div class="tooltip2">&nbsp;?<span class="tooltiptext">Podkopání (undermining) je označení útoku, který je veden na premisu. Undermining is the name of an attack that is conducted on a premise.</span></div>
 
-          <table class="table">
+          <table class="table table-striped">
             <tr th:each="attack : ${arg.attacks}">
-              <table class="table">
+              <table class="table table-striped">
                 <tr>
               <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px" alt="<-"/></td>
               <td th:text="${attack.predicate}"></td>
@@ -128,9 +131,10 @@
               <td><a th:href="@{__${case.id}__/arguments/__${attack.id}__/undermining/new}" class="btn btn-primary">Undermining</a></td>
                 </tr>
                 <tr>
-                  <table th:if="${attack.attacks.size() > 0}" class="table">
+                  <td>&nbsp;</td>
+                  <td colspan="4">
+                  <table th:if="${attack.attacks.size() > 0}" class="table table-striped">
                     <tr th:each="att2 : ${attack.attacks}">
-                      <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px" alt="<-"/></td>
                       <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}" width="50px" alt="<-"/></td>
                       <td th:text="${att2.predicate}"></td>
                       <td th:text="#{because}"></td>
@@ -138,6 +142,7 @@
 <!--                      <td th:text="${att2.user?.name}"></td>-->
                     </tr>
                   </table>
+                  </td>
                 </tr>
               </table>
               
@@ -145,6 +150,9 @@
 
           </table>
         </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+        </table>
       </tr>
   
     </table>
