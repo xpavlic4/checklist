@@ -171,7 +171,7 @@
                 </tr>
                 <tr>
                   <td>&nbsp;</td>
-                  <td colspan="4">
+                  <td colspan="9">
                     <table th:if="${attack.attacks.size() > 0}" class="table table-striped">
                       <tr th:each="att2 : ${attack.attacks}">
                         <td><img src="../static/resources/images/arrow.svg" th:src="@{/resources/images/arrow.svg}"
@@ -179,7 +179,14 @@
                         <td th:text="${att2.predicate}"></td>
                         <td th:text="#{because}"></td>
                         <td th:text="${att2.premise}"></td>
-                        <!--                      <td th:text="${att2.user?.name}"></td>-->
+                        <td><a th:href="@{__${case.id}__/arguments/__${att2.id}__/edit}" class="btn btn-primary"
+                               th:text="#{edit}">Edit</a></td>
+                        <td><button th:if="${att2.isEvaluated()}" class="btn btn-primary" disabled th:text="#{alreadyEvaluated}">Already
+                          evaluated
+                        </button>
+                          <a th:if="${!att2.isEvaluated()}" th:href="@{__${case.id}__/arguments/__${att2.id}__/evaluations/new}"
+                             class="btn btn-primary" th:text="#{newEvaluation}">New evaluation</a>
+                        </td>
                       </tr>
                     </table>
                   </td>
