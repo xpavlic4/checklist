@@ -44,9 +44,9 @@ class ReportController {
 
 	public Case findCase(Integer caseId) {
 		return caseId == null ? new Case()
-				: this.cases.findById(caseId)
-					.orElseThrow(() -> new IllegalArgumentException("Case not found with id: " + caseId
-							+ ". Please ensure the ID is correct " + "and the owner exists in the database."));
+			: this.cases.findById(caseId)
+			.orElseThrow(() -> new IllegalArgumentException("Case not found with id: " + caseId
+				+ ". Please ensure the ID is correct " + "and the owner exists in the database."));
 	}
 
 	@ModelAttribute("reportOverruled")
@@ -97,6 +97,7 @@ class ReportController {
 
 	/**
 	 * Custom handler for displaying a report.
+	 *
 	 * @param caseId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
@@ -105,7 +106,7 @@ class ReportController {
 		ModelAndView mav = new ModelAndView("reports/reportDetails");
 		Optional<Case> optionalOwner = this.cases.findById(caseId);
 		Case owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
-				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
+			"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 		mav.addObject(owner);
 		return mav;
 	}
