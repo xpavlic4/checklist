@@ -172,6 +172,7 @@ class CaseController {
 				"Case not found with id: " + caseId + ". Please ensure the ID is correct "));
 		mav.addObject(aCase);
 		List<Argument> rootAruments = argumentRepository.findRootAruments(caseId);
+		rootAruments.sort(Comparator.comparingInt(a -> a.getEvaluations().size()));
 		mav.addObject("rootAruments", rootAruments);
 
 		return mav;
