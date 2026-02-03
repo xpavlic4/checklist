@@ -79,20 +79,17 @@ class ReportController {
 		// argumentRepository.findRootAruments(aCase.getId());
 		List<Argument> allArguments = argumentRepository.findByACaseId(aCase.getId());
 		for (Argument argument : allArguments) {
-			if (!argument.getAttacks().isEmpty()) {
-				for (Evaluation evaluation : argument.getEvaluations()) {
-					VerificationStatus status = evaluation.getVerification_status();
-					if (status.equals(VerificationStatus.JUSTIFIED)) {
-						CaseReport report = new CaseReport();
-						report.setPremise(argument.getPremise());
-						report.setPredicate(argument.getPredicate());
-						report.setVerificationStatus(status);
-						ret.add(report);
-						break;
-					}
+			for (Evaluation evaluation : argument.getEvaluations()) {
+				VerificationStatus status = evaluation.getVerification_status();
+				if (status.equals(VerificationStatus.JUSTIFIED)) {
+					CaseReport report = new CaseReport();
+					report.setPremise(argument.getPremise());
+					report.setPredicate(argument.getPredicate());
+					report.setVerificationStatus(status);
+					ret.add(report);
+					break;
 				}
 			}
-
 		}
 		return ret;
 

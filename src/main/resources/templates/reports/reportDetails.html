@@ -37,7 +37,7 @@
         <td>
             <span th:text="${arg.predicate}"></span>
         </td>
-        <td>, <i>because</i>/protože</td>
+        <td>, <span th:text="#{because}">because</span></td>
         <td>
             <span th:text="${arg.premise}"></span>
         </td>
@@ -68,7 +68,7 @@
           <td>
             <span th:text="${arg.predicate}"></span>
           </td>
-          <td th:text="#{because}">because</td>
+          <td>, <span th:text="#{because}">because</span></td>
           <td>
             <span th:text="${arg.premise}"></span>
           </td>
