@@ -16,7 +16,8 @@ public class SecurityConfig {
 			throws Exception {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
 			.requestMatchers("/login", "/oauth2/**", "/webjars/**", "/resources/**", "/actuator/health",
-					"/h2-console/**", "favicon.ico")
+					"/h2-console/**", "favicon.ico", "/**/*.css", "/**/*.js", "/**/*.map", "/css/**", "/js/**",
+					"/error/**", "/images/**")
 			.permitAll()
 			.anyRequest()
 			.authenticated())
