@@ -15,14 +15,11 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService)
 			throws Exception {
-		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-			.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-			.permitAll()
-			.requestMatchers("/login", "/oauth2/**", "/resources/**", "/actuator/health", "/h2-console/**", "/*.css",
-					"/*.js", "/*.map", "/error", "/oups", "/target/*.map")
-			.permitAll()
-			.anyRequest()
-			.authenticated())
+		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+				.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**").permitAll()
+				.requestMatchers("/*.map").permitAll()
+				.anyRequest().authenticated())
 			.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
 				.defaultSuccessUrl("/")
 				.failureUrl("/login?error=true")
