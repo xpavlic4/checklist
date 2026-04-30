@@ -18,9 +18,8 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
 			.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
 			.permitAll()
-			.requestMatchers("/login", "/oauth2/**", "/webjars/**", "/resources/**", "/actuator/health",
-					"/h2-console/**", "/favicon.ico", "/*.css", "/*.js", "/*.map", "/css/**", "/js/**", "/error/**",
-					"/images/**", "/oups")
+			.requestMatchers("/login", "/oauth2/**", "/resources/**", "/actuator/health", "/h2-console/**", "/*.css",
+					"/*.js", "/*.map", "/error", "/oups", "/target/*.map")
 			.permitAll()
 			.anyRequest()
 			.authenticated())
