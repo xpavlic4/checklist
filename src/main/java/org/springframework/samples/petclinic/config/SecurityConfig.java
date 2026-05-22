@@ -4,22 +4,28 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.samples.petclinic.system.CustomOAuth2UserService;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService)
 			throws Exception {
-		http.authorizeHttpRequests(auth -> auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-			.permitAll()
+		http.authorizeHttpRequests(
+			auth -> auth
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+				.permitAll()
+				.requestMatchers("/.well-known/appspecific/com.chrome.devtools.json")
+				.permitAll()
 			.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**")
 			.permitAll()
-			.requestMatchers("/*.map")
+			.requestMatchers("/*.map", "resources/**", "target/**")
 			.permitAll()
 			.anyRequest()
 			.authenticated())
