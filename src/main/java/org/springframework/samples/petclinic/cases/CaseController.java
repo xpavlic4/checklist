@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.samples.petclinic.export.ExcelExportService;
 import org.springframework.samples.petclinic.system.CustomUserPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,6 +91,7 @@ class CaseController {
 	}
 
 	@GetMapping("/cases/{caseId}/export")
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	public void exportExcel(HttpServletResponse response, @Valid Case aCase) throws IOException {
 		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 		response.setHeader("Content-Disposition", "attachment; filename=case-" + aCase.getId() + ".xlsx");
@@ -133,11 +135,13 @@ class CaseController {
 		return "cases/findCases";
 	}
 
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	@GetMapping("/cases/{caseId}/edit")
 	public String initUpdateOwnerForm() {
 		return VIEWS_CASE_CREATE_OR_UPDATE_FORM;
 	}
 
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	@PostMapping("/cases/{caseId}/edit")
 	public String processUpdateOwnerForm(@Valid Case aCase, BindingResult result, @PathVariable("caseId") int caseId,
 			RedirectAttributes redirectAttributes, @AuthenticationPrincipal CustomUserPrincipal principal) {
@@ -164,6 +168,8 @@ class CaseController {
 	 * @param caseId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
+	// Dynamically passes the ID and Google Principal email to your custom bean
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	@GetMapping("/cases/{caseId}")
 	public ModelAndView showCase(@PathVariable("caseId") int caseId) {
 		ModelAndView mav = new ModelAndView("cases/caseDetails");
