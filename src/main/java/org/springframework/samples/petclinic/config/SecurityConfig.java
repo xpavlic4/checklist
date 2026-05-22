@@ -14,15 +14,15 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService)
-		throws Exception {
+			throws Exception {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-				.permitAll()
-				.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**")
-				.permitAll()
-				.requestMatchers("/*.map")
-				.permitAll()
-				.anyRequest()
-				.authenticated())
+			.permitAll()
+			.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**")
+			.permitAll()
+			.requestMatchers("/*.map")
+			.permitAll()
+			.anyRequest()
+			.authenticated())
 			.oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
 				.defaultSuccessUrl("/")
 				.failureUrl("/login?error=true")
@@ -30,10 +30,10 @@ public class SecurityConfig {
 			.csrf(c -> c.disable())
 			// Allow frames for H2 Console
 			.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()) // Allow
-				// frames
-				// for
-				// H2
-				// Console
+			// frames
+			// for
+			// H2
+			// Console
 			)
 			.logout(c -> c.logoutUrl("/logout").invalidateHttpSession(true).permitAll());
 		return http.build();
