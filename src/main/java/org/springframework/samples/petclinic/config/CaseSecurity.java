@@ -12,23 +12,24 @@ import java.util.Optional;
 @Component
 public class CaseSecurity {
 
-    @Autowired
-    private CaseRepository caseRepository;
+	@Autowired
+	private CaseRepository caseRepository;
 
-    public boolean checkCaseOwner(Integer caseId, Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return false;
-        }
+	public boolean checkCaseOwner(Integer caseId, Authentication authentication) {
+		if (authentication == null || !authentication.isAuthenticated()) {
+			return false;
+		}
 
-        if (!(authentication.getPrincipal() instanceof CustomUserPrincipal)) {
-            return false;
-        }
+		if (!(authentication.getPrincipal() instanceof CustomUserPrincipal)) {
+			return false;
+		}
 
-        CustomUserPrincipal principal = (CustomUserPrincipal) authentication.getPrincipal();
-        String authenticatedUserEmail = principal.getUser().getEmail();
+		CustomUserPrincipal principal = (CustomUserPrincipal) authentication.getPrincipal();
+		String authenticatedUserEmail = principal.getUser().getEmail();
 
-        Optional<Case> aCase = caseRepository.findById(caseId);
+		Optional<Case> aCase = caseRepository.findById(caseId);
 
-        return aCase.map(c -> c.getUser().getEmail().equals(authenticatedUserEmail)).orElse(false);
-    }
+		return aCase.map(c -> c.getUser().getEmail().equals(authenticatedUserEmail)).orElse(false);
+	}
+
 }

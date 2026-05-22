@@ -17,12 +17,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomOAuth2UserService customOAuth2UserService)
 			throws Exception {
-		http.authorizeHttpRequests(
-			auth -> auth
-				.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-				.permitAll()
-				.requestMatchers("/.well-known/appspecific/com.chrome.devtools.json")
-				.permitAll()
+		http.authorizeHttpRequests(auth -> auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+			.permitAll()
+			.requestMatchers("/.well-known/appspecific/com.chrome.devtools.json")
+			.permitAll()
 			.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**")
 			.permitAll()
 			.requestMatchers("/*.map", "resources/**", "target/**")
