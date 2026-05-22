@@ -24,6 +24,7 @@ public class SecurityConfig {
 			.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**")
 			.permitAll()
 			.requestMatchers("/*.map", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/resources/css/*",
+					"/resources/fonts/*", "/resources/images/*", "/resources/js/*", "/resources/scss/*",
 					"/target/petclinic.css.map")
 			.permitAll()
 			.anyRequest()
