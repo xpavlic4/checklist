@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+
+<body>
+<div class="error-container">
+  <h1>403 - Restricted Access</h1>
+  <p>Sorry, you do not have permission to view this case.</p>
+
+  <!-- Optional: Display the dynamic error message passed from Spring -->
+  <p th:text="${message}" class="error-details">Error details go here</p>
+
+  <a href="/cases">Return to Overview</a>
+</div>
+</body>
+</html>
