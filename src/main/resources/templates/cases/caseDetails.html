@@ -159,6 +159,12 @@
                   <td><button th:if="${attack.isEvaluated()}" class="btn btn-primary" disabled th:text="#{alreadyEvaluated}">Already
                     evaluated
                   </button>
+                    </td>
+                  <td th:each="evaluation : ${attack.evaluations}">
+                    <a th:href="@{__${case.id}__/arguments/__${attack.id}__/evaluations/__${evaluation.id}__/delete}"
+                       class="btn btn-danger" th:text="#{delete}">Delete</a>
+                  </td>
+                  <td>
                   <a th:if="${!attack.isEvaluated()}" th:href="@{__${case.id}__/arguments/__${attack.id}__/evaluations/new}"
                      class="btn btn-primary" th:text="#{newEvaluation}">New evaluation</a>
                   </td>
