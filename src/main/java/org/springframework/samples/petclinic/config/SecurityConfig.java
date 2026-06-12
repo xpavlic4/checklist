@@ -19,7 +19,7 @@ public class SecurityConfig {
 			throws Exception {
 		http.authorizeHttpRequests(auth -> auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
 			.permitAll()
-			.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**")
+			.requestMatchers("/login", "/error", "/actuator/health", "/h2-console/**", "/ping")
 			.permitAll()
 			.requestMatchers("/*.map")
 			.permitAll()
