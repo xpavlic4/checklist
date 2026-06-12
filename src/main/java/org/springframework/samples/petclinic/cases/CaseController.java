@@ -52,7 +52,7 @@ class CaseController {
 	private final TreeDiagramService treeService;
 
 	public CaseController(CaseRepository clinicService, ExcelExportService excelExportService,
-	                      ArgumentRepository argumentRepository, TreeDiagramService treeService) {
+			ArgumentRepository argumentRepository, TreeDiagramService treeService) {
 		this.cases = clinicService;
 		this.excelExportService = excelExportService;
 		this.argumentRepository = argumentRepository;

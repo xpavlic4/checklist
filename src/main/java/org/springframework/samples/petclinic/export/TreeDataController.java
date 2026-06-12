@@ -21,4 +21,5 @@ public class TreeDataController {
 	public ArgumentView getTreeData(@PathVariable int caseId) {
 		return treeService.generateTreeForCase(caseId); // Returns raw JSON
 	}
+
 }

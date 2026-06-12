@@ -9,6 +9,7 @@ import java.util.List;
 public class ArgumentView {
 
 	private String name;
+
 	private List<ArgumentView> children;
 
 	// Constructor for quick instantiation
@@ -24,9 +25,20 @@ public class ArgumentView {
 	}
 
 	// Getters and Setters (Required for Jackson Serialization)
-	public String getName() { return name; }
-	public void setName(String name) { this.name = name; }
+	public String getName() {
+		return name;
+	}
 
-	public List<ArgumentView> getChildren() { return children; }
-	public void setChildren(List<ArgumentView> children) { this.children = children; }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<ArgumentView> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<ArgumentView> children) {
+		this.children = children;
+	}
+
 }
