@@ -71,6 +71,7 @@
 <a th:href="@{__${case.id}__/edit}" class="btn btn-primary" th:text="#{edit}">Edit</a>
 <a th:href="@{__${case.id}__/arguments/new}" class="btn btn-primary" th:text="#{addArgument}">Add argument</a>
 <a th:href="@{/cases/__${case.id}__/export}" download class="btn btn-primary">Export Excel</a>
+<a th:href="@{/cases/__${case.id}__/tree}" class="btn btn-primary" th:text="#{showTree}">Tree</a>
 <br/>
 <br/>
 <a th:href="@{/reports/__${case.id}__}" class="btn btn-success" th:text="#{computeReport}">Compute Report</a>

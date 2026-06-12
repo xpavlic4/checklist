@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+  }
+  #chart-container {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  .link {
+    fill: none;
+    stroke: #cbd5e1;
+    stroke-width: 2px;
+  }
+  .node-bubble {
+    fill: #3b82f6;
+    stroke: #2563eb;
+    stroke-width: 1.5px;
+    rx: 15; /* Rounds the corners to create a bubble effect */
+    ry: 15;
+  }
+  .node-text {
+    font-size: 13px;
+    fill: white;
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+</style>
+<a th:href="@{/cases/__${case.id}__}" class="btn btn-primary">Back</a>
+<br />
+<br />
+<br />
+<h2>Case tree</h2>
+
+<div id="chart-container"></div>
+
+<script th:inline="javascript">
+  // Thymeleaf converts your Java ArgumentView object into a JSON literal automatically
+  const data = /*[[${tree}]]*/ {};
+  // 1. Setup Dimensions
+  const width = 900;
+  const height = 1800;
+  const margin = { top: 20, right: 120, bottom: 20, left: 120 };
+  const verticalSpacingPerNode = 100;
+
+  // 2. Append SVG canvas
+  const svg = d3.select("#chart-container")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // 3. Fetch Data from your Spring Boot Endpoint
+  // Replace with your real API URL, e.g., '/api/diagram/tree'
+
+    const root = d3.hierarchy(data);
+    // 4. Convert raw data into a D3 hierarchy hierarchy
+
+    const totalNodes = root.descendants().length;
+    const dynamicHeight = (totalNodes * verticalSpacingPerNode) + margin.top + margin.bottom;
+    svg.attr("height", dynamicHeight);
+
+    // 5. Declare tree layout and compute node dimensions
+    const treeLayout = d3.tree()
+      .size([dynamicHeight - margin.top - margin.bottom, width - margin.left - margin.right])
+      // Add this separation logic below:
+      .separation((a, b) => {
+        // Increases the vertical spacing factor between sibling nodes.
+        // Default is 1. Try 1.5 or 2.0 to expand the gaps.
+        return a.parent === b.parent ? 1.5 : 2;
+      });;
+    treeLayout(root);
+
+    // 6. Draw the Links (The connecting lines)
+    svg.selectAll(".link")
+      .data(root.links())
+      .enter()
+      .append("path")
+      .attr("class", "link")
+      // Generates smooth, organic Bezier curves horizontally
+      .attr("d", d3.linkHorizontal()
+        .x(d => d.y)
+        .y(d => d.x)
+      );
+
+    // 7. Create a Group Container for each Node
+    const nodes = svg.selectAll(".node")
+      .data(root.descendants())
+      .enter()
+      .append("g")
+      .attr("transform", d => `translate(${d.y},${d.x})`);
+
+    // Bubble Configuration parameters
+    const bubbleWidth = 180;
+    const bubbleHeight = 80;
+
+    // 8. Append the "Bubble" Shape (Rectangles with rounded corners)
+    nodes.append("rect")
+      .attr("class", "node-bubble")
+      .attr("x", -bubbleWidth / 2)
+      .attr("y", -bubbleHeight / 2)
+      .attr("width", bubbleWidth)
+      .attr("height", bubbleHeight);
+
+  // 4. Append the foreignObject container over the rectangle
+  nodes.append("foreignObject")
+    .attr("x", -bubbleWidth / 2)
+    .attr("y", -bubbleHeight / 2)
+    .attr("width", bubbleWidth)
+    .attr("height", bubbleHeight)
+    .append("xhtml:div")
+    // Use standard CSS styles to enforce wrapping and perfect vertical centering
+    .style("width", `${bubbleWidth}px`)
+    .style("height", `${bubbleHeight}px`)
+    .style("display", "flex")
+    .style("align-items", "center")       /* Vertically centers the text block */
+    .style("justify-content", "center")   /* Horizontally centers the text block */
+    .style("text-align", "center")
+    .style("color", "white")              /* Matches your text color choice */
+    .style("font-size", "12px")
+    .style("line-height", "1.4")          /* Adds breathing room between sentences */
+    .style("font-weight", "500")
+    .style("padding", "0 12px")           /* Prevents text from hitting the capsule walls */
+    .style("box-sizing", "border-box")
+    .style("overflow", "hidden")          /* Failsafe to hide overflow text if a sentence is massive */
+    .style("word-break", "break-word")    /* Standard word wrap strategy */
+    .text(d => d.data.name);
+
+ </script>
+</body>
+</html>

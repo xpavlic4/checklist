@@ -22,7 +22,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.samples.petclinic.export.ArgumentView;
 import org.springframework.samples.petclinic.export.ExcelExportService;
+import org.springframework.samples.petclinic.export.TreeDiagramService;
 import org.springframework.samples.petclinic.system.CustomUserPrincipal;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -47,11 +49,14 @@ class CaseController {
 
 	private final ArgumentRepository argumentRepository;
 
+	private final TreeDiagramService treeService;
+
 	public CaseController(CaseRepository clinicService, ExcelExportService excelExportService,
-			ArgumentRepository argumentRepository) {
+	                      ArgumentRepository argumentRepository, TreeDiagramService treeService) {
 		this.cases = clinicService;
 		this.excelExportService = excelExportService;
 		this.argumentRepository = argumentRepository;
+		this.treeService = treeService;
 	}
 
 	@InitBinder
@@ -128,6 +133,14 @@ class CaseController {
 
 		byte[] excelData = excelExportService.generateExcel(data);
 		response.getOutputStream().write(excelData);
+	}
+
+	@GetMapping("/cases/{caseId}/tree")
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String viewDashboard(Model model, @Valid Case aCase) {
+		ArgumentView treeData = treeService.generateTreeForCase(aCase.getId());
+		model.addAttribute("tree", treeData);
+		return "reports/tree";
 	}
 
 	@GetMapping("/cases/find")
