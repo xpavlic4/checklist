@@ -194,6 +194,10 @@
                           <a th:if="${!att2.isEvaluated()}" th:href="@{__${case.id}__/arguments/__${att2.id}__/evaluations/new}"
                              class="btn btn-primary" th:text="#{newEvaluation}">New evaluation</a>
                         </td>
+                        <td th:each="evaluation : ${att2.evaluations}">
+                          <a th:href="@{__${case.id}__/arguments/__${attack.id}__/evaluations/__${evaluation.id}__/delete}"
+                             class="btn btn-danger" th:text="#{delete}">Delete</a>
+                        </td>
                       </tr>
                     </table>
                   </td>
