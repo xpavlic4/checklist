@@ -26,7 +26,6 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  * @author Dave Syer
  */
 @SpringBootApplication
-@ImportRuntimeHints(PetClinicRuntimeHints.class)
 public class PetClinicApplication {
 
 	public static void main(String[] args) {
