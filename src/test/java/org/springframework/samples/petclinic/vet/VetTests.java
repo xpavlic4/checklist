@@ -13,29 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.springframework.samples.petclinic.system;
+package org.springframework.samples.petclinic.vet;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.util.SerializationUtils;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for {@link CrashController}
- *
- * @author Colin But
- * @author Alex Lutz
+ * @author Dave Syer
  */
-// Waiting https://github.com/spring-projects/spring-boot/issues/5574 ..good
-// luck ((plain(st) UNIT test)! :)
-class CrashControllerTests {
-
-	final CrashController testee = new CrashController();
+class VetTests {
 
 	@Test
-	void triggerException() {
-		assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> testee.triggerException())
-			.withMessageContaining("Expected: controller used to showcase what happens when an exception is thrown");
+	void serialization() {
+		Vet vet = new Vet();
+		vet.setFirstName("Zaphod");
+		vet.setLastName("Beeblebrox");
+		vet.setId(123);
+		@SuppressWarnings("deprecation")
+		Vet other = (Vet) SerializationUtils.deserialize(SerializationUtils.serialize(vet));
+		assertThat(other.getFirstName()).isEqualTo(vet.getFirstName());
+		assertThat(other.getLastName()).isEqualTo(vet.getLastName());
+		assertThat(other.getId()).isEqualTo(vet.getId());
 	}
 
 }
