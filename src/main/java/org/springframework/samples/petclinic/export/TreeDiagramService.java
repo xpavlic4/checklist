@@ -35,15 +35,17 @@ public class TreeDiagramService {
 		List<Argument> rootAruments = argumentRepository.findRootAruments(caseId);
 
 		for (Argument rootArgument : rootAruments) {
-			ArgumentView child = new ArgumentView(format(rootArgument.getPredicate(), rootArgument.getPremise()));
-
-			Set<Argument> attacks = rootArgument.getAttacks();
-			for (Argument attack : attacks) {
-				child.addChild(new ArgumentView(format(attack.getPredicate(), attack.getPremise())));
-			}
-			root.addChild(child);
+			addArgument(root, rootArgument);
 		}
 		return root;
+	}
+	void addArgument(ArgumentView parent, Argument argument) {
+		ArgumentView child = new ArgumentView(format(argument.getPredicate(), argument.getPremise()));
+		Set<Argument> attacks = argument.getAttacks();
+		for (Argument attack : attacks) {
+			addArgument(child, attack);
+		}
+		parent.addChild(child);
 	}
 
 	private String format(String a, String b) {
