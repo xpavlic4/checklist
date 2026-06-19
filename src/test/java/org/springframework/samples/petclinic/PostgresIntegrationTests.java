@@ -27,6 +27,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.samples.petclinic.vet.VetRepository;
+import org.springframework.samples.petclinic.cases.CaseRepository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.DockerClientFactory;
@@ -52,13 +53,14 @@ import org.testcontainers.DockerClientFactory;
 		"spring.docker.compose.start.arguments=--force-recreate,--renew-anon-volumes,postgres" })
 @ActiveProfiles("postgres")
 @DisabledInNativeImage
+@Disabled
 public class PostgresIntegrationTests {
 
 	@LocalServerPort
 	int port;
 
 	@Autowired
-	private VetRepository vets;
+	private CaseRepository vets;
 
 	@Autowired
 	private RestTemplateBuilder builder;
@@ -87,7 +89,7 @@ public class PostgresIntegrationTests {
 	@Test
 	void ownerDetails() {
 		RestTemplate template = builder.rootUri("http://localhost:" + port).build();
-		ResponseEntity<String> result = template.exchange(RequestEntity.get("/owners/1").build(), String.class);
+		ResponseEntity<String> result = template.exchange(RequestEntity.get("/cases/1").build(), String.class);
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 	}
 

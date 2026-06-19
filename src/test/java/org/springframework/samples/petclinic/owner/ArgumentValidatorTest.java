@@ -22,54 +22,54 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledInNativeImage;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.samples.petclinic.cases.Argument;
+import org.springframework.samples.petclinic.cases.ArgumentType;
+import org.springframework.samples.petclinic.cases.ArgumentValidator;
 import org.springframework.validation.Errors;
 import org.springframework.validation.MapBindingResult;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Test class for {@link PetValidator}
+ * Test class for {@link ArgumentValidator}
  *
  * @author Wick Dynex
  */
 @ExtendWith(MockitoExtension.class)
 @DisabledInNativeImage
-class PetValidatorTests {
+class ArgumentValidatorTest {
 
-	private PetValidator petValidator;
+	private ArgumentValidator argumentValidator;
 
-	private Pet pet;
+	private Argument argument;
 
-	private PetType petType;
+	private ArgumentType argumentType;
 
 	private Errors errors;
 
-	private static final String petName = "Buddy";
+	private static final String argumentPredicate = "predicate 1";
 
 	private static final String petTypeName = "Dog";
 
-	private static final LocalDate petBirthDate = LocalDate.of(1990, 1, 1);
-
 	@BeforeEach
 	void setUp() {
-		petValidator = new PetValidator();
-		pet = new Pet();
-		petType = new PetType();
+		argumentValidator = new ArgumentValidator();
+		argument = new Argument();
+		argumentType = new ArgumentType();
 		errors = new MapBindingResult(new HashMap<>(), "pet");
 	}
 
 	@Test
 	void validate() {
-		petType.setName(petTypeName);
-		pet.setName(petName);
-		pet.setType(petType);
-		pet.setBirthDate(petBirthDate);
+		argumentType.setName(petTypeName);
+		argument.setPredicate(argumentPredicate);
+		argument.setPremise("premise 1");
+		argument.setType(argumentType);
 
-		petValidator.validate(pet, errors);
+		argumentValidator.validate(argument, errors);
 
 		assertFalse(errors.hasErrors());
 	}
@@ -78,38 +78,14 @@ class PetValidatorTests {
 	class ValidateHasErrors {
 
 		@Test
-		void validateWithInvalidPetName() {
-			petType.setName(petTypeName);
-			pet.setName("");
-			pet.setType(petType);
-			pet.setBirthDate(petBirthDate);
+		void validateWithInvalidPremise() {
+			argumentType.setName(petTypeName);
+			argument.setPredicate(argumentPredicate);
+			argument.setType(argumentType);
 
-			petValidator.validate(pet, errors);
+			argumentValidator.validate(argument, errors);
 
-			assertTrue(errors.hasFieldErrors("name"));
-		}
-
-		@Test
-		void validateWithInvalidPetType() {
-			pet.setName(petName);
-			pet.setType(null);
-			pet.setBirthDate(petBirthDate);
-
-			petValidator.validate(pet, errors);
-
-			assertTrue(errors.hasFieldErrors("type"));
-		}
-
-		@Test
-		void validateWithInvalidBirthDate() {
-			petType.setName(petTypeName);
-			pet.setName(petName);
-			pet.setType(petType);
-			pet.setBirthDate(null);
-
-			petValidator.validate(pet, errors);
-
-			assertTrue(errors.hasFieldErrors("birthDate"));
+			assertTrue(errors.hasFieldErrors("premise"));
 		}
 
 	}
