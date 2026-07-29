@@ -40,6 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 class ArgumentsController {
 
 	private static final String VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM = "arguments/createOrUpdateArgumentForm";
+	private static final String VIEWS_ARGUMENTS_DETAIL = "arguments/argumentDetails";
 
 	private final CaseRepository cases;
 
@@ -132,6 +133,12 @@ class ArgumentsController {
 	@GetMapping("/arguments/{argumentId}/edit")
 	public String initUpdateForm() {
 		return VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM;
+	}
+
+
+	@GetMapping("/arguments/{argumentId}/detail")
+	public String initDetailForm() {
+		return VIEWS_ARGUMENTS_DETAIL;
 	}
 
 	@PostMapping("/arguments/{argumentId}/edit")
