@@ -12,7 +12,7 @@
 ## Test Case 4: Case Hierarchy of Arguments
 **Description:** This test case verifies that a user can create a hierarchy of arguments within a case, ensuring that parent-child relationships are maintained.
 Use multiple attacks on the same argument to test the hierarchy and ensure that the system correctly handles nested arguments.
-E.g. a1 -> (a21, a22), a21 -> (a31, a32), a22 -> (a33)
+E.g. a1 -> (a21, a22), a21 -> (a31, a32), a22 -> (a33), a33 -> (a41, a42), a41 -> a51
 
 ## Test Case 5: Argument Tree Visualization
 **Description:** This test case verifies that the argument tree visualization feature correctly displays the hierarchy of arguments
