@@ -6,6 +6,9 @@
 ## Test Case 2: Case Creation
 **Description:** This test case verifies that a user can successfully create a new case.
 
+## Test Case 2a: Case Visibility
+**Description:** Log in as different Google user. Verify that the case created by the first user is not visible to the second user.
+
 ## Test Case 3: Case Argumentation 
 **Description:** Create a case and add multiple arguments to it. Verify that the arguments are correctly associated with the case.
 
