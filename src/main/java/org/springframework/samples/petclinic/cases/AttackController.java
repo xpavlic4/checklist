@@ -119,9 +119,8 @@ class AttackController {
 	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	@Transactional
 	public String processNewVisitForm(@AuthenticationPrincipal CustomUserPrincipal principal,
-			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack,
-			BindingResult result, RedirectAttributes redirectAttributes,
-			                          @PathVariable("caseId") int caseId) {
+			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack, BindingResult result,
+			RedirectAttributes redirectAttributes, @PathVariable("caseId") int caseId) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateAttackForm";
 		}

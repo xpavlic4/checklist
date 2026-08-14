@@ -151,7 +151,7 @@ class ArgumentsController {
 	public String processUpdateForm(Case aCase, @Valid Argument argument,
 			@PathVariable(name = "argumentId") Integer argumentId, BindingResult result,
 			RedirectAttributes redirectAttributes, @AuthenticationPrincipal CustomUserPrincipal principal,
-			                        @PathVariable("caseId") int caseId) {
+			@PathVariable("caseId") int caseId) {
 
 		// String petName = argument.getName();
 

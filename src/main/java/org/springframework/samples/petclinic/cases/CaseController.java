@@ -97,7 +97,8 @@ class CaseController {
 
 	@GetMapping("/cases/{caseId}/export")
 	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
-	public void exportExcel(HttpServletResponse response, @Valid Case aCase, @PathVariable("caseId") int caseId) throws IOException {
+	public void exportExcel(HttpServletResponse response, @Valid Case aCase, @PathVariable("caseId") int caseId)
+			throws IOException {
 		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 		response.setHeader("Content-Disposition", "attachment; filename=case-" + aCase.getId() + ".xlsx");
 

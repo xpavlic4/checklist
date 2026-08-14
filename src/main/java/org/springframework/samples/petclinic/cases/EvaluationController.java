@@ -95,7 +95,7 @@ class EvaluationController {
 	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	public String processNewEvaluationForm(@ModelAttribute Case aCase, @PathVariable int argumentId,
 			@Valid Evaluation evaluation, BindingResult result, RedirectAttributes redirectAttributes,
-			                               @PathVariable("caseId") int caseId) {
+			@PathVariable("caseId") int caseId) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateEvaluationsForm";
 		}
