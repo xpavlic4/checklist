@@ -97,7 +97,7 @@ class CaseController {
 
 	@GetMapping("/cases/{caseId}/export")
 	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
-	public void exportExcel(HttpServletResponse response, @Valid Case aCase) throws IOException {
+	public void exportExcel(HttpServletResponse response, @Valid Case aCase, @PathVariable("caseId") int caseId) throws IOException {
 		response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 		response.setHeader("Content-Disposition", "attachment; filename=case-" + aCase.getId() + ".xlsx");
 
@@ -137,7 +137,7 @@ class CaseController {
 
 	@GetMapping("/cases/{caseId}/tree")
 	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
-	public String viewDashboard(Model model, @Valid Case aCase) {
+	public String viewDashboard(Model model, @Valid Case aCase, @PathVariable("caseId") int caseId) {
 		ArgumentView treeData = treeService.generateTreeForCase(aCase.getId());
 		model.addAttribute("tree", treeData);
 		return "reports/tree";
@@ -150,7 +150,7 @@ class CaseController {
 
 	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	@GetMapping("/cases/{caseId}/edit")
-	public String initUpdateOwnerForm() {
+	public String initUpdateOwnerForm(@PathVariable("caseId") int caseId) {
 		return VIEWS_CASE_CREATE_OR_UPDATE_FORM;
 	}
 

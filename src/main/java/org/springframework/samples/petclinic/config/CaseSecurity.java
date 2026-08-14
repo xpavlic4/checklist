@@ -16,9 +16,6 @@ public class CaseSecurity {
 	private CaseRepository caseRepository;
 
 	public boolean checkCaseOwner(Integer caseId, Authentication authentication) {
-		if (1 == 1) {
-			return true;
-		}
 		if (authentication == null || !authentication.isAuthenticated()) {
 			return false;
 		}

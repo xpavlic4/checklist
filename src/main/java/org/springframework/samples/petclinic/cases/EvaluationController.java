@@ -19,6 +19,7 @@ import java.util.*;
 
 import org.springframework.samples.petclinic.system.CustomUserPrincipal;
 import org.springframework.samples.petclinic.system.User;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -83,15 +84,18 @@ class EvaluationController {
 	}
 
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
-	public String initNewEvaluationForm() {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initNewEvaluationForm(@PathVariable("caseId") int caseId) {
 		return "arguments/createOrUpdateEvaluationsForm";
 	}
 
 	// Spring MVC calls method loadPetWithVisit(...) before processNewVisitForm is
 	// called
 	@PostMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/new")
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	public String processNewEvaluationForm(@ModelAttribute Case aCase, @PathVariable int argumentId,
-			@Valid Evaluation evaluation, BindingResult result, RedirectAttributes redirectAttributes) {
+			@Valid Evaluation evaluation, BindingResult result, RedirectAttributes redirectAttributes,
+			                               @PathVariable("caseId") int caseId) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateEvaluationsForm";
 		}
@@ -103,7 +107,8 @@ class EvaluationController {
 	}
 
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/evaluations/{evaluationId}/delete")
-	public String deleteEvaluation(@PathVariable int caseId, @PathVariable int argumentId,
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String deleteEvaluation(@PathVariable("caseId") int caseId, @PathVariable int argumentId,
 			@PathVariable int evaluationId, RedirectAttributes redirectAttributes) {
 		Optional<Case> optionalCase = cases.findById(caseId);
 		Case aCase = optionalCase

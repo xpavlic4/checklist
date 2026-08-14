@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.cases;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.samples.petclinic.system.CustomUserPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -93,17 +94,20 @@ class AttackController {
 	// Spring MVC calls method loadPetWithVisit(...) before initNewVisitForm is
 	// called
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/rebutting/new")
-	public String initNewVisitForm() {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initNewVisitForm(@PathVariable("caseId") int caseId) {
 		return "arguments/createOrUpdateAttackForm";
 	}
 
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/undercutting/new")
-	public String initNewUndercuttingForm() {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initNewUndercuttingForm(@PathVariable("caseId") int caseId) {
 		return "arguments/createOrUpdateAttackForm";
 	}
 
 	@GetMapping("/cases/{caseId}/arguments/{argumentId}/undermining/new")
-	public String initNewUnderminingForm() {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initNewUnderminingForm(@PathVariable("caseId") int caseId) {
 		return "arguments/createOrUpdateAttackForm";
 	}
 
@@ -112,10 +116,12 @@ class AttackController {
 	@PostMapping({ "/cases/{caseId}/arguments/{argumentId}/rebutting/new",
 			"/cases/{caseId}/arguments/{argumentId}/undercutting/new",
 			"/cases/{caseId}/arguments/{argumentId}/undermining/new" })
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	@Transactional
 	public String processNewVisitForm(@AuthenticationPrincipal CustomUserPrincipal principal,
-			@PathVariable Integer caseId, @PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack,
-			BindingResult result, RedirectAttributes redirectAttributes) {
+			@PathVariable(name = "argumentId") Integer argumentId, @Valid Argument attack,
+			BindingResult result, RedirectAttributes redirectAttributes,
+			                          @PathVariable("caseId") int caseId) {
 		if (result.hasErrors()) {
 			return "arguments/createOrUpdateAttackForm";
 		}

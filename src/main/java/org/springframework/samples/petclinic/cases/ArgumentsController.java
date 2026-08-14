@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.samples.petclinic.system.CustomUserPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -97,15 +98,17 @@ class ArgumentsController {
 	}
 
 	@GetMapping("/arguments/new")
-	public String initCreationForm(Case aCase, ModelMap model) {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initCreationForm(Case aCase, ModelMap model, @PathVariable("caseId") int caseId) {
 		Argument pet = new Argument();
 		aCase.addArgument(pet);
 		return VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM;
 	}
 
 	@PostMapping("/arguments/new")
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	public String processCreationForm(Case aCase, @Valid Argument argument, BindingResult result,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, @PathVariable("caseId") int caseId) {
 		// if (StringUtils.hasText(argument.getName()) && argument.isNew() &&
 		// aCase.getPet(argument.getName(), true) != null) {
 		// result.rejectValue("name", "duplicate", "already exists");
@@ -132,19 +135,23 @@ class ArgumentsController {
 	}
 
 	@GetMapping("/arguments/{argumentId}/edit")
-	public String initUpdateForm() {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initUpdateForm(@PathVariable("caseId") int caseId) {
 		return VIEWS_ARGUMENTS_CREATE_OR_UPDATE_FORM;
 	}
 
 	@GetMapping("/arguments/{argumentId}/detail")
-	public String initDetailForm() {
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
+	public String initDetailForm(@PathVariable("caseId") int caseId) {
 		return VIEWS_ARGUMENTS_DETAIL;
 	}
 
 	@PostMapping("/arguments/{argumentId}/edit")
+	@PreAuthorize("@caseSecurity.checkCaseOwner(#caseId, authentication)")
 	public String processUpdateForm(Case aCase, @Valid Argument argument,
 			@PathVariable(name = "argumentId") Integer argumentId, BindingResult result,
-			RedirectAttributes redirectAttributes, @AuthenticationPrincipal CustomUserPrincipal principal) {
+			RedirectAttributes redirectAttributes, @AuthenticationPrincipal CustomUserPrincipal principal,
+			                        @PathVariable("caseId") int caseId) {
 
 		// String petName = argument.getName();
 
