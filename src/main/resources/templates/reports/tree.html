@@ -24,8 +24,6 @@
     stroke-width: 2px;
   }
   .node-bubble {
-    fill: #3b82f6;
-    stroke: #2563eb;
     stroke-width: 1.5px;
     rx: 15; /* Rounds the corners to create a bubble effect */
     ry: 15;
@@ -50,7 +48,7 @@
   // Thymeleaf converts your Java ArgumentView object into a JSON literal automatically
   const data = /*[[${tree}]]*/ {};
   // 1. Setup Dimensions
-  const width = 900;
+  const width = 1400;
   const height = 1800;
   const margin = { top: 20, right: 120, bottom: 20, left: 120 };
   const verticalSpacingPerNode = 100;
@@ -81,7 +79,7 @@
         // Increases the vertical spacing factor between sibling nodes.
         // Default is 1. Try 1.5 or 2.0 to expand the gaps.
         return a.parent === b.parent ? 1.5 : 2;
-      });;
+      });
     treeLayout(root);
 
     // 6. Draw the Links (The connecting lines)
@@ -113,7 +111,9 @@
       .attr("x", -bubbleWidth / 2)
       .attr("y", -bubbleHeight / 2)
       .attr("width", bubbleWidth)
-      .attr("height", bubbleHeight);
+      .attr("height", bubbleHeight)
+      .attr("fill", d => d.data.justified ? "#dc2626" : "#3b82f6")
+      .attr("stroke", d => d.data.justified ? "#b91c1c" : "#2563eb");
 
   // 4. Append the foreignObject container over the rectangle
   nodes.append("foreignObject")

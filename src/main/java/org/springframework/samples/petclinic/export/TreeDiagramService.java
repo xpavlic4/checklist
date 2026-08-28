@@ -3,10 +3,7 @@ package org.springframework.samples.petclinic.export;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.samples.petclinic.cases.Argument;
-import org.springframework.samples.petclinic.cases.ArgumentRepository;
-import org.springframework.samples.petclinic.cases.Case;
-import org.springframework.samples.petclinic.cases.CaseRepository;
+import org.springframework.samples.petclinic.cases.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +38,11 @@ public class TreeDiagramService {
 	}
 
 	void addArgument(ArgumentView parent, Argument argument) {
-		ArgumentView child = new ArgumentView(format(argument.getPredicate(), argument.getPremise()));
+		String name = format(argument.getPredicate(), argument.getPremise());
+		boolean isJustified = argument.getEvaluations().stream()
+			.anyMatch(e -> VerificationStatus.JUSTIFIED.equals(e.getVerification_status()));
+		ArgumentView child = new ArgumentView(name);
+		child.setJustified(isJustified);
 		Set<Argument> attacks = argument.getAttacks();
 		for (Argument attack : attacks) {
 			addArgument(child, attack);

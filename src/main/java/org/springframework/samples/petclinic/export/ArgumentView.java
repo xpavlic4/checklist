@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.export;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import java.util.List;
 public class ArgumentView {
 
 	private String name;
+	@JsonInclude(JsonInclude.Include.ALWAYS)
+	private boolean justified;
 
 	private List<ArgumentView> children;
 
@@ -41,4 +44,11 @@ public class ArgumentView {
 		this.children = children;
 	}
 
+	public void setJustified(boolean justified) {
+		this.justified = justified;
+	}
+
+	public boolean getJustified() {
+		return justified;
+	}
 }
