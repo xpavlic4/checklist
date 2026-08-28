@@ -39,7 +39,8 @@ public class TreeDiagramService {
 
 	void addArgument(ArgumentView parent, Argument argument) {
 		String name = format(argument.getPredicate(), argument.getPremise());
-		boolean isJustified = argument.getEvaluations().stream()
+		boolean isJustified = argument.getEvaluations()
+			.stream()
 			.anyMatch(e -> VerificationStatus.JUSTIFIED.equals(e.getVerification_status()));
 		ArgumentView child = new ArgumentView(name);
 		child.setJustified(isJustified);

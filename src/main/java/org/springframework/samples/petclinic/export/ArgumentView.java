@@ -10,6 +10,7 @@ import java.util.List;
 public class ArgumentView {
 
 	private String name;
+
 	@JsonInclude(JsonInclude.Include.ALWAYS)
 	private boolean justified;
 
@@ -51,4 +52,5 @@ public class ArgumentView {
 	public boolean getJustified() {
 		return justified;
 	}
+
 }
